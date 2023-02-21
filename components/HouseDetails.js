@@ -1,4 +1,12 @@
-import { Text, View, Image, TouchableOpacity, ScrollView, TouchableHighlight } from "react-native";
+import { useState } from "react";
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  TouchableHighlight,
+} from "react-native";
 
 import {
   Card,
@@ -8,22 +16,20 @@ import {
   Rating,
   Icon,
 } from "react-native-elements";
-  
-
 
 export default function HouseDetails({ navigation }) {
-  
   const renderItem = ({ item, index }) => (
     <View style={styles.slideContainer}>
       <Text style={styles.slideTitle}>{item.title}</Text>
       <Text style={styles.slideContent}>{item.content}</Text>
     </View>
+    
   );
+  const [color, setColor] = useState("white")
   return (
     <View>
       <ScrollView>
         <View style={{ justifyContent: "space-around" }}>
-       
           <Image
             style={{
               width: "100%",
@@ -55,13 +61,15 @@ export default function HouseDetails({ navigation }) {
               top: 5,
             }}
           >
-          <TouchableOpacity>
-                <Icon
-      name='heart'
-      type='font-awesome'
-      color='#FFFFFF'
-      size={30}
-    /></TouchableOpacity>
+            <TouchableOpacity>
+              <Icon
+                name="heart"
+                type="font-awesome"
+                onPress={()=>color=="red"?setColor("white"):setColor("red")}
+                color={color}
+                size={30}
+              />
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -120,7 +128,7 @@ export default function HouseDetails({ navigation }) {
                   <Text style={{ fontWeight: "100" }}>For</Text>
                   <Text>Boys</Text>
                 </Card>
-                
+
                 <Card
                   containerStyle={{
                     width: 100,
@@ -129,7 +137,6 @@ export default function HouseDetails({ navigation }) {
                     backgroundColor: "#aedbeb",
                   }}
                 >
-               
                   <Avatar source={require("./assets/phone.png")} />
                   <Text style={{ fontWeight: "100" }}>Phone</Text>
                   <Text>9048407795</Text>
@@ -159,8 +166,6 @@ export default function HouseDetails({ navigation }) {
                   <Text>Yes</Text>
                 </Card>
 
-
-
                 <Card
                   containerStyle={{
                     width: 100,
@@ -169,13 +174,11 @@ export default function HouseDetails({ navigation }) {
                     backgroundColor: "#aedbeb",
                   }}
                 >
-                
                   <Avatar source={require("./assets/bed.jpg")} />
                   <Text style={{ fontWeight: "100" }}>Bedroom</Text>
                   <Text>3</Text>
-                </Card>    
-                
-                
+                </Card>
+
                 <Card
                   containerStyle={{
                     width: 100,

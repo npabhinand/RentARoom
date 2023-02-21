@@ -20,13 +20,13 @@ export default function MainPage({ navigation }) {
   };
 
   return (
-    <View>
-      <ScrollView>
-        <View style={{ justifyContent: "center" }}>
+    <View style={{flex:1,}}>
+      <ScrollView >
+        <View style={{ justifyContent: "center"}}>
           <TextInput
             style={{
               height: 50,
-              width: "90%",
+              width: "95%",
               padding: 10,
               borderRadius: 15,
               borderColor: "gray",
@@ -41,13 +41,11 @@ export default function MainPage({ navigation }) {
             placeholder="Search Here"
           />
         </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+        <View style={{ justifyContent:'flex-start',marginBottom:10 }}>
           <Cards />
           <Cards />
-        </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
           <Cards />
-          <Cards />
+          <Cards/>
         </View>
       </ScrollView>
     </View>
