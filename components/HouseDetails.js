@@ -1,5 +1,5 @@
 import { Text, View, Image, TouchableOpacity, ScrollView, TouchableHighlight } from "react-native";
-// import Carousel from 'react-native-snap-carousel';
+
 import {
   Card,
   Avatar,
@@ -9,24 +9,10 @@ import {
   Icon,
 } from "react-native-elements";
   
-// const data = [
-//   {
-//     title: 'Slide 1',
-//     content: 'Content for slide 1',
-//   },
-//   {
-//     title: 'Slide 2',
-//     content: 'Content for slide 2',
-//   },
-//   {
-//     title: 'Slide 3',
-//     content: 'Content for slide 3',
-//   },
-// ];
+
 
 export default function HouseDetails({ navigation }) {
-  // const [activeIndex, setActiveIndex] = useState(0);
-
+  
   const renderItem = ({ item, index }) => (
     <View style={styles.slideContainer}>
       <Text style={styles.slideTitle}>{item.title}</Text>
@@ -37,13 +23,7 @@ export default function HouseDetails({ navigation }) {
     <View>
       <ScrollView>
         <View style={{ justifyContent: "space-around" }}>
-        {/* <Carousel
-      data={data}
-      renderItem={renderItem}
-      onSnapToItem={(index) => setActiveIndex(index)}
-      sliderWidth={300}
-      itemWidth={300}
-    /> */}
+       
           <Image
             style={{
               width: "100%",
@@ -162,7 +142,7 @@ export default function HouseDetails({ navigation }) {
                     backgroundColor: "#aedbeb",
                   }}
                 >
-                  <Avatar source={require("./assets/Food.png")} />
+                  <Avatar source={require("./assets/food.jpeg")} />
                   <Text style={{ fontWeight: "100" }}>Food</Text>
                   <Text>No</Text>
                 </Card>

@@ -1,51 +1,44 @@
-import { View, Text, Image,TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Card, ListItem, Button, Icon } from "react-native-elements";
 
 export default function HomeCards() {
+const [color, setColor] = useState("white")
   return (
-    <View
-      style={{
-    
-        elevation: 3,
-      }}
-    >
+    <View style={{marginBottom:10}}>
       <Card
         containerStyle={{
-          borderWidth: 0,
-          shadowOpacity: 0.8,
-          borderRadius:15,
-          shadowOffset: { width: 7, height: 2 },
-          shadowRadius: 10,
+          borderRadius: 15,
           elevation: 5,
           width: 300,
+          backgroundColor:"black"
         }}
       >
         <Image
           source={require("./assets/download.jpeg")}
           style={{
-            shadowOpacity: 0.8,
-          borderRadius:15,
-          shadowOffset: { width: 7, height: 2 },
-          shadowRadius: 10,
-          elevation: 5,
+            width: 298,
+            elevation: 50,
+            marginLeft: -15,
+            marginTop: -15,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
           }}
         />
-         <View
-            style={{
-              position: "absolute",
-              right: 10,
-              top: 5,
-            }}
-          >
+        <View
+          style={{
+            position: "absolute",
+            right: 10,
+            top: 5,
+          }}
+        >
           <TouchableOpacity>
-                <Icon
-      name='heart'
-      type='font-awesome'
-      color='#FFFFFF'
-      size={30}
-    /></TouchableOpacity>
-          </View>
-        <Text style={{ margin: 10 }}>3 Bedrooms, House</Text>
+            <Icon name="heart" type="font-awesome" onPress={()=>color=="red"?setColor("white"):setColor("red")} color={color} size={30} />
+          </TouchableOpacity>
+        </View>
+        <View >
+          <Text style={{ margin: 10,color:"white" }}>3 Bedrooms, House</Text>
+        </View>
       </Card>
     </View>
   );

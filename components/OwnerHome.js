@@ -9,12 +9,12 @@ import { Card } from "react-native-elements";
 export default function OwnerHome({ navigation }) {
   return (
     <View>
-      <View>
+      <View style={{marginBottom:10}}>
         <Text style={{ fontSize: 30, padding: 10 }}>
           Hello,{"\n"}Shahban ps
         </Text>
       </View>
-      <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-evenly" ,marginBottom:10}}>
      
         <Card
           containerStyle={{
@@ -51,7 +51,7 @@ export default function OwnerHome({ navigation }) {
       
 
 
-      <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-evenly" ,marginBottom:20}}>
      
      <Card
        containerStyle={{
@@ -77,6 +77,7 @@ export default function OwnerHome({ navigation }) {
          height: 200,
          borderRadius: 20,
          backgroundColor:'#faf8f4'
+
          
        }}
      >
@@ -86,8 +87,9 @@ export default function OwnerHome({ navigation }) {
      </Card>
    </View>
    <View style={{ flexDirection: "row", justifyContent: "space-evenly" ,padding:10}}>
-    <Button color='#6b6bbf' containerStyle={{height:50,width:150,borderRadius:30,justifyContent:'flex-start'}}><Avatar rounded source={require('./assets/chat.jpg')}></Avatar> <Text style={{fontSize:15,color:'white'}}>Chat</Text></Button>
-    <Button color='#6b6bbf' containerStyle={{height:50,width:150,borderRadius:30,}}><Avatar rounded source={require('./assets/profile.jpg')}></Avatar> <Text style={{fontSize:15,color:'white'}}>profile</Text></Button>
+    <Button color='#6b6bbf' containerStyle={{height:50,width:130,borderRadius:30,justifyContent:'flex-start'}}><Avatar rounded source={require('./assets/chat.jpg')}></Avatar> <Text style={{fontSize:15,color:'white'}}>Chat</Text></Button>
+    <Button color='#6b6bbf' onPress={() => navigation.navigate('Profile')} containerStyle={{borderRadius:50}} ><Avatar rounded source={require('./assets/profile.jpg')}></Avatar></Button>
+    <Button color='#6b6bbf' containerStyle={{height:50,width:130,borderRadius:30,justifyContent:'flex-start'}}><Avatar rounded source={require('./assets/chat.jpg')}></Avatar> <Text style={{fontSize:15,color:'white'}}>Dues</Text></Button>
    </View>
     </View>
   );

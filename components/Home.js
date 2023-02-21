@@ -1,15 +1,23 @@
-import { View, Text, Image, ScrollView, StyleSheet,TouchableOpacity ,Alert} from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { Card } from "react-native-elements";
 import HomeCards from "./HomeCards";
 // import {use} from '@react-navigation/native-stack'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 export default function Home() {
-  const navigation=useNavigation()
+  const navigation = useNavigation();
   return (
-    <View >
-      <ScrollView>
-        <Text
+    <View style={{flex:1}}>
+      <ScrollView >
+        <Text 
           style={{
             fontSize: 30,
             fontWeight: "bold",
@@ -25,38 +33,47 @@ export default function Home() {
             justifyContent: "space-around",
             flexDirection: "row",
           }}
-        ><TouchableOpacity onPress={()=>{navigation.navigate("MainPage")}}> 
-          <Card
-            containerStyle={{ borderWidth: 0, shadowColor: "white" }}
-            wrapperStyle={{ borderWidth: 0 }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("MainPage");
+            }}
           >
-            <Card.Image
-              source={require("./assets/download.jpeg")}
-              style={{ width: 100, height: 100, borderRadius: 15 }}
-            />
-            <Text style={{ textAlign: "center" }}>Hostel</Text>
-          </Card>
+            <Card
+              containerStyle={{ borderWidth: 0, shadowColor: "white" }}
+              wrapperStyle={{ borderWidth: 0 }}
+            >
+              <Card.Image
+                source={require("./assets/download.jpeg")}
+                style={{ width: 100, height: 100, borderRadius: 15 }}
+              />
+              <Text style={{ textAlign: "center" }}>Hostel</Text>
+            </Card>
           </TouchableOpacity>
           <TouchableOpacity>
-          <Card containerStyle={{ borderWidth: 0, shadowColor: "white" }}>
-            <Card.Image
-              source={require("./assets/download.jpeg")}
-              style={{ width: 100, height: 100, borderRadius: 15 }}
-            />
-            <Text style={{ textAlign: "center" }}>House</Text>
-          </Card>
+            <Card containerStyle={{ borderWidth: 0, shadowColor: "white" }}>
+              <Card.Image
+                source={require("./assets/download.jpeg")}
+                style={{ width: 100, height: 100, borderRadius: 15 }}
+              />
+              <Text style={{ textAlign: "center" }}>House</Text>
+            </Card>
           </TouchableOpacity>
           <TouchableOpacity>
-          <Card containerStyle={{ borderWidth: 0, shadowColor: "white" }}>
-            <Card.Image
-              source={require("./assets/download.jpeg")}
-              style={{ width: 100, height: 100, borderRadius: 15 }}
-            />
-            <Text style={{ textAlign: "center" }}>Room</Text>
-          </Card>
+            <Card containerStyle={{ borderWidth: 0, shadowColor: "white" }}>
+              <Card.Image
+                source={require("./assets/download.jpeg")}
+                style={{ width: 100, height: 100, borderRadius: 15 }}
+              />
+              <Text style={{ textAlign: "center" }}>Room</Text>
+            </Card>
           </TouchableOpacity>
         </View>
-        <View>
+
+
+
+
+        <View >
           <Text style={{ fontSize: 30, fontFamily: "serif", padding: 20 }}>
             Latest
           </Text>
@@ -68,32 +85,36 @@ export default function Home() {
             }}
           >
             <ScrollView horizontal={true} style={styles.scrollView}>
-            <HomeCards />
-          <HomeCards />
-          <HomeCards />
+              <HomeCards />
+              <HomeCards />
+              <HomeCards />
             </ScrollView>
           </View>
         </View>
-        <View  >
+        <View >
+          <Text style={{ fontSize: 30, fontFamily: "serif", padding: 10 }}>
+            {" "}
+            For Boys
+          </Text>
+          <ScrollView horizontal={true} style={styles.scrollView} >
+            <HomeCards />
+            <HomeCards />
+            <HomeCards />
+          </ScrollView>
+        </View>
         
-          <Text style={{ fontSize: 30, fontFamily: "serif", padding: 10 }}> For Boys</Text>
-          <ScrollView horizontal={true} style={styles.scrollView}>
-          <HomeCards />
-          <HomeCards />
-          <HomeCards />
-          </ScrollView>
-        </View>
         <View>
-          <Text style={{ fontSize: 30, fontFamily: "serif", padding: 10 }}> For Girls</Text>
+          <Text style={{ fontSize: 30, fontFamily: "serif", padding: 10 }}>
+            {" "}
+            For Girls
+          </Text>
           <ScrollView horizontal={true} style={styles.scrollView}>
-          <HomeCards />
-          <HomeCards />
-          <HomeCards />
+            <HomeCards />
+            <HomeCards />
+            <HomeCards />
           </ScrollView>
         </View>
-        <View style={{padding:10}}>
-          
-        </View>
+     
       </ScrollView>
     </View>
   );
@@ -101,6 +122,8 @@ export default function Home() {
 const styles = StyleSheet.create({
   scrollView: {
     horizontal: "true",
+    alignContent: "space-around",
+   
   },
   text: {
     fontSize: 42,

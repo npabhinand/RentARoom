@@ -24,13 +24,13 @@ export default function App() {
       <Stack.Screen name="SignUp" options={{title:"Are you ready?"}} component={SignUp} />
       <Stack.Screen name="Home" component={Home}/>
       <Stack.Screen name="HomeScreen" component={HomeScreen}/>
-        
       <Stack.Screen name="Profile" component={Profile}/>
       <Stack.Screen name="Notification" component={Notification}/>
       <Stack.Screen name='OwnerHome' component={OwnerHome}/>
       <Stack.Screen name='MainPage' component={MainPage}/>
       <Stack.Screen name="HouseDetails" component={HouseDetails}/>
       <Stack.Screen name="Cards" component={Cards}/>
+      
     </Stack.Navigator>
   </NavigationContainer>
 
