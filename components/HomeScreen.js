@@ -219,8 +219,15 @@ const [hamburgerMenu, sethamburgerMenu] = useState(false);
 
    
         </Animated.View>
+
+
+      
+
+
         { currentTab == "Home" ? <Home navigation={navigation} /> : null}
           { currentTab == "Notifications" ? <Notification/> : null}
+
+          
       </Animated.View>
     </SafeAreaView>
   );

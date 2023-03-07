@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Card, ListItem, Button, Icon } from "react-native-elements";
+import {useNavigation} from '@react-navigation/native';
 
 export default function HomeCards() {
 const [color, setColor] = useState("white")
+const navigation=useNavigation();
   return (
     <View style={{marginBottom:10}}>
       <Card
@@ -11,9 +13,10 @@ const [color, setColor] = useState("white")
           borderRadius: 15,
           elevation: 5,
           width: 300,
-          backgroundColor:"black"
+          backgroundColor:"#3c3637"
         }}
       >
+      <TouchableOpacity onPress={()=>navigation.navigate('HouseDetails')}>
         <Image
           source={require("./assets/download.jpeg")}
           style={{
@@ -37,8 +40,9 @@ const [color, setColor] = useState("white")
           </TouchableOpacity>
         </View>
         <View >
-          <Text style={{ margin: 10,color:"white" }}>3 Bedrooms, House</Text>
+          <Text style={{color:"white", fontSize:20}}>Gopan House</Text>
         </View>
+        </TouchableOpacity>
       </Card>
     </View>
   );

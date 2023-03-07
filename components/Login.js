@@ -43,8 +43,8 @@ export default function Login({navigation}) {
       <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
      
-      <View style={{justifyContent: 'flex-end'}}>
-      <Text onPress={()=>navigation.navigate("SignUp")} style={{textAlign:'right'}}>New user?</Text>
+      <View style={{}}>
+      <Text onPress={()=>navigation.navigate("SignUp")} style={{textAlign:'right'}}>Don't have an account? Sign Up</Text>
       </View>
       </SafeAreaView>
   );

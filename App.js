@@ -12,15 +12,35 @@ import OwnerHome from './components/OwnerHome';
 import MainPage from './components/MainPage';
 import HouseDetails from './components/HouseDetails';
 import Cards from './components/Cards';
+import AddProperty from './components/AddProperty'
+import ViewProperty from './components/ViewProperty';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   
+        // const [initializing, setInitializing] = useState(true);
+        // const [user, setUser] = useState()
+
+        // function onAuthStateChanged(user){
+        //   setUser(user);
+        //   if(initializing) setInitializing(false)
+        // }
+        //   useEffect(() => {
+        //     const subsciber= firebase.auth().onAuthStateChanged(onAuthStateChanged);
+        //     return subscriber;
+
+        //   }, [third])
+          
+        //     if(initializing) return null;
+
+        //     if(!user){
+
+           
   return (
     
     <NavigationContainer>
-    <Stack.Navigator initialRouteName='Login'>
-    <Stack.Screen name="Login"  component={Login} />
+      <Stack.Navigator initialRouteName='OwnerHome'>
+      <Stack.Screen name="Login"  component={Login} />
       <Stack.Screen name="SignUp" options={{title:"Are you ready?"}} component={SignUp} />
       <Stack.Screen name="Home" component={Home}/>
       <Stack.Screen name="HomeScreen" component={HomeScreen}/>
@@ -30,9 +50,11 @@ export default function App() {
       <Stack.Screen name='MainPage' component={MainPage}/>
       <Stack.Screen name="HouseDetails"  component={HouseDetails} options={{headerShown: false}}/>
       <Stack.Screen name="Cards" component={Cards}/>
-      
+      <Stack.Screen name="AddProperty" component={AddProperty}/>
+      <Stack.Screen name="ViewProperty" component={ViewProperty}/>
     </Stack.Navigator>
   </NavigationContainer>
 
   );
-}
+            }
+          // }
