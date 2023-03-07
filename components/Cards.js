@@ -12,7 +12,7 @@ import { useState } from "react";
 
 export default function Cards() {
   const [color, setColor] = useState("white");
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <SafeAreaView>
       <Card containerStyle={{ width: "100%", height: 175, borderRadius: 10 }}>
