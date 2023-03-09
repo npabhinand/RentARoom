@@ -149,7 +149,7 @@ export default function HouseDetails({ navigation }) {
                     backgroundColor: "#aedbeb",
                   }}
                 >
-                  <Avatar source={require("./assets/food.jpeg")} />
+                  <Avatar source={require("./assets/food.png")} />
                   <Text style={{ fontWeight: "100" }}>Food</Text>
                   <Text>No</Text>
                 </Card>
@@ -174,7 +174,7 @@ export default function HouseDetails({ navigation }) {
                     backgroundColor: "#aedbeb",
                   }}
                 >
-                  <Avatar source={require("./assets/bed.jpg")} />
+                  <Avatar source={require("./assets/bed.png")} />
                   <Text style={{ fontWeight: "100" }}>Bedroom</Text>
                   <Text>3</Text>
                 </Card>
@@ -209,7 +209,7 @@ export default function HouseDetails({ navigation }) {
               <Button
                 title={"Book Now"}
                 containerStyle={{ borderRadius: 5, width: 150 }}
-              ></Button>
+              onPress={()=>{ navigation.navigate("Payment");}}></Button>
             </View>
             <Card.Divider />
             <Card containerStyle={{ shadowColor: "dark" }}>

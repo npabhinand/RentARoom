@@ -69,7 +69,7 @@ export default function OwnerHome({ navigation }) {
         >
           <Avatar rounded source={require("./assets/request.jpeg")} />
           <Card.Divider />
-          <Text style={{fontSize:15,padding:10,fontFamily:'serif',justifyContent:'center'}}>Edit Property</Text>
+          <Text style={{fontSize:15,padding:10,fontFamily:'serif',justifyContent:'center'}}>Inmates</Text>
         </Card>
      
      
@@ -84,10 +84,13 @@ export default function OwnerHome({ navigation }) {
          
        }}
      >
+     <TouchableOpacity onPress={() => navigation.navigate('Requests')}>
        <Avatar rounded source={require("./assets/request.jpeg")} />
        <Card.Divider />
        <Text style={{fontSize:15,padding:10,fontFamily:'serif',justifyContent:'center',textAlign:'center'}}>Requests</Text>
+       </TouchableOpacity>
      </Card>
+    
    </View>
    <View style={{ flexDirection: "row", justifyContent: "space-evenly" ,padding:10}}>
     <Button color='#6b6bbf' containerStyle={{height:50,width:130,borderRadius:30,justifyContent:'flex-start'}}><Avatar rounded source={require('./assets/chat.jpg')}></Avatar> <Text style={{fontSize:15,color:'white'}}>Chat</Text></Button>

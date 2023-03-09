@@ -1,15 +1,15 @@
-import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity } from 'react-native';
+import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity,Image } from 'react-native';
 import { Avatar, ListItem, Button,ButtonGroup,Slider,Icon } from "@rneui/themed";
 import React, {useState} from 'react';
 import SelectDropdown from 'react-native-select-dropdown'
+import ImagePicker from 'react-native-image-picker';
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 // const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
 // const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
 
 const AddProperty = ({ navigation }) => {
-
-  const [houseName, sethouseName] = useState('');
+const [houseName, sethouseName] = useState('');
   
   
   
@@ -40,42 +40,41 @@ const interpolate = (start: number, end: number) => {
     };
 
     const [value, setValue] = useState(0);
-const [vertValue, setVertValue] = useState(0);
+    const [vertValue, setVertValue] = useState(0);
 
+    
    
   return (
     <View style={styles.container}>
     <ScrollView>
-    
-    <Text style={styles.head}> Add Property</Text>
-    <Text style={{fontSize:20,fontWeight:'500',marginBottom:20}}>
+    <Text style={styles.subhead}>
         Property Type
       </Text> 
       <View style={styles.btnGroup}>
-                <TouchableOpacity style={[styles.btn, type === 'Hostel' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setType('Hostel')}>
+                <TouchableOpacity style={[styles.btn, type === 'Hostel' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setType('Hostel')}>
                     <Text style={[styles.btnText, type === 'Hostel' ? { color: "white" } : null]}>Hostel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, type === 'House' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setType('House')}>
+                <TouchableOpacity style={[styles.btn, type === 'House' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setType('House')}>
                     <Text style={[styles.btnText, type === 'House' ? { color: "white" } : null]}>House</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, type === 'Room' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setType('Room')}>
+                <TouchableOpacity style={[styles.btn, type === 'Room' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setType('Room')}>
                     <Text style={[styles.btnText, type === 'Room' ? { color: "white" } : null]}>Room</Text>
                 </TouchableOpacity>
                 
             </View>
-    <Text style={{fontSize:20,fontWeight:'500',marginTop:20}}>House Name</Text>
+    <Text style={styles.subhead}>House Name</Text>
             <TextInput placeholder="House Name:" style={styles.input}></TextInput>
 
             {/*  */}
             {/*  */}
-            <Text style={{fontSize:20,fontWeight:'500',marginBottom:20}}>
+            <Text style={styles.subhead}>
         Accomodation For
       </Text> 
       <View style={styles.btnGroup}>
-                <TouchableOpacity style={[styles.btn, gender === 'Boys' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setGender('Boys')}>
+                <TouchableOpacity style={[styles.btn, gender === 'Boys' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setGender('Boys')}>
                     <Text style={[styles.btnText, gender === 'Boys' ? { color: "white" } : null]}>Boys</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, gender === 'Girls' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setGender('Girls')}>
+                <TouchableOpacity style={[styles.btn, gender === 'Girls' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setGender('Girls')}>
                     <Text style={[styles.btnText, gender === 'Girls' ? { color: "white" } : null]}>Girls</Text>
                 </TouchableOpacity>
                 
@@ -86,53 +85,54 @@ const [vertValue, setVertValue] = useState(0);
 
 
             {/*  */}
-            <Text style={{fontSize:20,fontWeight:'500'}}>Price</Text>
-            
+            <Text style={styles.subhead}>Price: {price}</Text>
+            <View style={[styles.contentView]}>
             <Slider
         value={price}
         onValueChange={setPrice}
-        maximumValue={30000}
-        minimumValue={0}
+        maximumValue={20000}
+        minimumValue={1000}
         step={1}
         allowTouchTrack
         trackStyle={{ height: 5, backgroundColor: 'transparent' }}
-        thumbStyle={{ height: 20, width: 20, backgroundColor: 'transparent' }}
+        thumbStyle={{ height: 20, width: 10, backgroundColor: 'transparent' }}
         thumbProps={{
           children: (
             <Icon
               name="circle"
               type="font-awesome"
-              size={20}
+              size={10}
               reverse
-              containerStyle={{ bottom: 20, right: 20 }}
+              containerStyle={{ bottom: 10, right: 10 }}
               color={color()}
             />
           ),
         }}
       />
+      </View>
             
             {/*  */}
 
             {/*  */}
-            <Text style={{fontSize:20,fontWeight:'500'}}>Total Accomodation</Text>
+            <Text style={styles.subhead}>Total Accomodation</Text>
 
             <TextInput style={styles.input} placeholder="Enter Total Accomodation" value={price} onChangeText={setPrice}/>
                
             {/*  */}
-            <Text style={{fontSize:20,fontWeight:'500',marginBottom:20}}>
+            <Text style={styles.subhead}>
        Total Bedrooms
       </Text> 
       <View style={styles.btnGroup}>
-                <TouchableOpacity style={[styles.btn, bedroom === 1 ? { backgroundColor: "#6B7280" } : null]} onPress={() => setBedroom(1)}>
+                <TouchableOpacity style={[styles.btn, bedroom === 1 ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setBedroom(1)}>
                     <Text style={[styles.btnText, bedroom === 1 ? { color: "white" } : null]}>1</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, bedroom === 2 ? { backgroundColor: "#6B7280" } : null]} onPress={() => setBedroom(2)}>
+                <TouchableOpacity style={[styles.btn, bedroom === 2 ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setBedroom(2)}>
                     <Text style={[styles.btnText, bedroom === 2 ? { color: "white" } : null]}>2</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, bedroom === 3 ? { backgroundColor: "#6B7280" } : null]} onPress={() => setBedroom(3)}>
+                <TouchableOpacity style={[styles.btn, bedroom === 3 ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setBedroom(3)}>
                     <Text style={[styles.btnText, bedroom ===3 ? { color: "white" } : null]}>3</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, bedroom === 4 ? { backgroundColor: "#6B7280" } : null]} onPress={() => setBedroom(4)}>
+                <TouchableOpacity style={[styles.btn, bedroom === 4 ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setBedroom(4)}>
                     <Text style={[styles.btnText, bedroom ===4 ? { color: "white" } : null]}>4</Text>
                 </TouchableOpacity>
                 
@@ -141,17 +141,17 @@ const [vertValue, setVertValue] = useState(0);
             
           
 
-            <Text style={{fontSize:20,fontWeight:'500',marginBottom:20,marginTop:20}}>
+            <Text style={styles.subhead}>
         Furniture
       </Text> 
       <View style={styles.btnGroup}>
-                <TouchableOpacity style={[styles.btn, furniture === 'Fully-Furnished' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setFurniture('Fully-Furnished')}>
+                <TouchableOpacity style={[styles.btn, furniture === 'Fully-Furnished' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setFurniture('Fully-Furnished')}>
                     <Text style={[styles.btnText, furniture === 'Fully-Furnished' ? { color: "white" } : null]}>Fully-Furnished</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, furniture === 'Semi-Furnished' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setFurniture('Semi-Furnished')}>
+                <TouchableOpacity style={[styles.btn, furniture === 'Semi-Furnished' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setFurniture('Semi-Furnished')}>
                     <Text style={[styles.btnText, furniture === 'Semi-Furnished' ? { color: "white" } : null]}>Semi-Furnished</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, furniture === 'No-furnished' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setFurniture('No-furnished')}>
+                <TouchableOpacity style={[styles.btn, furniture === 'No-furnished' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setFurniture('No-furnished')}>
                     <Text style={[styles.btnText, furniture === 'No-furnished' ? { color: "white" } : null]}>No-furnished</Text>
                 </TouchableOpacity>
                 
@@ -160,29 +160,29 @@ const [vertValue, setVertValue] = useState(0);
             
 
 
-            <Text style={{fontSize:20,fontWeight:'500',marginBottom:20,marginTop:20}}>
+            <Text style={styles.subhead}>
         Food
       </Text>
 
             <View style={styles.btnGroup}>
-                <TouchableOpacity style={[styles.btn, food === 'Yes' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setFood('Yes')}>
+                <TouchableOpacity style={[styles.btn, food === 'Yes' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setFood('Yes')}>
                     <Text style={[styles.btnText, food === 'Yes' ? { color: "white" } : null]}>Yes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, food === 'No' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setFood('No')}>
+                <TouchableOpacity style={[styles.btn, food === 'No' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setFood('No')}>
                     <Text style={[styles.btnText, food === 'No' ? { color: "white" } : null]}>No</Text>
                 </TouchableOpacity>
                 </View>
 
 
-                <Text style={{fontSize:20,fontWeight:'500',marginBottom:20,marginTop:20}}>
+                <Text style={styles.subhead}>
          Water
       </Text>
 
             <View style={styles.btnGroup}>
-                <TouchableOpacity style={[styles.btn, water === 'Yes' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setWater('Yes')}>
+                <TouchableOpacity style={[styles.btn, water === 'Yes' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setWater('Yes')}>
                     <Text style={[styles.btnText, water === 'Yes' ? { color: "white" } : null]}>Yes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, water === 'No' ? { backgroundColor: "#6B7280" } : null]} onPress={() => setWater('No')}>
+                <TouchableOpacity style={[styles.btn, water === 'No' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setWater('No')}>
                     <Text style={[styles.btnText, water === 'No' ? { color: "white" } : null]}>No</Text>
                 </TouchableOpacity>
                 </View>
@@ -205,7 +205,7 @@ const [vertValue, setVertValue] = useState(0);
       currentLocation={true}
       currentLocationLabel='Current location'
     /> */}
-    <Text style={{fontSize:20,fontWeight:'500',marginBottom:20,marginTop:20}}>Description</Text>   
+    <Text style={styles.subhead}>Description</Text>   
     <TextInput
     multiline={true}
     placeholder="Enter Description"
@@ -216,12 +216,31 @@ const [vertValue, setVertValue] = useState(0);
         height: 100,marginLeft:10}}
     
     /> 
-   
-    <View style={{flexDirection:'row',padding:10,justifyContent:'flex-start',marginTop:20}}>
-    <Button color='#6b6bbf' containerStyle={{borderRadius:10,width:'45%',marginRight:20}} onPress={() => navigation.navigate('OwnerHome')}> <Text style={{fontSize:15,color:'white'}}>Back</Text></Button>
-    <Button color='#6b6bbf' containerStyle={{borderRadius:10,width:'45%'}} onPress={() => navigation.navigate('OwnerHome')}> <Text style={{fontSize:15,color:'white'}}>Submit</Text></Button>
+    <Text style={styles.subhead}>Add Images</Text>
+       <TouchableOpacity  style={{width:150,height:150,borderWidth:1,alignItems:'center',justifyContent:'center',borderColor:'',marginLeft:10}}>
+
+<Text style={styles.buttonText}></Text>
+<Icon
+       
+        name='plus'
+        type='font-awesome'
+        color='#4F9FA0'
+        onPress={() => console.log('hello')} 
+        containerStyle={{size:50}}
+
+        />
+        <Text>Add Images</Text>
+</TouchableOpacity>    
+
+
+    
+    <View style={{alignItems:'center',marginTop:20,marginBottom:20}}>
+    <TouchableOpacity style={{backgroundColor:"#4F9FA0",width:'90%',borderWidth:.25}} onPress={() => setWater('No')}>
+                    <Text style={{textAlign: 'center',
+        paddingVertical: 16,
+        fontSize: 14}}>Add Property</Text>
+                </TouchableOpacity>
     </View>
-   
 
 </ScrollView>
     </View>
@@ -253,7 +272,7 @@ const styles = StyleSheet.create({
         marginLeft:10,
         marginBottom: 20,
         borderRadius: 10,
-        backgroundColor:'#e5e5fe',
+        
       },
       head: {
         fontSize:20,
@@ -261,6 +280,12 @@ const styles = StyleSheet.create({
         padding:10,
         marginLeft:10
         
+      },subhead:{
+        fontSize:20,
+        fontWeight:'500'
+        ,marginLeft:20,
+        marginBottom:20,
+        marginTop:20
       }
       , container: {
         flex: 1,
@@ -274,13 +299,21 @@ const styles = StyleSheet.create({
     btn: {
         flex: 1,
         borderWidth:.25,
-        borderColor: '#6B7280'
+        borderColor: '#6B7280',
     },
     btnText: {
         textAlign: 'center',
         paddingVertical: 16,
         fontSize: 14
-    }
+    },
+    contentView: {
+        padding: 20,
+        width: '95%',
+        justifyContent: 'center',
+        alignItems: 'stretch',
+      }
+    
+    
   });
 
 

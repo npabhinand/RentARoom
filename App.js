@@ -14,6 +14,8 @@ import HouseDetails from './components/HouseDetails';
 import Cards from './components/Cards';
 import AddProperty from './components/AddProperty'
 import ViewProperty from './components/ViewProperty';
+import Requests from './components/Requests';
+import Payment from './components/Payment'
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -39,7 +41,7 @@ export default function App() {
   return (
     
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='OwnerHome'>
+      <Stack.Navigator initialRouteName=''>
       <Stack.Screen name="Login"  component={Login} />
       <Stack.Screen name="SignUp" options={{title:"Are you ready?"}} component={SignUp} />
       <Stack.Screen name="Home" component={Home}/>
@@ -48,10 +50,15 @@ export default function App() {
       <Stack.Screen name="Notification" component={Notification}/>
       <Stack.Screen name='OwnerHome' component={OwnerHome}/>
       <Stack.Screen name='MainPage' component={MainPage}/>
-      <Stack.Screen name="HouseDetails"  component={HouseDetails} options={{headerShown: false}}/>
+      <Stack.Screen name="HouseDetails"  component={HouseDetails} 
+      // options={{headerShown: false}}
+
+      />
       <Stack.Screen name="Cards" component={Cards}/>
       <Stack.Screen name="AddProperty" component={AddProperty}/>
       <Stack.Screen name="ViewProperty" component={ViewProperty}/>
+      <Stack.Screen name="Requests" component={Requests}/>
+      <Stack.Screen name="Payment" component={Payment}/>
     </Stack.Navigator>
   </NavigationContainer>
 
