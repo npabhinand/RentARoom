@@ -3,7 +3,7 @@ import back from "./assets/back.png";
 import { Avatar,ListItem ,Button } from '@rneui/themed';
 
 
-export default function Requests({navigation}){
+export default function Applications({navigation}){
 
 
 return (

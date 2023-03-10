@@ -8,17 +8,17 @@ import { Card } from "react-native-elements";
 export default function OwnerHome({ navigation }) {
   return (
     <View>
-      <View style={{marginBottom:10}}>
+      <View style={{marginBottom:5}}>
         <Text style={{ fontSize: 30, padding: 10 }}>
           Hello,{"\n"}Shahban ps
         </Text>
       </View>
-      <View style={{ flexDirection: "row", justifyContent: "space-evenly" ,marginBottom:10}}>
+      <View style={{ flexDirection: "row", justifyContent: "space-evenly" ,marginBottom:15}}>
      
         <Card
           containerStyle={{
-            width: 170,
-            height: 200,
+            width: '45%',
+            height: 225,
             borderRadius: 20,
             backgroundColor: "#ffddc2",
             shadow:0
@@ -26,7 +26,7 @@ export default function OwnerHome({ navigation }) {
           
         >
         <TouchableOpacity onPress={() => navigation.navigate('AddProperty')}>
-          <Avatar rounded source={require("./assets/plus.png")} />
+          <Avatar rounded source={require("./assets/plus.png")}/>
 
           <Card.Divider />
           
@@ -36,14 +36,14 @@ export default function OwnerHome({ navigation }) {
         
         <Card
        containerStyle={{
-         width: 170,
-         height: 200,
+         width: '45%',
+         height: 225,
          borderRadius: 20,
          backgroundColor: "#ffddc2",
        }}
      >
      <TouchableOpacity onPress={() => navigation.navigate('ViewProperty')}>
-       <Avatar rounded source={require("./assets/total.png")} />
+       <Avatar rounded source={require("./assets/house.png")} />
 
        <Card.Divider />
        
@@ -61,33 +61,35 @@ export default function OwnerHome({ navigation }) {
       <Card
           containerStyle={{
             marginTop: 15,
-            width: 170,
-            height: 200,
+            width: '45%',
+            height: 225,
             borderRadius: 20,
             backgroundColor: "#e5e5fe",
           }} 
         >
-          <Avatar rounded source={require("./assets/request.jpeg")} />
+        <TouchableOpacity onPress={()=>navigation.navigate("Inmates")}>
+          <Avatar rounded source={require("./assets/total.png")} />
           <Card.Divider />
           <Text style={{fontSize:15,padding:10,fontFamily:'serif',justifyContent:'center'}}>Inmates</Text>
+          </TouchableOpacity>
         </Card>
      
      
      <Card
        containerStyle={{
          marginTop: 15,
-         width: 170,
-         height: 200,
+         width: '45%',
+         height: 225,
          borderRadius: 20,
          backgroundColor: "#e5e5fe",
 
          
        }}
      >
-     <TouchableOpacity onPress={() => navigation.navigate('Requests')}>
-       <Avatar rounded source={require("./assets/request.jpeg")} />
+     <TouchableOpacity onPress={() => navigation.navigate('Applications')}>
+       <Avatar rounded source={require("./assets/request.png")} />
        <Card.Divider />
-       <Text style={{fontSize:15,padding:10,fontFamily:'serif',justifyContent:'center',textAlign:'center'}}>Requests</Text>
+       <Text style={{fontSize:15,padding:10,fontFamily:'serif',justifyContent:'center',textAlign:'center'}}>Applications</Text>
        </TouchableOpacity>
      </Card>
     

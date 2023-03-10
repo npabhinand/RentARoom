@@ -22,7 +22,7 @@ export default function Cards() {
               source={require("./assets/download.jpeg")}
               resizeMode="cover"
               style={{
-                width: "50%",
+                width: "55%",
                 height: 175,
                 marginLeft: -15,
                 marginTop: -15,

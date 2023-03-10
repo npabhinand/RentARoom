@@ -192,6 +192,7 @@ const [hamburgerMenu, sethamburgerMenu] = useState(false);
                 borderColor: "gray",
                 borderWidth: 1,
                 fontSize: 20,
+                marginTop:10
               }}
               onChangeText={(text) => setSearchText(text)}
               value={searchText}

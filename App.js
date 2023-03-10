@@ -14,8 +14,10 @@ import HouseDetails from './components/HouseDetails';
 import Cards from './components/Cards';
 import AddProperty from './components/AddProperty'
 import ViewProperty from './components/ViewProperty';
-import Requests from './components/Requests';
-import Payment from './components/Payment'
+import Applications from './components/Applications';
+import Payment from './components/Payment';
+import Edit from './components/Edit'
+import Inmates from './components/Inmates'
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -41,7 +43,7 @@ export default function App() {
   return (
     
     <NavigationContainer>
-      <Stack.Navigator initialRouteName=''>
+      <Stack.Navigator initialRouteName='OwnerHome'>
       <Stack.Screen name="Login"  component={Login} />
       <Stack.Screen name="SignUp" options={{title:"Are you ready?"}} component={SignUp} />
       <Stack.Screen name="Home" component={Home}/>
@@ -57,8 +59,10 @@ export default function App() {
       <Stack.Screen name="Cards" component={Cards}/>
       <Stack.Screen name="AddProperty" component={AddProperty}/>
       <Stack.Screen name="ViewProperty" component={ViewProperty}/>
-      <Stack.Screen name="Requests" component={Requests}/>
+      <Stack.Screen name="Applications" component={Applications}/>
       <Stack.Screen name="Payment" component={Payment}/>
+      <Stack.Screen name="Edit" component={Edit}/>
+      <Stack.Screen name="Inmates" component={Inmates} options={{title:"Inmates"}}/>
     </Stack.Navigator>
   </NavigationContainer>
 

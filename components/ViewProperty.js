@@ -1,17 +1,18 @@
 import { View, Text ,SafeAreaView,TouchableOpacity,Image,navigation} from 'react-native'
-import { Card, ListItem, Button, Icon, Avatar } from "react-native-elements";
+import { Card, ListItem, Button, Icon, Avatar } from "@rneui/themed";
 import React,{useState} from 'react'
 import { useNavigation } from "@react-navigation/native";
 
 const ViewProperty = () => {
+  const navigation=useNavigation();
   return (
    
 
         
 
 
-      <SafeAreaView>
-      <Card containerStyle={{ width: "100%", height: 185, borderRadius: 10 }}>
+      <SafeAreaView style={{alignItems:'center'}}>
+      <Card containerStyle={{ width: "98%", height: 185, borderRadius: 10 }}>
       
           <View style={{ flexDirection: "row" }}>
             <Image
@@ -51,8 +52,8 @@ const ViewProperty = () => {
               <Text>price: ₹15000</Text>
               <View>
                 <View style={{ flexDirection: "row",marginTop:10,}}>
-                  <Button title="Edit" containerStyle={{borderRadius:10, marginRight:20}}></Button>
-                  <Button title="View Feedback" containerStyle={{borderRadius:10}}></Button>
+                  <Button color='#6b6bbf' title="Edit" containerStyle={{borderRadius:10, marginRight:20}} onPress={()=>{ navigation.navigate("Edit");}}></Button>
+                  <Button color='#6b6bbf' title="View Feedback" containerStyle={{borderRadius:10}}></Button>
                 </View>
               </View>
             </View>

@@ -41,7 +41,7 @@ export default function MainPage({ navigation }) {
             placeholder="Search Here"
           />
         </View>
-        <View style={{ justifyContent:'flex-start',marginBottom:10,marginRight:25 }}>
+        <View style={{ alignItems:'center',marginBottom:10, }}>
           <Cards />
           <Cards />
           <Cards />

@@ -16,6 +16,7 @@ import {
   Rating,
   Icon,
 } from "react-native-elements";
+import Swiper from 'react-native-swiper'
 
 export default function HouseDetails({ navigation }) {
   const renderItem = ({ item, index }) => (
@@ -29,16 +30,41 @@ export default function HouseDetails({ navigation }) {
   return (
     <View>
       <ScrollView>
-        <View style={{ justifyContent: "space-around" }}>
+        <View >
+        <Swiper containerStyle={{height:300,width:"100%"}} showsButtons={true} autoplay={true} loadMinimal={true}>
           <Image
             style={{
+              
               width: "100%",
               height: 300,
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
+              
             }}
             source={require("./assets/download.jpeg")}
           ></Image>
+          <Image
+            style={{
+              
+              width: "100%",
+              height: 300,
+              // borderTopLeftRadius: 30,
+              // borderTopRightRadius: 30,
+            }}
+            source={require("./assets/download.jpeg")}
+          ></Image>
+          <Image
+            style={{
+              
+              width: "100%",
+              height: 300,
+              // borderTopLeftRadius: 30,
+              // borderTopRightRadius: 30,
+            }}
+            source={require("./assets/download.jpeg")}
+          ></Image>
+
+
+
+        </Swiper>
           <View
             style={{
               position: "absolute",
