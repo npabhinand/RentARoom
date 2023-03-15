@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   TouchableOpacity,
@@ -9,6 +9,7 @@ import {
   TextInput,
   SafeAreaView,
 } from "react-native";
+import { auth } from "../firebase";
 
 export default function Login({navigation}) {
 
@@ -16,10 +17,33 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+
+  // useEffect(() => {
+  //   const unsubscribe=auth.onAuthStateChanged(user=>{
+  //     if(user){
+  //       console.log("Auto login")
+  //       navigation.navigate("HomeScreen")
+  //     }
+  
+  //   }
+  //   )
+  //   return unsubscribe
+  // }
+  //   ,[])
+
   const handleLogin = () => {
-    navigation.navigate("HomeScreen")
+    // clg
+    console.log(email,password)
+  
     // your signup logic here
-   
+    auth
+    .signInWithEmailAndPassword(email,password)
+    .then(UserCredentials =>{
+      const user= UserCredentials.user;
+      console.log("login Successfully")
+      navigation.navigate("HomeScreen")
+    })
+   .catch(error=>alert(error.message))
   };
 
 
@@ -28,7 +52,7 @@ export default function Login({navigation}) {
       <Text style={styles.head}>LOGIN</Text>
 
       <View style={styles.inputView}>
-        <TextInput style={styles.input} placeholder="Username" />
+        <TextInput style={styles.input} placeholder="Username"  onChangeText={setEmail}/>
       </View>
       <View style={styles.inputView}>
          <TextInput

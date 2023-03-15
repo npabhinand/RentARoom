@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown'
+import {auth,db}from '../firebase'
+import firebase from 'firebase/app';
+import 'firebase/database';
 // import RNPickerSelect from 'react-native-picker-select';
 
 const SignUp = ({navigation}) => {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [place, setPlace] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +17,23 @@ const SignUp = ({navigation}) => {
   
   const userType = ["Student", "House Owner"]
   const handleSignUp = () => {
+    auth
+    .createUserWithEmailAndPassword(email,password)
+    .then(userCredentials =>{
+      const user=userCredentials.user;
+      console.log(user.email)
+          db.collection('users').add({
+      userType: userType,
+      email: email,
+      phone: phone,
+      place: place,
+      name: name
+    }).then(doc=>console.log(doc)).catch(err=>console.log(err))
+
+    })
+    .catch(error=>alert(error.message))
     // your signup logic here
+
    
   };
 
@@ -55,6 +75,12 @@ const SignUp = ({navigation}) => {
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Name"
+        value={name}
+        onChangeText={setName}
       />
       <TextInput
         style={styles.input}

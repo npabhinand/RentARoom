@@ -28,7 +28,7 @@ import photo from "./assets/menu.png";
 import Login from './Login';
 import Notification from "./Notification";
 import Home from "./Home";
-
+import { auth } from "../firebase";
 
 export default function HomeScreen({navigation}) {
   const [currentTab, setCurrentTab] = useState("Home");
@@ -43,6 +43,12 @@ export default function HomeScreen({navigation}) {
 
   const [searchText, setSearchText] = useState("");
 const [hamburgerMenu, sethamburgerMenu] = useState(false);
+const signOut = () => { 
+  
+  console.log("Signout called")
+ auth.signOut().then(()=>navigation.navigate("Login")).catch((err)=>console.log(err)) }
+
+
   const HamburgerMenu = () => {
     return (
       <View style={{ justifyContent: "flex-start", padding: 15 }}>
@@ -89,7 +95,7 @@ const [hamburgerMenu, sethamburgerMenu] = useState(false);
           {TabButton(currentTab, setCurrentTab, handleMenu,  "Settings", settings)}
         </View>
 
-        <View>{TabButton(currentTab, setCurrentTab, handleMenu, "logOut", logout)}</View>
+        <View>{TabButton(currentTab, setCurrentTab, signOut, "Logout", logout)}</View>
       </View>
     )
   }
@@ -247,8 +253,9 @@ const TabButton = (currentTab, setCurrentTab, handleMenu, title,image) => {
           handleMenu();
           
         }
-        if (title == "logOut") {
-         Alert.alert("Hello")
+        if (title == "Logout") {
+          handleMenu();
+        
         }
           else {
           setCurrentTab(title);

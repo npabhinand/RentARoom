@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect ,useRef} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import  SignUp from './components/SignUp'
 import Login from './components/Login';
 import HomeScreen from './components/HomeScreen';
@@ -18,7 +19,9 @@ import Applications from './components/Applications';
 import Payment from './components/Payment';
 import Edit from './components/Edit'
 import Inmates from './components/Inmates'
+import Dues from './components/Dues';
 
+import { auth } from "./firebase";
 const Stack = createNativeStackNavigator();
 export default function App() {
   
@@ -39,7 +42,20 @@ export default function App() {
 
         //     if(!user){
 
-           
+        // const navContainer = useRef()
+        // useEffect(() => {
+        //   const unsubscribe=auth.onAuthStateChanged(user=>{
+        //     if(user){
+        //       console.log("Auto login")
+        //       navigation.navigate("HomeScreen")
+        //     }
+        
+        //   }
+        //   )
+        //   return unsubscribe
+        // }
+        //   ,[])
+
   return (
     
     <NavigationContainer>
@@ -63,6 +79,7 @@ export default function App() {
       <Stack.Screen name="Payment" component={Payment}/>
       <Stack.Screen name="Edit" component={Edit}/>
       <Stack.Screen name="Inmates" component={Inmates} options={{title:"Inmates"}}/>
+      <Stack.Screen name="Dues" component={Dues}/>
     </Stack.Navigator>
   </NavigationContainer>
 
