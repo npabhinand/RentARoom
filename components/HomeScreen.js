@@ -74,7 +74,7 @@ const signOut = () => {
         </Text>
 
         <TouchableOpacity>
-          <Text onPress={()=>navigation.navigate("OwnerHome")}
+          <Text onPress={()=>navigation.navigate("Profile")}
             style={{
               marginTop: 6,
               color: "white",

@@ -2,30 +2,36 @@ import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity,Image } fr
 import { Avatar, ListItem, Button,ButtonGroup,Slider,Icon } from "@rneui/themed";
 import React, {useState} from 'react';
 import SelectDropdown from 'react-native-select-dropdown'
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker'
+import {db,auth}from '../firebase'
+import firebase from 'firebase/app';
+import 'firebase/storage';
+const storage = firebase.storage();
+const storageRef = storage.ref();
+
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 // const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
 // const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
 
 const AddProperty = ({ navigation }) => {
-const [houseName, sethouseName] = useState('');
+const [houseName, setHouseName] = useState('');
   
   
   
  
   // const [location, setLocation] = useState('');
-    const [type,setType] = useState('');
-    const [price, setPrice] = useState('');
-    const [gender,setGender]=useState('')
-    const [furniture,setFurniture]=useState('')
-    const [food,setFood]=useState('');
-    const [water,setWater] =useState('');
-    const [total, setTotal] = useState('');
-    const [bedroom,setBedroom]=useState('');
-    const [description, setDescription] = useState('');
-    const [phone, setPhone] = useState('');
-
+    const [type,setType] = useState();
+    const [price, setPrice] = useState();
+    const [gender,setGender]=useState()
+    const [furniture,setFurniture]=useState()
+    const [food,setFood]=useState();
+    const [water,setWater] =useState();
+    const [total, setTotal] = useState();
+    const [bedroom,setBedroom]=useState();
+    const [description, setDescription] = useState();
+    const [phone, setPhone] = useState();
+   
 
 const interpolate = (start, end) => {
   let k = (value - 0) / 10; // 0 =>min  && 10 => MAX
@@ -42,8 +48,70 @@ const interpolate = (start, end) => {
     const [value, setValue] = useState(0);
     const [vertValue, setVertValue] = useState(0);
 
+
+
+    const handleSubmit= async ()=>{
     
-   
+            const formData ={
+            houseName:houseName ,
+            type: type ,
+            price: price ,
+            gender:gender ,
+            furniture: furniture ,
+            food: food ,
+            water: water ,
+            total: total ,
+            bedroom: bedroom ,
+            description: description ,
+            // phone: phone ,
+            Images:"",
+            // OwnerId: user.id
+            };
+
+           
+                try {
+                    const db = firebase.firestore();
+                    const response = await db.collection('property').add(formData);
+                    console.log('Form data submitted successfully:', response);
+                  } catch (error) {
+                    console.log('Error submitting form data:', error);
+                  }
+                };
+        
+        
+    
+    
+    
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          // allowsEditing: true,
+          // aspect: [4, 3],
+          quality: 1,
+        });
+      
+        if (!result.canceled) {
+          const uri = result.assets[0].uri;
+          const filename = uri.substring(uri.lastIndexOf('/') + 1);
+          const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+          const ref = storageRef.child(filename);
+      
+          try {
+            await ref.put(uploadUri);
+            console.log('Image uploaded successfully!');
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      };
+      const [imageList, setImageList] = useState([]);
+
+      const addImage = (uri) => {
+        setImageList([...imageList, uri]);
+      };
+
+
   return (
     <View style={styles.container}>
     <ScrollView>
@@ -63,7 +131,7 @@ const interpolate = (start, end) => {
                 
             </View>
     <Text style={styles.subhead}>House Name</Text>
-            <TextInput placeholder="House Name:" style={styles.input}></TextInput>
+            <TextInput placeholder="House Name:" style={styles.input} onChangeText={setHouseName}></TextInput>
 
             {/*  */}
             {/*  */}
@@ -116,7 +184,7 @@ const interpolate = (start, end) => {
             {/*  */}
             <Text style={styles.subhead}>Total Accomodation</Text>
 
-            <TextInput style={styles.input} placeholder="Enter Total Accomodation" value={price} onChangeText={setPrice}/>
+            <TextInput style={styles.input} placeholder="Enter Total Accomodation" value={total} onChangeText={setTotal}/>
                
             {/*  */}
             <Text style={styles.subhead}>
@@ -217,7 +285,8 @@ const interpolate = (start, end) => {
     
     /> 
     <Text style={styles.subhead}>Add Images</Text>
-       <TouchableOpacity  style={{width:150,height:150,borderWidth:1,alignItems:'center',justifyContent:'center',borderColor:'',marginLeft:10}}>
+       <TouchableOpacity  style={{width:150,height:150,borderWidth:1,alignItems:'center',justifyContent:'center',borderColor:'',marginLeft:10}}
+      onPress={pickImage} >
 
 <Text style={styles.buttonText}></Text>
 <Icon
@@ -230,12 +299,23 @@ const interpolate = (start, end) => {
 
         />
         <Text>Add Images</Text>
-</TouchableOpacity>    
+</TouchableOpacity>   
+<View style={styles.ImageConatiner}>
+{imageList.map((uri) => (
+    <Image key={uri} source={{ uri }} style={{ width: 200, height: 200 }} />
+  ))}
+
+    {/* <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
+        <Text style={styles.subhead}>
+            Upload Image
+        </Text>
+    </TouchableOpacity> */}
+</View>
 
 
     
     <View style={{alignItems:'center',marginTop:20,marginBottom:20}}>
-    <TouchableOpacity style={{backgroundColor:"#4F9FA0",width:'90%',borderWidth:.25}} onPress={() => setWater('No')}>
+    <TouchableOpacity style={{backgroundColor:"#4F9FA0",width:'90%',borderWidth:.25}} onPress={handleSubmit}>
                     <Text style={{textAlign: 'center',
         paddingVertical: 16,
         fontSize: 14}}>Add Property</Text>
@@ -259,7 +339,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#e5e5fe',
         alignItems:'center',
         marginLeft:20
-        // justifyContent:'center'
+        // justifyContent:'center'End
     },
 
     input: {
@@ -311,6 +391,15 @@ const styles = StyleSheet.create({
         width: '95%',
         justifyContent: 'center',
         alignItems: 'stretch',
+      },
+      ImageConatiner:{
+            marginTop:20,
+            marginBottom:20,
+
+      },
+      uploadButton: {
+        backgroundColor:'#e5e5fe',
+
       }
     
     

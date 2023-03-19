@@ -5,18 +5,43 @@ import {
   SafeAreaView,
   TouchableOpacity,
   navigation,
+  FlatList,
 } from "react-native";
 import { Card, ListItem, Button, Icon, Avatar } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import firebase from 'firebase/app';
+import 'firebase/database';
+
 
 export default function Cards() {
   const [color, setColor] = useState("white");
   const navigation = useNavigation();
+
+  const [data,setData]=useState([]);
+  // const todoRef=firebase.firestore().collection('property');
+
+    useEffect(() => {
+      const db = firebase.firestore();
+    const collectionRef = db.collection('property');
+    collectionRef.get().then((querySnapshot) => {
+      const dataArray = [];
+      querySnapshot.forEach((doc) => {
+        dataArray.push(doc.data());
+      });
+      setData(dataArray);
+    }).catch((error) => {
+      console.log('Error getting documents:', error);
+    });
+  }, []);
+
   return (
+    
     <SafeAreaView>
-      <Card containerStyle={{ width: "100%", height: 175, borderRadius: 10 }}>
-        <TouchableOpacity onPress={() => navigation.navigate("HouseDetails")}>
+        {data && data.map((item, index) => (
+        <Card containerStyle={{ width: 500, height: 175, borderRadius: 10 }}>
+        <TouchableOpacity key={item.id} onPress={() => navigation.navigate("HouseDetails")}>
           <View style={{ flexDirection: "row" }}>
             <Image
               source={require("./assets/download.jpeg")}
@@ -33,7 +58,7 @@ export default function Cards() {
             <View
               style={{
                 position: "absolute",
-                left: 125,
+                left: 200,
                 top: -10,
               }}
             >
@@ -50,9 +75,9 @@ export default function Cards() {
               </TouchableOpacity>
             </View>
             <View style={{ marginLeft: 10 }}>
-              <Text style={{ fontSize: 20 }}>House Name: </Text>
-              <Text>Accomodation For: Boys</Text>
-              <Text>Property Type: House</Text>
+              <Text style={{ fontSize: 15,fontWeight:'500' }}>Name:{item.houseName}</Text>
+              <Text style={{ fontSize: 15 }}>Accomodation For: {item.gender}</Text>
+              <Text style={{ fontSize: 15 }}>Property Type: {item.type}</Text>
               <View style={{ flexDirection: "row" }}>
                 <Text>Rating: </Text>
                 <Icon
@@ -62,11 +87,15 @@ export default function Cards() {
                 />
                 <Text> 4.5</Text>
               </View>
-              <Text>price: ₹15000</Text>
+              <Text>price: ₹{item.price}</Text>
+              <Text></Text>
             </View>
           </View>
         </TouchableOpacity>
       </Card>
+      
+      ))}
     </SafeAreaView>
+   
   );
 }

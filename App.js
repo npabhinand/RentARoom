@@ -59,7 +59,7 @@ export default function App() {
   return (
     
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='OwnerHome'>
+      <Stack.Navigator initialRouteName='Login'>
       <Stack.Screen name="Login"  component={Login} />
       <Stack.Screen name="SignUp" options={{title:"Are you ready?"}} component={SignUp} />
       <Stack.Screen name="Home" component={Home}/>

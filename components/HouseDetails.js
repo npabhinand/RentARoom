@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   Text,
   View,
@@ -17,15 +17,38 @@ import {
   Icon,
 } from "react-native-elements";
 import Swiper from 'react-native-swiper'
+import firebase from 'firebase/app';
+import 'firebase/database';
+import { useNavigation } from "@react-navigation/native";
 
-export default function HouseDetails({ navigation }) {
-  const renderItem = ({ item, index }) => (
-    <View style={styles.slideContainer}>
-      <Text style={styles.slideTitle}>{item.title}</Text>
-      <Text style={styles.slideContent}>{item.content}</Text>
-    </View>
+export default function HouseDetails({ route }) {
+  // const renderItem = ({ item, index }) => (
+  //   <View style={styles.slideContainer}>
+  //     <Text style={styles.slideTitle}>{item.title}</Text>
+  //     <Text style={styles.slideContent}>{item.content}</Text>
+  //   </View>
     
-  );
+  // );
+  const navigation = useNavigation();
+  // const { id } = route.params.id;
+  console.log(id,"fuck")
+  const [data,setData]=useState([]);
+  useEffect (()=>{
+    const db = firebase.firestore();
+    var docRef = db.collection("property").doc($id) 
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            setData(doc.data());
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+
+  })
   const [color, setColor] = useState("white")
   return (
     <View>

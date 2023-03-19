@@ -135,7 +135,7 @@ const interpolate = (start, end) => {
                 <TouchableOpacity style={[styles.btn, bedroom === 4 ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setBedroom(4)}>
                     <Text style={[styles.btnText, bedroom ===4 ? { color: "white" } : null]}>4</Text>
                 </TouchableOpacity>
-                
+                    auth
                 
             </View>
             

@@ -2,6 +2,7 @@
 import * as firebase from "firebase";
 import {getFirestore} from "firebase/firestore"
 // import { getAnalytics } from "firebase/analytics";
+// import 'firebase/compat/storage'
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -36,15 +37,3 @@ const auth = firebase.auth()
 const db = firebase.firestore();
 
 export {auth,db};
-// db.collection("users").add({
-//     userType:string,
-//     email: string,
-//     phone: number,
-//     place: string,
-// })
-// .then((docRef) => {
-//     console.log("Document written with ID: ", docRef.id);
-// })
-// .catch((error) => {
-//     console.error("Error adding document: ", error);
-// });

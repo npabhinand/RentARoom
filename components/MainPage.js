@@ -41,11 +41,9 @@ export default function MainPage({ navigation }) {
             placeholder="Search Here"
           />
         </View>
-        <View style={{ alignItems:'center',marginBottom:10, }}>
+        <View style={{ alignItems:'center' }}>
           <Cards />
-          <Cards />
-          <Cards />
-          <Cards/>
+          
         </View>
       </ScrollView>
     </View>
