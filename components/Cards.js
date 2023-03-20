@@ -40,8 +40,8 @@ export default function Cards() {
     
     <SafeAreaView>
         {data && data.map((item, index) => (
-        <Card containerStyle={{ width: 500, height: 175, borderRadius: 10 }}>
-        <TouchableOpacity key={item.id} onPress={() => navigation.navigate("HouseDetails")}>
+        <Card  key={index} containerStyle={{ width: 500, height: 175, borderRadius: 10 }}>
+        <TouchableOpacity  onPress={() => navigation.navigate("HouseDetails",{item})}>
           <View style={{ flexDirection: "row" }}>
             <Image
               source={require("./assets/download.jpeg")}

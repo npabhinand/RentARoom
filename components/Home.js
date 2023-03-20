@@ -86,8 +86,7 @@ export default function Home() {
           >
             <ScrollView horizontal={true} style={styles.scrollView}>
               <HomeCards />
-              <HomeCards />
-              <HomeCards />
+              
             </ScrollView>
           </View>
         </View>
@@ -98,8 +97,7 @@ export default function Home() {
           </Text>
           <ScrollView horizontal={true} style={styles.scrollView} >
             <HomeCards />
-            <HomeCards />
-            <HomeCards />
+            
           </ScrollView>
         </View>
         
@@ -109,8 +107,6 @@ export default function Home() {
             For Girls
           </Text>
           <ScrollView horizontal={true} style={styles.scrollView}>
-            <HomeCards />
-            <HomeCards />
             <HomeCards />
           </ScrollView>
         </View>

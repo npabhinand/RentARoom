@@ -19,9 +19,10 @@ import {
 import Swiper from 'react-native-swiper'
 import firebase from 'firebase/app';
 import 'firebase/database';
-import { useNavigation } from "@react-navigation/native";
+// import {useRoute} from '@react-navigation/native'
 
-export default function HouseDetails({ route }) {
+
+export default function HouseDetails({ route,navigation }) {
   // const renderItem = ({ item, index }) => (
   //   <View style={styles.slideContainer}>
   //     <Text style={styles.slideTitle}>{item.title}</Text>
@@ -29,26 +30,26 @@ export default function HouseDetails({ route }) {
   //   </View>
     
   // );
-  const navigation = useNavigation();
-  // const { id } = route.params.id;
-  console.log(id,"fuck")
+  const {item }=route.params;
+  
+  console.log(item.id)
   const [data,setData]=useState([]);
-  useEffect (()=>{
-    const db = firebase.firestore();
-    var docRef = db.collection("property").doc($id) 
-    docRef.get().then((doc) => {
-        if (doc.exists) {
-            console.log("Document data:", doc.data());
-            setData(doc.data());
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    }).catch((error) => {
-        console.log("Error getting document:", error);
-    });
+  // useEffect (()=>{
+  //   const db = firebase.firestore();
+  //   var docRef = db.collection("property").doc("O22kHuhZx755wGPQBhHV") 
+  //   docRef.get().then((doc) => {
+  //       if (doc.exists) {
+  //           console.log("Document data:", doc.data());
+  //           setData(doc.data());
+  //       } else {
+  //           // doc.data() will be undefined in this case
+  //           console.log("No such document!");
+  //       }
+  //   }).catch((error) => {
+  //       console.log("Error getting document:", error);
+  //   });
 
-  })
+  // })
   const [color, setColor] = useState("white")
   return (
     <View>
@@ -138,7 +139,7 @@ export default function HouseDetails({ route }) {
               />
               <Text>4.5</Text>
             </View>
-            <Text style={{ fontSize: 20 }}>PARAMBATH HOUSE{"\n"}</Text>
+            <Text style={{ fontSize: 20 }}>{item.houseName}{"\n"}</Text>
             <View
               style={{
                 alignItems: "center",
@@ -155,10 +156,7 @@ export default function HouseDetails({ route }) {
             <Card.Divider />
             <Text style={{ fontSize: 20, marginTop: 10 }}>Descrption</Text>
             <Text style={{ textAlign: "justify" }}>
-              A house for rental purpose typically refers to a standalone
-              building that is available for someone to live in for a specified
-              period of time, usually in exchange for regular payments called
-              rent.
+              {item.description}
             </Text>
 
             <View
@@ -175,7 +173,7 @@ export default function HouseDetails({ route }) {
                 >
                   <Avatar source={require("./assets/for.png")} />
                   <Text style={{ fontWeight: "100" }}>For</Text>
-                  <Text>Boys</Text>
+                  <Text>{item.gender}</Text>
                 </Card>
 
                 <Card
@@ -200,7 +198,7 @@ export default function HouseDetails({ route }) {
                 >
                   <Avatar source={require("./assets/food.png")} />
                   <Text style={{ fontWeight: "100" }}>Food</Text>
-                  <Text>No</Text>
+                  <Text>item.food</Text>
                 </Card>
                 <Card
                   containerStyle={{
@@ -211,8 +209,8 @@ export default function HouseDetails({ route }) {
                   }}
                 >
                   <Avatar source={require("./assets/furnished.png")} />
-                  <Text style={{ fontWeight: "100" }}>furnished</Text>
-                  <Text>Yes</Text>
+                  <Text style={{ fontWeight: "100" }}>Furniture</Text>
+                  <Text>{item.furniture}</Text>
                 </Card>
 
                 <Card
@@ -225,7 +223,7 @@ export default function HouseDetails({ route }) {
                 >
                   <Avatar source={require("./assets/bed.png")} />
                   <Text style={{ fontWeight: "100" }}>Bedroom</Text>
-                  <Text>3</Text>
+                  <Text>{item.bedroom}</Text>
                 </Card>
 
                 <Card
@@ -238,7 +236,7 @@ export default function HouseDetails({ route }) {
                 >
                   <Avatar source={require("./assets/water.png")} />
                   <Text style={{ fontWeight: "100" }}>Water</Text>
-                  <Text>Yes</Text>
+                  <Text>{item.water}</Text>
                 </Card>
               </ScrollView>
             </View>
@@ -254,7 +252,7 @@ export default function HouseDetails({ route }) {
                 marginBottom: 10,
               }}
             >
-              <Text style={{ padding: 15, fontSize: 20 }}>₹1500/person</Text>
+              <Text style={{ padding: 15, fontSize: 20 }}>₹{item.price}</Text>
               <Button
                 title={"Book Now"}
                 containerStyle={{ borderRadius: 5, width: 150 }}
