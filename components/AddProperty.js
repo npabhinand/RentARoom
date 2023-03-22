@@ -14,12 +14,12 @@ const storageRef = storage.ref();
 // const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
 // const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
 
-const AddProperty = ({ navigation }) => {
+const AddProperty = ({ navigation ,route}) => {
+
+
+  const {userD }=route.params;
+  console.log(userD.email)
 const [houseName, setHouseName] = useState('');
-  
-  
-  
- 
   // const [location, setLocation] = useState('');
     const [type,setType] = useState();
     const [price, setPrice] = useState();
@@ -63,9 +63,10 @@ const interpolate = (start, end) => {
             total: total ,
             bedroom: bedroom ,
             description: description ,
-            // phone: phone ,
-            Images:"",
-            // OwnerId: user.id
+            phone: phone ,
+            // Images:"",
+            OwnerId: userD.email,
+            
             };
 
            
@@ -80,7 +81,7 @@ const interpolate = (start, end) => {
         
         
     
-    
+    const [images, setImages] = useState({});
     
 
     const pickImage = async () => {
@@ -88,21 +89,30 @@ const interpolate = (start, end) => {
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           // allowsEditing: true,
           // aspect: [4, 3],
-          quality: 1,
+          quality: 1,allowsMultipleSelection:true
         });
       
         if (!result.canceled) {
-          const uri = result.assets[0].uri;
+          result.assets.forEach(async function (image) {
+          const uri = image.uri;
           const filename = uri.substring(uri.lastIndexOf('/') + 1);
           const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
           const ref = storageRef.child(filename);
-      
+          const obj = {filename: filename, url: uploadUri}
           try {
             await ref.put(uploadUri);
             console.log('Image uploaded successfully!');
           } catch (error) {
             console.log(error);
           }
+          })
+          
+          // const uri = result.assets[0].uri;
+          // const filename = uri.substring(uri.lastIndexOf('/') + 1);
+          // const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+          // const ref = storageRef.child(filename);
+      
+          
         }
       };
       const [imageList, setImageList] = useState([]);
@@ -180,7 +190,9 @@ const interpolate = (start, end) => {
       </View>
             
             {/*  */}
+            <Text style={styles.subhead}>Contact Number</Text>
 
+<TextInput style={styles.input} placeholder="Enter Contact Number" value={phone} onChangeText={setPhone}/>
             {/*  */}
             <Text style={styles.subhead}>Total Accomodation</Text>
 
@@ -315,10 +327,8 @@ const interpolate = (start, end) => {
 
     
     <View style={{alignItems:'center',marginTop:20,marginBottom:20}}>
-    <TouchableOpacity style={{backgroundColor:"#4F9FA0",width:'90%',borderWidth:.25}} onPress={handleSubmit}>
-                    <Text style={{textAlign: 'center',
-        paddingVertical: 16,
-        fontSize: 14}}>Add Property</Text>
+    <TouchableOpacity style={{backgroundColor:"#52A9E3",width:'90%',borderRadius:10}} onPress={handleSubmit}>
+                    <Text style={{textAlign:'center',padding:10,fontSize:20,color:'white',fontWeight:'600'}}>Add Property</Text>
                 </TouchableOpacity>
     </View>
 
@@ -399,7 +409,6 @@ const styles = StyleSheet.create({
       },
       uploadButton: {
         backgroundColor:'#e5e5fe',
-
       }
     
     

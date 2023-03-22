@@ -29,8 +29,27 @@ import Login from './Login';
 import Notification from "./Notification";
 import Home from "./Home";
 import { auth } from "../firebase";
+import SearchFilter from "./SearchFilter";
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({navigation,route}) {
+
+
+ const words=[
+  {
+    name:'house',
+    id:1
+  },
+  {
+    name:'Room',
+    id:2
+  },
+  {
+    name:'Hostel',
+    id:3
+  }
+ ]
+
+  const {userD }=route.params;
   const [currentTab, setCurrentTab] = useState("Home");
   // To get the curretn Status of menu ...
   const [showMenu, setShowMenu] = useState(false);
@@ -43,6 +62,7 @@ export default function HomeScreen({navigation}) {
 
   const [searchText, setSearchText] = useState("");
 const [hamburgerMenu, sethamburgerMenu] = useState(false);
+const [input,setInput]=useState("");
 const signOut = () => { 
   
   console.log("Signout called")
@@ -50,6 +70,9 @@ const signOut = () => {
 
 
   const HamburgerMenu = () => {
+
+
+
     return (
       <View style={{ justifyContent: "flex-start", padding: 15 }}>
         <Image
@@ -70,11 +93,11 @@ const signOut = () => {
             marginTop: 20,
           }}
         >
-          Abhinand
+          {userD.name}
         </Text>
 
         <TouchableOpacity>
-          <Text onPress={()=>navigation.navigate("Profile")}
+          <Text onPress={()=>navigation.navigate("Profile",{userD})}
             style={{
               marginTop: 6,
               color: "white",
@@ -202,10 +225,10 @@ const signOut = () => {
               }}
               onChangeText={(text) => setSearchText(text)}
               value={searchText}
-              onPress={onSearch}
+              // onPress={onSearch}
               placeholder="Search Here"
             />
-     
+            <SearchFilter data={words} input={input} setInput={setInput}/>
 
       </View>
 

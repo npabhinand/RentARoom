@@ -5,99 +5,108 @@ import {
   View,
   SafeAreaView,
   Image,
-  ScrollView,
+  ScrollView,TouchableOpacity
 } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Card,Avatar } from "@rneui/base";
+import { auth } from "../firebase";
 
-export default function Profile() {
+export default function Profile({route,navigation}) {
+  const {userD }=route.params;
+  // console.log(userD);
+  const signOut = () => { 
+  
+    console.log("Signout called")
+   auth.signOut().then(()=>navigation.navigate("Login")).catch((err)=>console.log(err)) }
+  
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titleBar}>
-          <Ionicons name="ios-arrow-back" size={24} color="#52575D"></Ionicons>
-          {/* <Ionicons name="md-more" size={24} color="#52575D"></Ionicons> */}
+          <Text style={styles.input}>Back</Text>
         </View>
-
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
             <Image
-              source={require("./assets/bell.png")}
+              source={require("./assets/download.jpeg")}
               style={styles.image}
-              resizeMode="center"
+              // resizeMode="center"
             ></Image>
           </View>
+          
           <View style={styles.dm}>
-            <MaterialIcons
-              name="chat"
-              size={18}
-              color="#DFD8C8"
-            ></MaterialIcons>
-          </View>
-          <View style={styles.active}></View>
-          <View style={styles.add}>
             <Ionicons
               name="ios-add"
-              size={48}
+              size={24}
               color="#DFD8C8"
               style={{ marginTop: 6, marginLeft: 2 }}
             ></Ionicons>
           </View>
         </View>
 
-        <View style={styles.infoContainer}>
-          <Text style={[styles.text, { fontWeight: "200", fontSize: 36 }]}>
-            Denny
+        <View style={{flexDirection:'row',alignItems:'center',marginLeft:30}}>
+        <View>
+          <Text style={[styles.text, { fontWeight: "200", fontSize: 25 }]}>
+            {userD.name}
           </Text>
-          <Text style={[styles.text, { color: "#AEB5BC", fontSize: 14 }]}>
-            Student
+          <Text style={[styles.text, { color: "#AEB5BC", fontSize: 14,textAlign:'center' }]}>
+          {userD.userType}
           </Text>
-        </View>
-
-        <View style={styles.statsContainer}>
-          <View style={styles.statsBox}>
-            <Text style={[styles.text, { fontSize: 24 }]}>place</Text>
-            <Text style={[styles.text, styles.subText]}>alp</Text>
           </View>
-          <View
-            style={[
-              styles.statsBox,
-              {
-                borderColor: "#DFD8C8",
-                borderLeftWidth: 1,
-                borderRightWidth: 1,
-              },
-            ]}
-          >
-            <Text style={[styles.text, { fontSize: 24 }]}>phone</Text>
-            <Text style={[styles.text, styles.subText]}>9048407795</Text>
+          <View style={{marginLeft:30}}>
+            <Text style={[styles.text, { fontSize: 25 }]}>place</Text>
+            <Text style={[styles.text, styles.subText,{textAlign:'center'}]}>{userD.place}</Text>
+          </View>
+          <View style={{marginLeft:30}}>
+            <Text style={[styles.text, { fontSize: 25 }]}>phone</Text>
+            <Text style={[styles.text, styles.subText,{textAlign:'center'}]}>{userD.phone}</Text>
           </View>
         </View>
 
         <View style={{ marginTop: 32 }}>
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View style={styles.mediaImageContainer}>
-              <Image
-                source={require("./assets/menu.png")}
-                style={styles.image}
-                resizeMode="cover"
-              ></Image>
-            </View>
-            <View style={styles.mediaImageContainer}>
-              <Image
-                source={require("./assets/search.png")}
-                style={styles.image}
-                resizeMode="cover"
-              ></Image>
-            </View>
-            <View style={styles.mediaImageContainer}>
-              <Image
-                source={require("./assets/settings.png")}
-                style={styles.image}
-                resizeMode="cover"
-              ></Image>
-            </View>
-          </ScrollView>
+          
+          <View style={{ flexDirection: "row", justifyContent: 'space-around' ,marginBottom:20}}>
+      <Card
+          containerStyle={{
+            marginTop: 15,
+            width: '45%',
+            height: 200,
+            borderRadius: 20,
+            backgroundColor: "#e5e5fe",
+          }} 
+        >
+        <TouchableOpacity >
+          <Avatar rounded source={require("./assets/edit.png")} />
+         
+          <Text style={{fontSize:20,padding:10,fontFamily:'serif',justifyContent:'center',textAlign:'center',marginTop:20}}>Edit Profile</Text>
+          </TouchableOpacity>
+        </Card>
+     
+     
+     <Card
+       containerStyle={{
+         marginTop: 15,
+         width: '45%',
+         height: 200,
+         borderRadius: 20,
+         backgroundColor: "#FAE6D1",
+
+         
+       }}
+     >
+     <TouchableOpacity >
+       <Avatar rounded source={require("./assets/info.png")} />
+       <Text style={{fontSize:20,padding:10,fontFamily:'serif',justifyContent:'center',textAlign:'center',marginTop:20}}>Show Details</Text>
+       
+       </TouchableOpacity>
+     </Card>
+    
+   </View>
         </View>
+        <View style={{alignItems:'center',marginTop:16}}>
+        <TouchableOpacity style={{backgroundColor:'#52A9E3',width:'80%',height:50,borderRadius:10}} onPress={signOut}><Text style={{textAlign:'center',padding:10,fontSize:20,color:'white',fontWeight:'600'}}>Logout</Text></TouchableOpacity>
+        </View>
+        
       </ScrollView>
     </SafeAreaView>
   );
@@ -108,6 +117,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFF",
   },
+  //  
+   input:{
+    fontWeight:'bold',
+    fontSize:20,
+    marginBottom:20,
+    fontFamily:'serif'
+   },
+    //  
   text: {
     fontFamily: "serif",
     color: "#52575D",
@@ -130,31 +147,25 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   profileImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
+    width: 175,
+    height: 175,
+    borderRadius: 50,
     overflow: "hidden",
+    marginBottom:20
   },
   dm: {
     backgroundColor: "#41444B",
     position: "absolute",
-    top: 20,
+    right:-60,
+    // top: 10,
+    marginRight:50,
     width: 40,
     height: 40,
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
   },
-  active: {
-    backgroundColor: "#34FFB9",
-    position: "absolute",
-    bottom: 28,
-    left: 10,
-    padding: 4,
-    height: 20,
-    width: 20,
-    borderRadius: 10,
-  },
+  
   add: {
     backgroundColor: "#41444B",
     position: "absolute",

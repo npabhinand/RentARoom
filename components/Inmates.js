@@ -21,7 +21,7 @@ const Inmates = () => {
       <ListItem.Title>Shahban</ListItem.Title>
       
     </ListItem.Content>
-    <Button title="View Details" buttonStyle={{borderRadius:20,backgroundColor:'black'}}
+    <Button title="View Details" buttonStyle={{borderRadius:20,backgroundColor:'#52A9E3'}}
         onPress={createTwoButtonAlert}
     />
     
@@ -40,7 +40,7 @@ const Inmates = () => {
       <ListItem.Title>Denny </ListItem.Title>
       
     </ListItem.Content>
-    <Button title="View Details" buttonStyle={{borderRadius:20,backgroundColor:'black'}}/>
+    <Button title="View Details" buttonStyle={{borderRadius:20,backgroundColor:'#52A9E3'}}/>
     
     
   </ListItem>
@@ -56,7 +56,7 @@ const Inmates = () => {
       <ListItem.Title>Denny</ListItem.Title>
       
     </ListItem.Content>
-    <Button title="View Details" buttonStyle={{borderRadius:20,backgroundColor:'black'}}/>
+    <Button title="View Details" buttonStyle={{borderRadius:20,backgroundColor:'#52A9E3'}}/>
     
     
   </ListItem>

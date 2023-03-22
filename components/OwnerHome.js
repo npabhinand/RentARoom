@@ -5,12 +5,13 @@ import { Card } from "react-native-elements";
 // import { plus } from "react-icons/fa";
 // import HomeScreen from './HomeScreen';
 
-export default function OwnerHome({ navigation }) {
+export default function OwnerHome({ navigation,route }) {
+  const {userD }=route.params;
   return (
     <View>
       <View style={{marginBottom:5}}>
         <Text style={{ fontSize: 30, padding: 10 }}>
-          Hello,{"\n"}Shahban ps
+          Hello,{"\n"}{userD.name}
         </Text>
       </View>
       <View style={{ flexDirection: "row", justifyContent: "space-evenly" ,marginBottom:15}}>
@@ -25,7 +26,7 @@ export default function OwnerHome({ navigation }) {
           }}
           
         >
-        <TouchableOpacity onPress={() => navigation.navigate('AddProperty')}>
+        <TouchableOpacity onPress={() => navigation.navigate('AddProperty',{userD})}>
           <Avatar rounded source={require("./assets/plus.png")}/>
 
           <Card.Divider />
@@ -42,7 +43,7 @@ export default function OwnerHome({ navigation }) {
          backgroundColor: "#ffddc2",
        }}
      >
-     <TouchableOpacity onPress={() => navigation.navigate('ViewProperty')}>
+     <TouchableOpacity onPress={() => navigation.navigate('ViewProperty',{userD})}>
        <Avatar rounded source={require("./assets/house.png")} />
 
        <Card.Divider />
@@ -96,7 +97,7 @@ export default function OwnerHome({ navigation }) {
    </View>
    <View style={{ flexDirection: "row", justifyContent: "space-evenly" ,padding:10}}>
     <Button color='#6b6bbf' containerStyle={{height:50,width:130,borderRadius:30,justifyContent:'flex-start'}}><Avatar rounded source={require('./assets/chat.jpg')}></Avatar> <Text style={{fontSize:15,color:'white'}}>Chat</Text></Button>
-    <Button color='#6b6bbf' onPress={() => navigation.navigate('Profile')} containerStyle={{borderRadius:50}} ><Avatar rounded source={require('./assets/profile.jpg')}></Avatar></Button>
+    <Button color='#6b6bbf' onPress={() => navigation.navigate('Profile',{userD})} containerStyle={{borderRadius:50}} ><Avatar rounded source={require('./assets/profile.jpg')}></Avatar></Button>
     <Button color='#6b6bbf' onPress={()=>navigation.navigate('Dues')} containerStyle={{height:50,width:130,borderRadius:30,justifyContent:'flex-start'}}><Avatar rounded source={require('./assets/chat.jpg')}></Avatar> <Text style={{fontSize:15,color:'white'}}>Dues</Text></Button>
    </View>
     </View>

@@ -26,7 +26,7 @@ return (
       <ListItem.Title>Denny wants House</ListItem.Title>
       
     </ListItem.Content>
-    <Button title="Accept" buttonStyle={{borderRadius:20,backgroundColor:'black',flexDirection: 'column'}}/>
+    <Button title="Accept" buttonStyle={{borderRadius:20,backgroundColor:'#52A9E3',flexDirection: 'column'}}/>
     <Button title="Decline" buttonStyle={{borderRadius:20,backgroundColor:'#f2f2f2',flexDirection: 'column'}}
         titleStyle={{  color: 'black' }}
     />
@@ -44,7 +44,7 @@ return (
       <ListItem.Title>Denny wants House</ListItem.Title>
       
     </ListItem.Content>
-    <Button title="Accept" buttonStyle={{borderRadius:20,backgroundColor:'black'}}/>
+    <Button title="Accept" buttonStyle={{borderRadius:20,backgroundColor:'#52A9E3'}}/>
     <Button title="Decline" buttonStyle={{borderRadius:20,backgroundColor:'#f2f2f2'}}
         titleStyle={{  color: 'black' }}
     />
@@ -62,7 +62,7 @@ return (
       <ListItem.Title>A user interested in House</ListItem.Title>
       
     </ListItem.Content>
-    <Button title="Accept" buttonStyle={{borderRadius:20,backgroundColor:'black'}}/>
+    <Button title="Accept" buttonStyle={{borderRadius:20,backgroundColor:'#52A9E3'}}/>
     <Button title="Decline" buttonStyle={{borderRadius:20,backgroundColor:'#f2f2f2'}}
         titleStyle={{  color: 'black' }}
     />

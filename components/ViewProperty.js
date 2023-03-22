@@ -1,18 +1,37 @@
 import { View, Text ,SafeAreaView,TouchableOpacity,Image,navigation} from 'react-native'
 import { Card, ListItem, Button, Icon, Avatar } from "@rneui/themed";
-import React,{useState} from 'react'
-import { useNavigation } from "@react-navigation/native";
+import React,{useState,useEffect} from 'react'
+import { collection, query, where, getDocs } from "firebase/firestore";
+import firebase from 'firebase/app';
+import 'firebase/database';
 
-const ViewProperty = () => {
-  const navigation=useNavigation();
+const ViewProperty = ({navigation,route}) => {
+  const {userD }=route.params;
+  const [data,setData]=useState([]);
+  useEffect (()=>{
+    const db = firebase.firestore();
+    db.collection("property").where("OwnerId", "==", userD.email)
+    .get()
+    .then((querySnapshot) => {
+      const dataArray = [];
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            dataArray.push(doc.data());
+        });
+        setData(dataArray);
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+    
+
+  }, []);
+
   return (
-   
-
-        
-
-
       <SafeAreaView style={{alignItems:'center'}}>
-      <Card containerStyle={{ width: "98%", height: 185, borderRadius: 10 }}>
+      {data && data.map((item, index) => (
+      <Card key={index} containerStyle={{ width: "98%", height: 185, borderRadius: 10 }}>
       
           <View style={{ flexDirection: "row" }}>
             <Image
@@ -37,9 +56,9 @@ const ViewProperty = () => {
               
             </View>
             <View style={{ marginLeft: 10,marginBottom:10  }}>
-              <Text style={{ fontSize:20}}>House Name: </Text>
-              <Text>Accomodation For: Boys</Text>
-              <Text>Property Type: House</Text>
+              <Text style={{ fontSize:20,fontWeight:'500'}}>{item.houseName} </Text>
+              <Text>Accomodation For: {item.gender}</Text>
+              <Text>Property Type: {item.type}</Text>
               <View style={{ flexDirection: "row" }}>
                 <Text>Rating: </Text>
                 <Icon
@@ -49,17 +68,18 @@ const ViewProperty = () => {
                 />
                 <Text> 4.5</Text>
               </View>
-              <Text>price: ₹15000</Text>
+              <Text>price: {item.price}</Text>
               <View>
                 <View style={{ flexDirection: "row",marginTop:10,}}>
-                  <Button color='#6b6bbf' title="Edit" containerStyle={{borderRadius:10, marginRight:20}} onPress={()=>{ navigation.navigate("Edit");}}></Button>
-                  <Button color='#6b6bbf' title="View Feedback" containerStyle={{borderRadius:10}}></Button>
+                  <Button color="#52A9E3" title="Edit" containerStyle={{borderRadius:10, marginRight:20}} onPress={()=>{ navigation.navigate("Edit");}}></Button>
+                  <Button color='#52A9E3' title="View Feedback" containerStyle={{borderRadius:10}}></Button>
                 </View>
               </View>
             </View>
           </View>
        
       </Card>
+      ))}
     </SafeAreaView>
   )
 }

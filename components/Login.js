@@ -35,11 +35,11 @@ export default function Login({ navigation }) {
               if (userD.userType == "house owner") {
                 console.log("true", userD.userType);
 
-                navigation.navigate("OwnerHome");
+                navigation.navigate("OwnerHome",{userD});
               } else 
               {
                 console.log("true1", userD.userType);
-                navigation.navigate("HomeScreen");
+                navigation.navigate("HomeScreen",{userD});
               }
             }
           })

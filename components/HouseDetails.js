@@ -186,7 +186,7 @@ export default function HouseDetails({ route,navigation }) {
                 >
                   <Avatar source={require("./assets/phone.png")} />
                   <Text style={{ fontWeight: "100" }}>Phone</Text>
-                  <Text>9048407795</Text>
+                  <Text>{item.phone}</Text>
                 </Card>
                 <Card
                   containerStyle={{
@@ -198,7 +198,7 @@ export default function HouseDetails({ route,navigation }) {
                 >
                   <Avatar source={require("./assets/food.png")} />
                   <Text style={{ fontWeight: "100" }}>Food</Text>
-                  <Text>item.food</Text>
+                  <Text>{item.food}</Text>
                 </Card>
                 <Card
                   containerStyle={{
