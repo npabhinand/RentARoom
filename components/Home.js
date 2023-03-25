@@ -12,8 +12,9 @@ import HomeCards from "./HomeCards";
 // import {use} from '@react-navigation/native-stack'
 import { useNavigation } from "@react-navigation/native";
 
-export default function Home() {
+export default function Home(props) {
   const navigation = useNavigation();
+  const userD = props.userD;
   return (
     <View style={{flex:1}}>
       <ScrollView >
@@ -36,7 +37,7 @@ export default function Home() {
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("MainPage");
+              navigation.navigate("MainPage", {userD: userD});
             }}
           >
             <Card

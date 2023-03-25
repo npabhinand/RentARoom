@@ -2,30 +2,37 @@ import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity,Image } fr
 import { Avatar, ListItem, Button,ButtonGroup,Slider,Icon } from "@rneui/themed";
 import React, {useState} from 'react';
 import SelectDropdown from 'react-native-select-dropdown'
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker'
+import {db,auth}from '../firebase'
+import firebase from 'firebase/app';
+import 'firebase/storage';
+const storage = firebase.storage();
+const storageRef = storage.ref();
+
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 // const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
 // const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
+export default function Edit({ navigation ,route}){
 
-const Edit = ({ navigation }) => {
-const [houseName, sethouseName] = useState('');
-  
-  
-  
- 
+
+
+  const {item }=route.params;
+  console.log(item.propertyId)
+  const propertyId=item.propertyId
+const [houseName, setHouseName] = useState('');
   // const [location, setLocation] = useState('');
-    const [type,setType] = useState('');
-    const [price, setPrice] = useState('');
-    const [gender,setGender]=useState('')
-    const [furniture,setFurniture]=useState('')
-    const [food,setFood]=useState('');
-    const [water,setWater] =useState('');
-    const [total, setTotal] = useState('');
-    const [bedroom,setBedroom]=useState('');
-    const [description, setDescription] = useState('');
-    const [phone, setPhone] = useState('');
-
+    const [type,setType] = useState();
+    const [price, setPrice] = useState();
+    const [gender,setGender]=useState()
+    const [furniture,setFurniture]=useState()
+    const [food,setFood]=useState();
+    const [water,setWater] =useState();
+    const [total, setTotal] = useState();
+    const [bedroom,setBedroom]=useState();
+    const [description, setDescription] = useState();
+    const [phone, setPhone] = useState();
+    const [picture,setPicture]=useState();
 
 const interpolate = (start, end) => {
   let k = (value - 0) / 10; // 0 =>min  && 10 => MAX
@@ -42,8 +49,80 @@ const interpolate = (start, end) => {
     const [value, setValue] = useState(0);
     const [vertValue, setVertValue] = useState(0);
 
+
+
+    const handleSubmit= async ()=>{
     
-   
+      
+            const db = firebase.firestore();
+            const userRef = db.collection('property').doc(propertyId);
+            const userData = {
+              houseName: houseName ?? '',
+              type: type ?? '',
+              price: price ?? '',
+              gender:gender ?? '',
+              furniture: furniture ?? '' ,
+              food: food ?? '',
+              water: water ?? '',
+              total: total ?? '',
+              bedroom: bedroom ?? '',
+              description: description ?? '',
+              phone: phone ?? '',
+            };
+            await userRef.update(userData);
+            console.log('User data updated successfully');
+          };
+                
+    
+    const [images, setImages] = useState({});
+    
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          // allowsEditing: true,
+          // aspect: [4, 3],
+          quality: 1,allowsMultipleSelection:true
+        });
+      
+        if (!result.canceled) {
+          result.assets.forEach(async function (image) {
+          const uri = image.uri;
+          const filename = uri.substring(uri.lastIndexOf('/') + 1);
+          const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+          const ref = storageRef.child(filename);
+          const obj = {filename: filename, url: uploadUri}
+          try {
+            const url = await ref.put(uploadUri);
+            console.log('Image uploaded successfully!');
+            const dataArray = [];
+            ref.getDownloadURL().then((u)=> {
+              
+              console.log(u);
+              dataArray.push(u);
+            })
+            setPicture(dataArray);
+          } catch (error) {
+            console.log(error);
+          }
+          })
+          
+          // const uri = result.assets[0].uri;
+          // const filename = uri.substring(uri.lastIndexOf('/') + 1);
+          // const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+          // const ref = storageRef.child(filename);
+      
+          
+        }
+      };
+    
+      const [imageList, setImageList] = useState([]);
+
+      const addImage = (uri) => {
+        setImageList([...imageList, uri]);
+      };
+
+
   return (
     <View style={styles.container}>
     <ScrollView>
@@ -63,7 +142,7 @@ const interpolate = (start, end) => {
                 
             </View>
     <Text style={styles.subhead}>House Name</Text>
-            <TextInput placeholder="House Name:" style={styles.input}></TextInput>
+            <TextInput placeholder="House Name:" style={styles.input} value={item.houseName} onChangeText={setHouseName}></TextInput>
 
             {/*  */}
             {/*  */}
@@ -71,10 +150,10 @@ const interpolate = (start, end) => {
         Accomodation For
       </Text> 
       <View style={styles.btnGroup}>
-                <TouchableOpacity style={[styles.btn, gender === 'Boys' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setGender('Boys')}>
+                <TouchableOpacity style={[styles.btn, gender === 'Boys' ? { backgroundColor: "#4F9FA0" } : null]}  onPress={() => setGender('Boys')}>
                     <Text style={[styles.btnText, gender === 'Boys' ? { color: "white" } : null]}>Boys</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, gender === 'Girls' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setGender('Girls')}>
+                <TouchableOpacity style={[styles.btn, gender === 'Girls' ? { backgroundColor: "#4F9FA0" } : null]}  onPress={() => setGender('Girls')}>
                     <Text style={[styles.btnText, gender === 'Girls' ? { color: "white" } : null]}>Girls</Text>
                 </TouchableOpacity>
                 
@@ -85,10 +164,10 @@ const interpolate = (start, end) => {
 
 
             {/*  */}
-            <Text style={styles.subhead}>Price: {price}</Text>
+            <Text style={styles.subhead}>Price: {item.price}</Text>
             <View style={[styles.contentView]}>
             <Slider
-        value={price}
+        value={item.price}
         onValueChange={setPrice}
         maximumValue={20000}
         minimumValue={1000}
@@ -112,11 +191,13 @@ const interpolate = (start, end) => {
       </View>
             
             {/*  */}
+            <Text style={styles.subhead}>Contact Number</Text>
 
+            <TextInput style={styles.input}  value={item.phone} onChangeText={setPhone}/>
             {/*  */}
             <Text style={styles.subhead}>Total Accomodation</Text>
 
-            <TextInput style={styles.input} placeholder="Enter Total Accomodation" value={price} onChangeText={setPrice}/>
+            <TextInput style={styles.input} value={item.total} onChangeText={setTotal}/>
                
             {/*  */}
             <Text style={styles.subhead}>
@@ -135,7 +216,7 @@ const interpolate = (start, end) => {
                 <TouchableOpacity style={[styles.btn, bedroom === 4 ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setBedroom(4)}>
                     <Text style={[styles.btnText, bedroom ===4 ? { color: "white" } : null]}>4</Text>
                 </TouchableOpacity>
-                    auth
+                
                 
             </View>
             
@@ -210,14 +291,15 @@ const interpolate = (start, end) => {
     multiline={true}
     placeholder="Enter Description"
     numberOfLines={6}
-    value={description}
+    value={item.description}
     onChangeText={setDescription}
     style={{borderColor:'black',borderWidth:1,borderRadius:10,padding:10, width:'90%',
         height: 100,marginLeft:10}}
     
     /> 
     <Text style={styles.subhead}>Add Images</Text>
-       <TouchableOpacity  style={{width:150,height:150,borderWidth:1,alignItems:'center',justifyContent:'center',borderColor:'',marginLeft:10}}>
+       <TouchableOpacity  style={{width:150,height:150,borderWidth:1,alignItems:'center',justifyContent:'center',borderColor:'',marginLeft:10}}
+      onPress={pickImage} >
 
 <Text style={styles.buttonText}></Text>
 <Icon
@@ -230,15 +312,24 @@ const interpolate = (start, end) => {
 
         />
         <Text>Add Images</Text>
-</TouchableOpacity>    
+</TouchableOpacity>   
+<View style={styles.ImageConatiner}>
+{imageList.map((uri) => (
+    <Image key={uri} source={{ uri }} style={{ width: 200, height: 200 }} />
+  ))}
+
+    {/* <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
+        <Text style={styles.subhead}>
+            Upload Image
+        </Text>
+    </TouchableOpacity> */}
+</View>
 
 
     
     <View style={{alignItems:'center',marginTop:20,marginBottom:20}}>
-    <TouchableOpacity style={{backgroundColor:"#4F9FA0",width:'90%',borderWidth:.25}} onPress={() => setWater('No')}>
-                    <Text style={{textAlign: 'center',
-        paddingVertical: 16,
-        fontSize: 14}}>Add Property</Text>
+    <TouchableOpacity style={{backgroundColor:"#52A9E3",width:'90%',borderRadius:10}} onPress={handleSubmit}>
+                    <Text style={{textAlign:'center',padding:10,fontSize:20,color:'white',fontWeight:'600'}}>Update Property</Text>
                 </TouchableOpacity>
     </View>
 
@@ -247,7 +338,7 @@ const interpolate = (start, end) => {
   )
 }
 
-export default Edit
+
 
 const styles = StyleSheet.create({
 
@@ -259,7 +350,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#e5e5fe',
         alignItems:'center',
         marginLeft:20
-        // justifyContent:'center'
+        // justifyContent:'center'End
     },
 
     input: {
@@ -311,6 +402,14 @@ const styles = StyleSheet.create({
         width: '95%',
         justifyContent: 'center',
         alignItems: 'stretch',
+      },
+      ImageConatiner:{
+            marginTop:20,
+            marginBottom:20,
+
+      },
+      uploadButton: {
+        backgroundColor:'#e5e5fe',
       }
     
     

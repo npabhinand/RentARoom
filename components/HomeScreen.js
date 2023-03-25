@@ -254,7 +254,7 @@ const signOut = () => {
       
 
 
-        { currentTab == "Home" ? <Home navigation={navigation} /> : null}
+        { currentTab == "Home" ? <Home navigation={navigation} userD={userD} /> : null}
           { currentTab == "Notifications" ? <Notification/> : null}
 
           

@@ -15,10 +15,10 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 
 
-export default function Cards() {
+export default function Cards(props) {
   const [color, setColor] = useState("white");
   const navigation = useNavigation();
-
+  const userD = props.userD;
   const [data,setData]=useState([]);
   // const todoRef=firebase.firestore().collection('property');
 
@@ -27,8 +27,11 @@ export default function Cards() {
     const collectionRef = db.collection('property');
     collectionRef.get().then((querySnapshot) => {
       const dataArray = [];
+      let docIndex = 0;
       querySnapshot.forEach((doc) => {
         dataArray.push(doc.data());
+        dataArray[docIndex].propertyId = doc.id;
+        docIndex++;
       });
       setData(dataArray);
     }).catch((error) => {
@@ -41,7 +44,7 @@ export default function Cards() {
     <SafeAreaView>
         {data && data.map((item, index) => (
         <Card  key={index} containerStyle={{ width: 500, height: 175, borderRadius: 10 }}>
-        <TouchableOpacity  onPress={() => navigation.navigate("HouseDetails",{item})}>
+        <TouchableOpacity  onPress={() => navigation.navigate("HouseDetails",{item:item, userD: userD})}>
           <View style={{ flexDirection: "row" }}>
             <Image
               source={require("./assets/download.jpeg")}

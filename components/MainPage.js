@@ -12,9 +12,10 @@ import { Avatar, ListItem, Button, Icon, Card } from "@rneui/themed";
 import React, { useRef, useState } from "react";
 import Cards from "./Cards";
 
-export default function MainPage({ navigation }) {
+export default function MainPage({ navigation, route }) {
+  
   const [searchText, setSearchText] = useState("");
-
+  const {userD} = route.params;
   const onSearch = () => {
     console.log(`Searching for ${searchText}`);
   };
@@ -42,7 +43,7 @@ export default function MainPage({ navigation }) {
           />
         </View>
         <View style={{ alignItems:'center' }}>
-          <Cards />
+          <Cards userD={userD}/>
           
         </View>
       </ScrollView>

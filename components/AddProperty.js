@@ -18,7 +18,7 @@ const AddProperty = ({ navigation ,route}) => {
 
 
   const {userD }=route.params;
-  console.log(userD.email)
+  // console.log(userD.email)
 const [houseName, setHouseName] = useState('');
   // const [location, setLocation] = useState('');
     const [type,setType] = useState();
@@ -31,7 +31,7 @@ const [houseName, setHouseName] = useState('');
     const [bedroom,setBedroom]=useState();
     const [description, setDescription] = useState();
     const [phone, setPhone] = useState();
-   
+    const [picture,setPicture]=useState();
 
 const interpolate = (start, end) => {
   let k = (value - 0) / 10; // 0 =>min  && 10 => MAX
@@ -47,11 +47,12 @@ const interpolate = (start, end) => {
 
     const [value, setValue] = useState(0);
     const [vertValue, setVertValue] = useState(0);
+    const [isImagesSelected, setIsImagesSelected] = useState(false);
+    const [imageResult, setImageResult] = useState("");
 
 
 
     const handleSubmit= async ()=>{
-    
             const formData ={
             houseName:houseName ,
             type: type ,
@@ -64,10 +65,98 @@ const interpolate = (start, end) => {
             bedroom: bedroom ,
             description: description ,
             phone: phone ,
-            // Images:"",
+            // Images:picture,
             OwnerId: userD.email,
             
             };
+            if (isImagesSelected) {
+              // imageResult.assets.forEach(async function (image) {
+              // const uri = image.uri;
+              // const filename = uri.substring(uri.lastIndexOf('/') + 1);
+              // const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+              // const ref = storageRef.child(filename);
+              // const obj = {filename: filename, url: uploadUri}
+              // try {
+              //   const url = await ref.put(uploadUri);
+              //   console.log('Image uploaded successfully!');
+              //   const dataArray = [];
+              //   ref.getDownloadURL().then((u)=> {
+                  
+              //     console.log(u);
+              //     dataArray.push(u);
+              //   })
+              //   setPicture(dataArray);
+              // } catch (error) {
+              //   console.log(error);
+              // }
+              // })
+              
+              // const newData = {};
+              // if (houseName !== data.houseName) {
+              //   newData.houseName = houseName;
+              // }
+              // if (type !== data.type) {
+              //   newData.type = type;
+              // }
+              // if (price !== data.price) {
+              //   newData.price = price;
+              // }
+              // if (gender !== data.gender) {
+              //   newData.gender = gender;
+              // }
+              // if (furniture !== data.furniture) {
+              //   newData.furniture = furniture;
+              // }
+              // if (food !== data.food) {
+              //   newData.food = food;
+              // }
+              // if (water !== data.water) {
+              //   newData.water = water;
+              // }
+              // if (total !== data.total) {
+              //   newData.total = total;
+              // }
+              // if (bedroom !== data.bedroom) {
+              //   newData.bedroom= bedroom;
+              // }
+              // if (description !== data.description) {
+              //   newData.description = description;
+              // }
+              // if (phone!== data.phone) {
+              //   newData.phone = phone;
+              // }
+              //====================NEW CODE=================================
+
+              imageResult.assets.forEach(async function (image) {
+                const uri = image.uri;
+                const filename = uri.substring(uri.lastIndexOf('/') + 1);
+                const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+                const response = await fetch(uploadUri);
+                const blob = await response.blob();
+                const ref = storageRef.child(filename);
+                try {
+                  await ref.put(blob);
+                  console.log('Image uploaded successfully!');
+                  const url = await ref.getDownloadURL();
+                  console.log(url);
+                  setPicture((pictures) => [...pictures, url]);
+                } catch (error) {
+                  console.log(error);
+                }
+              });
+              
+
+
+
+              // const uri = result.assets[0].uri;
+              // const filename = uri.substring(uri.lastIndexOf('/') + 1);
+              // const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+              // const ref = storageRef.child(filename);
+          
+              
+            }else{
+              console.log("images not selected.");
+            }
 
            
                 try {
@@ -91,29 +180,9 @@ const interpolate = (start, end) => {
           // aspect: [4, 3],
           quality: 1,allowsMultipleSelection:true
         });
-      
-        if (!result.canceled) {
-          result.assets.forEach(async function (image) {
-          const uri = image.uri;
-          const filename = uri.substring(uri.lastIndexOf('/') + 1);
-          const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-          const ref = storageRef.child(filename);
-          const obj = {filename: filename, url: uploadUri}
-          try {
-            await ref.put(uploadUri);
-            console.log('Image uploaded successfully!');
-          } catch (error) {
-            console.log(error);
-          }
-          })
-          
-          // const uri = result.assets[0].uri;
-          // const filename = uri.substring(uri.lastIndexOf('/') + 1);
-          // const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-          // const ref = storageRef.child(filename);
-      
-          
-        }
+      setIsImagesSelected(!result.canceled);
+      setImageResult(result);
+        
       };
       const [imageList, setImageList] = useState([]);
 

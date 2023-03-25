@@ -1,4 +1,4 @@
-import { View, Text ,SafeAreaView,TouchableOpacity,Image,navigation} from 'react-native'
+import { View, Text ,SafeAreaView,TouchableOpacity,Image,navigation, ScrollView} from 'react-native'
 import { Card, ListItem, Button, Icon, Avatar } from "@rneui/themed";
 import React,{useState,useEffect} from 'react'
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -14,10 +14,12 @@ const ViewProperty = ({navigation,route}) => {
     .get()
     .then((querySnapshot) => {
       const dataArray = [];
+      let docIndex = 0;
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
             dataArray.push(doc.data());
+            dataArray[docIndex].propertyId = doc.id;
+            docIndex++;
         });
         setData(dataArray);
     })
@@ -30,8 +32,9 @@ const ViewProperty = ({navigation,route}) => {
 
   return (
       <SafeAreaView style={{alignItems:'center'}}>
+      <ScrollView>
       {data && data.map((item, index) => (
-      <Card key={index} containerStyle={{ width: "98%", height: 185, borderRadius: 10 }}>
+      <Card key={index} containerStyle={{ width: "95%", height: 185, borderRadius: 10 ,marginLeft:-.5}}>
       
           <View style={{ flexDirection: "row" }}>
             <Image
@@ -71,7 +74,7 @@ const ViewProperty = ({navigation,route}) => {
               <Text>price: {item.price}</Text>
               <View>
                 <View style={{ flexDirection: "row",marginTop:10,}}>
-                  <Button color="#52A9E3" title="Edit" containerStyle={{borderRadius:10, marginRight:20}} onPress={()=>{ navigation.navigate("Edit");}}></Button>
+                  <Button color="#52A9E3" title="Edit" containerStyle={{borderRadius:10, marginRight:20}} onPress={()=>{ navigation.navigate("Edit",{item});}}></Button>
                   <Button color='#52A9E3' title="View Feedback" containerStyle={{borderRadius:10}}></Button>
                 </View>
               </View>
@@ -80,6 +83,7 @@ const ViewProperty = ({navigation,route}) => {
        
       </Card>
       ))}
+      </ScrollView>
     </SafeAreaView>
   )
 }

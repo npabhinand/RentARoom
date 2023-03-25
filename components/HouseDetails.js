@@ -30,9 +30,30 @@ export default function HouseDetails({ route,navigation }) {
   //   </View>
     
   // );
-  const {item }=route.params;
   
-  console.log(item.id)
+
+  const {item, userD }=route.params;
+  console.log(item)
+  //  const ownerId=item.ownerId
+  // console.log(item)
+  const book= async ()=>{
+    const formData={
+      studentId:userD.email,
+      ownerId:item.OwnerId,
+      propertyId:item.propertyId,
+      status:"reserved"
+    }
+      
+
+   try {
+                    const db = firebase.firestore();
+                    const response = await db.collection('booking').add(formData);
+                    console.log('Form data submitted successfully:', response);
+                  } catch (error) {
+                    console.log('Error submitting form data:', error);
+                  }
+                };
+  
   const [data,setData]=useState([]);
   // useEffect (()=>{
   //   const db = firebase.firestore();
@@ -253,10 +274,9 @@ export default function HouseDetails({ route,navigation }) {
               }}
             >
               <Text style={{ padding: 15, fontSize: 20 }}>₹{item.price}</Text>
-              <Button
-                title={"Book Now"}
-                containerStyle={{ borderRadius: 5, width: 150 }}
-              onPress={()=>{ navigation.navigate("Payment");}}></Button>
+              <TouchableOpacity style={{backgroundColor:'#52A9E3',height:40,borderRadius:5}} 
+              onPress={book}><Text style={{textAlign:'center',padding:10,fontSize:15,color:'white',fontWeight:'600'}}>Book Now</Text></TouchableOpacity>
+       
             </View>
             <Card.Divider />
             <Card containerStyle={{ shadowColor: "dark" }}>
@@ -272,10 +292,8 @@ export default function HouseDetails({ route,navigation }) {
                   imageSize={35}
                   style={{ height: 60 }}
                 ></Rating>
-                <Button
-                  title="Post"
-                  containerStyle={{ borderRadius: 5, width: 100 }}
-                />
+                <TouchableOpacity style={{backgroundColor:'#52A9E3',height:40,borderRadius:5}} 
+                ><Text style={{textAlign:'center',padding:10,fontSize:15,color:'white',fontWeight:'600'}}>post</Text></TouchableOpacity>
               </View>
             </Card>
           </Card>
