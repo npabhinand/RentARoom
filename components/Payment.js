@@ -1,27 +1,21 @@
 import { View, Text,TouchableOpacity} from 'react-native'
 import React from 'react'
 import { PricingCard, lightColors,Card ,CheckBox,Button ,} from '@rneui/themed';
-const Payment = () => {
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+const Payment = ({ navigation,route }) => {
+  const {item} = route.params;
+      console.log(item)
     const [selectedIndex, setIndex] = React.useState(0);
   return (
     <View containerStyle={{flex:1}}>
-      
-      {/* <PricingCard
-        color={lightColors.secondary2}
-        title="Payment"
-        price="₹15000"
-        info={['100 Users', 'One on One Support', 'All Core Features']}
-        button={{ title: ' GET STARTED', icon: 'flight-takeoff' }}
-        containerStyle={{height:'100%'}}
-      /> */}
       <View>
-      <Text style={{marginBottom:20,fontFamily:'',fontSize:25,fontWeight:'600',marginTop:20,marginLeft:10}}>Address</Text>
+      <Text style={{marginBottom:20,fontFamily:'',fontSize:25,fontWeight:'600',marginTop:20,marginLeft:20}}>Address</Text>
       <Card containerStyle={{borderRadius:20}}>
-        <Text style={{marginBottom:20,fontFamily:'',fontSize:15}}>Adwaith</Text>
+        <Text style={{marginBottom:20,fontFamily:'',fontSize:15}}>{item.owner.name}</Text>
         <Card.Divider />
-        <Text style={{marginBottom:20,fontFamily:'',fontSize:15}}>Gopan House</Text>
+        <Text style={{marginBottom:20,fontFamily:'',fontSize:15}}>{item.houseName}</Text>
         <Card.Divider />
         <Text style={{fontFamily:'',fontSize:15}}>9048407795</Text>
       </Card>
@@ -30,7 +24,7 @@ const Payment = () => {
 
 
       <View>
-      <Text style={{marginBottom:20,fontFamily:'',fontSize:25,fontWeight:'600',marginTop:20,marginLeft:10}}>Payment Method</Text>
+      <Text style={{marginBottom:20,fontFamily:'',fontSize:25,fontWeight:'600',marginTop:20,marginLeft:20}}>Payment Method</Text>
       <Card containerStyle={{borderRadius:20}}>
       <View style={{flexDirection:'row',alignItems:'center'}}>
       <CheckBox

@@ -15,8 +15,8 @@ import {
 import profile from "./assets/menu.png";
 // Tab ICons...
 import home from "./assets/home.png";
-import search from "./assets/search.png";
-import notifications from "./assets/bell.png";
+import wishlist from "./assets/wishlist.png";
+import notification from "./assets/bell.png";
 import settings from "./assets/settings.png";
 import logout from "./assets/logout.png";
 // Menus
@@ -28,26 +28,16 @@ import photo from "./assets/menu.png";
 import Login from './Login';
 import Notification from "./Notification";
 import Home from "./Home";
+import Wishlist from "./Wishlist"
 import { auth } from "../firebase";
-import SearchFilter from "./SearchFilter";
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function HomeScreen({navigation,route}) {
 
 
- const words=[
-  {
-    name:'house',
-    id:1
-  },
-  {
-    name:'Room',
-    id:2
-  },
-  {
-    name:'Hostel',
-    id:3
-  }
- ]
+
 
   const {userD }=route.params;
   const [currentTab, setCurrentTab] = useState("Home");
@@ -113,8 +103,8 @@ const signOut = () => {
           }
 
           {TabButton(currentTab, setCurrentTab, handleMenu, "Home", home)}
-          {TabButton(currentTab, setCurrentTab, handleMenu, "Search", search)}
-          {TabButton(currentTab, setCurrentTab, handleMenu,  "Notifications", notifications)}
+          {TabButton(currentTab, setCurrentTab, handleMenu, "Wishlist", wishlist)}
+          {TabButton(currentTab, setCurrentTab, handleMenu,  "Notification", notification)}
           {TabButton(currentTab, setCurrentTab, handleMenu,  "Settings", settings)}
         </View>
 
@@ -228,7 +218,7 @@ const signOut = () => {
               // onPress={onSearch}
               placeholder="Search Here"
             />
-            <SearchFilter data={words} input={input} setInput={setInput}/>
+            
 
       </View>
 
@@ -254,9 +244,9 @@ const signOut = () => {
       
 
 
-        { currentTab == "Home" ? <Home navigation={navigation} userD={userD} /> : null}
-          { currentTab == "Notifications" ? <Notification/> : null}
-
+          { currentTab == "Home" ? <Home navigation={navigation} userD={userD} /> : null}
+          { currentTab == "Notification" ? <Notification navigation={navigation} userD={userD} /> : null}
+          { currentTab == "Wishlist" ? <Wishlist navigation={navigation} userD={userD} /> : null}
           
       </Animated.View>
     </SafeAreaView>

@@ -2,14 +2,11 @@ import { View, Text ,SafeAreaView,TouchableOpacity,Image,navigation} from 'react
 import { Card, ListItem, Button, Icon, Avatar } from "react-native-elements";
 import React,{useState} from 'react'
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Ownercard = () => {
   const navigation = useNavigation();
   return (
     <View>
-
-        
-
-
       <SafeAreaView>
       <Card containerStyle={{ width: "100%", height: 185, borderRadius: 10 }}>
       
@@ -60,9 +57,6 @@ const Ownercard = () => {
        
       </Card>
     </SafeAreaView>
-
-
-      
     </View>
   )
 }

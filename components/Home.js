@@ -11,6 +11,7 @@ import { Card } from "react-native-elements";
 import HomeCards from "./HomeCards";
 // import {use} from '@react-navigation/native-stack'
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home(props) {
   const navigation = useNavigation();
@@ -86,7 +87,7 @@ export default function Home(props) {
             }}
           >
             <ScrollView horizontal={true} style={styles.scrollView}>
-              <HomeCards />
+              <HomeCards  userD={userD}/>
               
             </ScrollView>
           </View>
@@ -97,7 +98,7 @@ export default function Home(props) {
             For Boys
           </Text>
           <ScrollView horizontal={true} style={styles.scrollView} >
-            <HomeCards />
+            <HomeCards userD={userD}/>
             
           </ScrollView>
         </View>
@@ -108,7 +109,7 @@ export default function Home(props) {
             For Girls
           </Text>
           <ScrollView horizontal={true} style={styles.scrollView}>
-            <HomeCards />
+            <HomeCards  userD={userD}/>
           </ScrollView>
         </View>
      

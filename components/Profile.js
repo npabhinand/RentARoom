@@ -10,7 +10,7 @@ import {
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Card,Avatar } from "@rneui/base";
 import { auth } from "../firebase";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Profile({route,navigation}) {
   const {userD }=route.params;
   // console.log(userD);

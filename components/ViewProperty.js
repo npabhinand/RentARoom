@@ -4,7 +4,7 @@ import React,{useState,useEffect} from 'react'
 import { collection, query, where, getDocs } from "firebase/firestore";
 import firebase from 'firebase/app';
 import 'firebase/database';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const ViewProperty = ({navigation,route}) => {
   const {userD }=route.params;
   const [data,setData]=useState([]);

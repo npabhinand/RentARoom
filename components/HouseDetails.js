@@ -20,20 +20,15 @@ import Swiper from 'react-native-swiper'
 import firebase from 'firebase/app';
 import 'firebase/database';
 // import {useRoute} from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function HouseDetails({ route,navigation }) {
-  // const renderItem = ({ item, index }) => (
-  //   <View style={styles.slideContainer}>
-  //     <Text style={styles.slideTitle}>{item.title}</Text>
-  //     <Text style={styles.slideContent}>{item.content}</Text>
-  //   </View>
-    
-  // );
+  
   
 
   const {item, userD }=route.params;
-  console.log(item)
+  console.log(userD)
   //  const ownerId=item.ownerId
   // console.log(item)
   const book= async ()=>{
@@ -41,7 +36,8 @@ export default function HouseDetails({ route,navigation }) {
       studentId:userD.email,
       ownerId:item.OwnerId,
       propertyId:item.propertyId,
-      status:"reserved"
+      status:"pending",
+      houseName:item.houseName,
     }
       
 
@@ -55,22 +51,7 @@ export default function HouseDetails({ route,navigation }) {
                 };
   
   const [data,setData]=useState([]);
-  // useEffect (()=>{
-  //   const db = firebase.firestore();
-  //   var docRef = db.collection("property").doc("O22kHuhZx755wGPQBhHV") 
-  //   docRef.get().then((doc) => {
-  //       if (doc.exists) {
-  //           console.log("Document data:", doc.data());
-  //           setData(doc.data());
-  //       } else {
-  //           // doc.data() will be undefined in this case
-  //           console.log("No such document!");
-  //       }
-  //   }).catch((error) => {
-  //       console.log("Error getting document:", error);
-  //   });
-
-  // })
+  
   const [color, setColor] = useState("white")
   return (
     <View>
@@ -121,7 +102,7 @@ export default function HouseDetails({ route,navigation }) {
               <Avatar
                 rounded
                 source={require("./assets/back.png")}
-                onPress={() => navigation.navigate("MainPage")}
+                onPress={() => navigation.navigate("MainPage",{userD})}
               />
             </TouchableOpacity>
           </View>

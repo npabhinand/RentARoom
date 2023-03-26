@@ -1,6 +1,6 @@
 import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity,Image } from 'react-native';
 import { Avatar, ListItem, Button,ButtonGroup,Slider,Icon } from "@rneui/themed";
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import SelectDropdown from 'react-native-select-dropdown'
 import * as ImagePicker from 'expo-image-picker'
 import {db,auth}from '../firebase'
@@ -8,19 +8,21 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 const storage = firebase.storage();
 const storageRef = storage.ref();
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 // const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
 // const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
-export default function Edit({ navigation ,route}){
+
+const Edit = ({ navigation ,route}) => {
 
 
-
+  const [isUpdated, setIsUpdated] = useState(false); 
   const {item }=route.params;
-  console.log(item.propertyId)
+  // console.log(item.propertyId)
   const propertyId=item.propertyId
-const [houseName, setHouseName] = useState('');
+  const [houseName, setHouseName] = useState('');
   // const [location, setLocation] = useState('');
     const [type,setType] = useState();
     const [price, setPrice] = useState();
@@ -51,28 +53,59 @@ const interpolate = (start, end) => {
 
 
 
-    const handleSubmit= async ()=>{
+   
     
-      
-            const db = firebase.firestore();
-            const userRef = db.collection('property').doc(propertyId);
-            const userData = {
-              houseName: houseName ?? '',
-              type: type ?? '',
-              price: price ?? '',
-              gender:gender ?? '',
-              furniture: furniture ?? '' ,
-              food: food ?? '',
-              water: water ?? '',
-              total: total ?? '',
-              bedroom: bedroom ?? '',
-              description: description ?? '',
-              phone: phone ?? '',
+            
+            // Images:picture,
+            useEffect(() => {
+              const db = firebase.firestore();
+              const userRef = db.collection('property').doc(propertyId);
+              userRef.get().then((doc) => {
+                const data = doc.data();
+                setHouseName(data.houseName);
+                setType(data.type);
+                if (data.price !== undefined) {
+                  setPrice(data.price);
+                }
+                if (data.gender !== undefined) {
+                  setGender(data.gender);
+                }
+                setFurniture(data.furniture);
+                setFood(data.food);
+                setWater(data.water);
+                setTotal(data.total);
+                setBedroom(data.bedroom);
+                setDescription(data.description);
+                setPhone(data.phone);
+              });
+            }, [isUpdated]); ;
+            
+            const handleUpdate = async () => {
+              const db = firebase.firestore();
+              const userRef = db.collection('property').doc(propertyId);
+              await userRef.update({
+                houseName: houseName,
+                type: type,
+                price: price,
+                gender: gender,
+                furniture: furniture,
+                food: food,
+                water: water,
+                total: total,
+                bedroom: bedroom,
+                description: description,
+                phone: phone,
+              });
+              console.log('User data updated successfully');
+              setIsUpdated(true);
             };
-            await userRef.update(userData);
-            console.log('User data updated successfully');
-          };
+            
+              
+               
                 
+              
+            
+              
     
     const [images, setImages] = useState({});
     
@@ -115,7 +148,6 @@ const interpolate = (start, end) => {
           
         }
       };
-    
       const [imageList, setImageList] = useState([]);
 
       const addImage = (uri) => {
@@ -142,7 +174,7 @@ const interpolate = (start, end) => {
                 
             </View>
     <Text style={styles.subhead}>House Name</Text>
-            <TextInput placeholder="House Name:" style={styles.input} value={item.houseName} onChangeText={setHouseName}></TextInput>
+            <TextInput placeholder="House Name:" style={styles.input} value={houseName} onChangeText={setHouseName}></TextInput>
 
             {/*  */}
             {/*  */}
@@ -163,11 +195,11 @@ const interpolate = (start, end) => {
 
 
 
-            {/*  */}
-            <Text style={styles.subhead}>Price: {item.price}</Text>
-            <View style={[styles.contentView]}>
+             
+            <Text style={styles.subhead}>Price: {price}</Text> 
+             <View style={[styles.contentView]}>
             <Slider
-        value={item.price}
+        value={price}
         onValueChange={setPrice}
         maximumValue={20000}
         minimumValue={1000}
@@ -190,14 +222,14 @@ const interpolate = (start, end) => {
       />
       </View>
             
-            {/*  */}
+             {/*  */}
             <Text style={styles.subhead}>Contact Number</Text>
 
-            <TextInput style={styles.input}  value={item.phone} onChangeText={setPhone}/>
+            <TextInput style={styles.input} value={phone} onChangeText={setPhone}/>
             {/*  */}
             <Text style={styles.subhead}>Total Accomodation</Text>
 
-            <TextInput style={styles.input} value={item.total} onChangeText={setTotal}/>
+            <TextInput style={styles.input} value={total} onChangeText={setTotal}/>
                
             {/*  */}
             <Text style={styles.subhead}>
@@ -291,7 +323,7 @@ const interpolate = (start, end) => {
     multiline={true}
     placeholder="Enter Description"
     numberOfLines={6}
-    value={item.description}
+    value={description}
     onChangeText={setDescription}
     style={{borderColor:'black',borderWidth:1,borderRadius:10,padding:10, width:'90%',
         height: 100,marginLeft:10}}
@@ -328,7 +360,7 @@ const interpolate = (start, end) => {
 
     
     <View style={{alignItems:'center',marginTop:20,marginBottom:20}}>
-    <TouchableOpacity style={{backgroundColor:"#52A9E3",width:'90%',borderRadius:10}} onPress={handleSubmit}>
+    <TouchableOpacity style={{backgroundColor:"#52A9E3",width:'90%',borderRadius:10}} onPress={handleUpdate}>
                     <Text style={{textAlign:'center',padding:10,fontSize:20,color:'white',fontWeight:'600'}}>Update Property</Text>
                 </TouchableOpacity>
     </View>
@@ -338,8 +370,7 @@ const interpolate = (start, end) => {
   )
 }
 
-
-
+export default Edit
 const styles = StyleSheet.create({
 
 

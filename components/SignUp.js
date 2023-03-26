@@ -4,7 +4,7 @@ import {auth,db}from '../firebase'
 import firebase from 'firebase/app';
 import 'firebase/database';
 import { SelectList } from 'react-native-dropdown-select-list'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import RNPickerSelect from 'react-native-picker-select';
 
 const SignUp = ({navigation}) => {

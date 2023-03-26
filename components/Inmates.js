@@ -1,7 +1,7 @@
 import { TouchableOpacity,Text,View,Image,Navigation,Alert} from 'react-native';
 import back from "./assets/back.png";
 import { Avatar,ListItem ,Button } from '@rneui/themed';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Inmates = () => {
     createTwoButtonAlert = () =>
     Alert.alert('Details', 'Shahban \n9048407795', [

@@ -11,7 +11,7 @@ import back from "./assets/back.png";
 import { Avatar, ListItem, Button, Icon, Card } from "@rneui/themed";
 import React, { useRef, useState } from "react";
 import Cards from "./Cards";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function MainPage({ navigation, route }) {
   
   const [searchText, setSearchText] = useState("");

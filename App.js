@@ -20,8 +20,9 @@ import Payment from './components/Payment';
 import Edit from './components/Edit'
 import Inmates from './components/Inmates'
 import Dues from './components/Dues';
-
+import StudentDetails from './components/StudentDetails';
 import { auth } from "./firebase";
+import studentDetails from './components/StudentDetails';
 const Stack = createNativeStackNavigator();
 export default function App() {
   
@@ -80,6 +81,7 @@ export default function App() {
       <Stack.Screen name="Edit" component={Edit}/>
       <Stack.Screen name="Inmates" component={Inmates} options={{title:"Inmates"}}/>
       <Stack.Screen name="Dues" component={Dues}/>
+      <Stack.Screen name="StudentDetails" component={StudentDetails}/>
     </Stack.Navigator>
   </NavigationContainer>
 

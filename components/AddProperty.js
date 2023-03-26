@@ -1,13 +1,13 @@
-import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity,Image } from 'react-native';
+import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity,Image, ToastAndroid } from 'react-native';
 import { Avatar, ListItem, Button,ButtonGroup,Slider,Icon } from "@rneui/themed";
 import React, {useState} from 'react';
-import SelectDropdown from 'react-native-select-dropdown'
 import * as ImagePicker from 'expo-image-picker'
 import {db,auth}from '../firebase'
 import firebase from 'firebase/app';
 import 'firebase/storage';
 const storage = firebase.storage();
 const storageRef = storage.ref();
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
@@ -91,40 +91,7 @@ const interpolate = (start, end) => {
               // }
               // })
               
-              // const newData = {};
-              // if (houseName !== data.houseName) {
-              //   newData.houseName = houseName;
-              // }
-              // if (type !== data.type) {
-              //   newData.type = type;
-              // }
-              // if (price !== data.price) {
-              //   newData.price = price;
-              // }
-              // if (gender !== data.gender) {
-              //   newData.gender = gender;
-              // }
-              // if (furniture !== data.furniture) {
-              //   newData.furniture = furniture;
-              // }
-              // if (food !== data.food) {
-              //   newData.food = food;
-              // }
-              // if (water !== data.water) {
-              //   newData.water = water;
-              // }
-              // if (total !== data.total) {
-              //   newData.total = total;
-              // }
-              // if (bedroom !== data.bedroom) {
-              //   newData.bedroom= bedroom;
-              // }
-              // if (description !== data.description) {
-              //   newData.description = description;
-              // }
-              // if (phone!== data.phone) {
-              //   newData.phone = phone;
-              // }
+
               //====================NEW CODE=================================
 
               imageResult.assets.forEach(async function (image) {
@@ -163,6 +130,7 @@ const interpolate = (start, end) => {
                     const db = firebase.firestore();
                     const response = await db.collection('property').add(formData);
                     console.log('Form data submitted successfully:', response);
+                    ToastAndroid.show('Property added successfully', ToastAndroid.SHORT);
                   } catch (error) {
                     console.log('Error submitting form data:', error);
                   }
