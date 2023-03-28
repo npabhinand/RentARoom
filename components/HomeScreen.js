@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useRef, useState } from "react";
 import {
   Animated,
@@ -10,7 +9,6 @@ import {
   View,
   TextInput,
   Button,
-  Alert
 } from "react-native";
 import profile from "./assets/menu.png";
 // Tab ICons...
@@ -24,8 +22,6 @@ import menu from "./assets/menu.png";
 import close from "./assets/close.png";
 
 // Photo
-import photo from "./assets/menu.png";
-import Login from './Login';
 import Notification from "./Notification";
 import Home from "./Home";
 import Wishlist from "./Wishlist"
@@ -113,9 +109,9 @@ const signOut = () => {
     )
   }
 
-  const onSearch = () => {
-    console.log(`Searching for ${searchText}`);
-  };
+  // const onSearch = () => {
+  //   console.log(`Searching for ${searchText}`);
+  // };
 
 
   const handleMenu = () => {
@@ -162,9 +158,10 @@ const signOut = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          paddingHorizontal: 15,
-          paddingVertical: 20,
+          paddingHorizontal: 10,
+          paddingVertical:30,
           borderRadius: showMenu ? 15 : 0,
+          // flexDirection:'row',
           // Transforming View...
           transform: [{ scale: scaleValue }, { translateX: offsetValue }],
         }}
@@ -182,11 +179,12 @@ const signOut = () => {
             ]
           }}
         >
-      <View style={{ justifyContent:'space-between' ,alignItems:'center', flexDirection:"row"}}>
+      <View style={{ alignItems:'center', flexDirection:"row"}}>
 
 
       <TouchableOpacity
             onPress={() => handleMenu()}
+            style={{width:40,height:35,backgroundColor:'#DEE1E9',alignItems:'flex-start',justifyContent:'center',borderRadius:10}}
           >
             <Image
               source={showMenu ? close : menu}
@@ -194,14 +192,13 @@ const signOut = () => {
                 width: 20,
                 height: 20,
                 tintColor: "black",
-        
-              
+                marginLeft:10,
               }}
             ></Image>
           </TouchableOpacity>
 
          
-            <TextInput
+            {/* <TextInput
               style={{
                 height: 50,
                 width: "90%",
@@ -217,14 +214,14 @@ const signOut = () => {
               value={searchText}
               // onPress={onSearch}
               placeholder="Search Here"
-            />
+            /> */}
             
 
       </View>
 
 
 
-
+{/* 
           <Text
             style={{
               fontSize: 30,
@@ -235,7 +232,7 @@ const signOut = () => {
           >
          
           
-          </Text>
+          </Text> */}
 
    
         </Animated.View>

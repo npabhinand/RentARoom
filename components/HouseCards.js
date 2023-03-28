@@ -1,24 +1,26 @@
-import { useState, useEffect } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import { Card, ListItem, Button, Icon } from "react-native-elements";
+import {
+  View,
+  Text,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
+import { Card, ListItem, Button, Icon, Avatar } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import { doc, getDoc } from "firebase/firestore";
-import firebase from "firebase/app";
-import "firebase/database";
+import { useState,useEffect } from "react";
+import firebase from 'firebase/app';
+import 'firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function HomeCards(props) {
-  
-  const userD = props.userD;
-  
+
+export default function HouseCards(props) {
   const navigation = useNavigation();
-
+  const userD = props.userD;
   const [data, setData] = useState([]);
-  const [color, setColor] = useState("white");
-
+userD.email
   useEffect(() => {
     const db = firebase.firestore();
-    const collectionRef = db.collection('property');
+    const collectionRef = db.collection('property').where("type","==","House");
     collectionRef.get().then((querySnapshot) => {
       const dataArray = [];
       let docIndex = 0;
@@ -47,7 +49,7 @@ export default function HomeCards(props) {
     });
   }, []);
 
-  
+  const [color, setColor] = useState("white");
 
   const handleWishlist = (propertyId, index) => {
     const userId = userD.email;
@@ -91,57 +93,63 @@ export default function HomeCards(props) {
 
 
   return (
-    <View style={{ flexDirection: "row" }}>
-      {data &&
-        data.map((item, index) => (
-          <Card
-            containerStyle={{
-              borderRadius: 15,
-              elevation: 5,
-              width: 300,
-              backgroundColor: "#3c3637",
-            }}
-            key={index}
-          >
-            <TouchableOpacity
-              onPress={() => navigation.navigate("HouseDetails", { item })}
+    
+    <SafeAreaView>
+        {data && data.map((item, index) => (
+        <Card  key={index} containerStyle={{ width: 500, height: 175, borderRadius: 10 }}>
+        <TouchableOpacity  onPress={() => navigation.navigate("HouseDetails",{item:item, userD: userD})}>
+          <View style={{ flexDirection: "row" }}>
+            <Image
+              source={{uri:item.Images[0]}}
+              resizeMode="cover"
+              style={{
+                width: "55%",
+                height: 175,
+                marginLeft: -15,
+                marginTop: -15,
+                borderTopLeftRadius: 10,
+                borderBottomLeftRadius: 10,
+              }}
+            />
+            <View
+              style={{
+                position: "absolute",
+                left: 200,
+                top: -10,
+              }}
             >
-              <Image
-                source={require("./assets/download.jpeg")}
-                style={{
-                  width: 298,
-                  elevation: 50,
-                  marginLeft: -15,
-                  marginTop: -15,
-                  borderTopLeftRadius: 15,
-                  borderTopRightRadius: 15,
-                }}
-              />
-              <View
-                style={{
-                  position: "absolute",
-                  right: 10,
-                  top: 5,
-                }}
-              >
-                <TouchableOpacity>
-                   <Icon
+              <TouchableOpacity>
+              <Icon
   name="heart"
   type="font-awesome"
   onPress={() => handleWishlist(item.propertyId, index)}
   color={item.isWishlisted ? "red" : "white"} // Use isWishlisted property to determine color
   size={25}
 />
-                </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontSize: 15,fontWeight:'500' }}>Name:{item.houseName}</Text>
+              <Text style={{ fontSize: 15 }}>Accomodation For: {item.gender}</Text>
+              <Text style={{ fontSize: 15 }}>Property Type: {item.type}</Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text>Rating: </Text>
+                <Icon
+                  name="star"
+                  color="#FFD700"
+                  iconStyle={{ alignSelf: "flex-start" }}
+                />
+                <Text> 4.5</Text>
               </View>
-              <View>
-                <Text style={{ color: "white", fontSize: 20 }}>
-                  {item.houseName}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </Card>
-        ))}
-    </View>
+              <Text>price: ₹{item.price}</Text>
+              <Text></Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </Card>
+      
+      ))}
+    </SafeAreaView>
+   
   );
 }

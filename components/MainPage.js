@@ -7,10 +7,8 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import back from "./assets/back.png";
-import { Avatar, ListItem, Button, Icon, Card } from "@rneui/themed";
-import React, { useRef, useState } from "react";
-import Cards from "./Cards";
+import React, {  useState } from "react";
+import HouseCards from "./HouseCards";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function MainPage({ navigation, route }) {
   
@@ -43,7 +41,7 @@ export default function MainPage({ navigation, route }) {
           />
         </View>
         <View style={{ alignItems:'center' }}>
-          <Cards userD={userD}/>
+          <HouseCards userD={userD}/>
           
         </View>
       </ScrollView>

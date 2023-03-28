@@ -78,7 +78,7 @@ return (
      <Text>{item.owner.phone}</Text>
      </View> */}
      <View>
-     <Button title="Make Payment" containerStyle={{borderRadius:10}} titleStyle={{fontSize:18,fontWeight:'600'}} 
+     <Button title="Make Payment" containerStyle={{borderRadius:10,width:250,alignSelf:'center'}} titleStyle={{fontSize:18,fontWeight:'600'}} 
      onPress={() => navigation.navigate('Payment',{item})}></Button>
     </View>
      </Card>

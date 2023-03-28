@@ -11,8 +11,6 @@ import {
 import {
   Card,
   Avatar,
-  Button,
-  AirbnbRating,
   Rating,
   Icon,
 } from "react-native-elements";
@@ -58,40 +56,23 @@ export default function HouseDetails({ route,navigation }) {
       <ScrollView>
         <View >
         <Swiper containerStyle={{height:300,width:"100%"}} showsButtons={true} autoplay={true} loadMinimal={true}>
+        {item.Images.map((image, i) => (
           <Image
+           key={i}
             style={{
-              
+             
               width: "100%",
               height: 300,
               
             }}
-            source={require("./assets/download.jpeg")}
+            source={{ uri: image }}
           ></Image>
-          <Image
-            style={{
-              
-              width: "100%",
-              height: 300,
-              // borderTopLeftRadius: 30,
-              // borderTopRightRadius: 30,
-            }}
-            source={require("./assets/download.jpeg")}
-          ></Image>
-          <Image
-            style={{
-              
-              width: "100%",
-              height: 300,
-              // borderTopLeftRadius: 30,
-              // borderTopRightRadius: 30,
-            }}
-            source={require("./assets/download.jpeg")}
-          ></Image>
-
+          
+          ))}
 
 
         </Swiper>
-          <View
+          {/* <View
             style={{
               position: "absolute",
               left: 5,
@@ -105,8 +86,8 @@ export default function HouseDetails({ route,navigation }) {
                 onPress={() => navigation.navigate("MainPage",{userD})}
               />
             </TouchableOpacity>
-          </View>
-          <View
+          </View> */}
+          {/* <View
             style={{
               position: "absolute",
               right: 10,
@@ -122,7 +103,7 @@ export default function HouseDetails({ route,navigation }) {
                 size={30}
               />
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View
             style={{
               position: "absolute",
@@ -267,7 +248,7 @@ export default function HouseDetails({ route,navigation }) {
                   justifyContent: "space-between",
                   alignItems: "flex-start",
                 }}
-              >
+              onPress={()=>navigation.navigate("Feedback")}>
                 <Rating
                   ratingCount={5}
                   imageSize={35}

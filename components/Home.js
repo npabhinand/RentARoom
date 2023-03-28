@@ -5,26 +5,29 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import { Card } from "react-native-elements";
-import HomeCards from "./HomeCards";
+import LatestHomeCards from "./LatestHomeCards";
+import BoysHomeCards from "./BoysHomeCards";
+import GirlsHomeCards from "./GirlsHomeCards";
 // import {use} from '@react-navigation/native-stack'
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home(props) {
   const navigation = useNavigation();
   const userD = props.userD;
   return (
-    <View style={{flex:1}}>
-      <ScrollView >
-        <Text 
+    <View style={{ flex: 1 }}>
+      <ScrollView>
+        <Text
           style={{
             fontSize: 30,
             fontWeight: "bold",
             fontFamily: "serif",
-            padding: 3,
+            marginTop: 20,
+            marginLeft: 10,
           }}
         >
           Find the best place
@@ -38,21 +41,25 @@ export default function Home(props) {
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("MainPage", {userD: userD});
+              navigation.navigate("HostelPage", { userD: userD });
             }}
           >
             <Card
               containerStyle={{ borderWidth: 0, shadowColor: "white" }}
               wrapperStyle={{ borderWidth: 0 }}
             >
-              <Card.Image
-                source={require("./assets/download.jpeg")}
-                style={{ width: 100, height: 100, borderRadius: 15 }}
-              />
-              <Text style={{ textAlign: "center" }}>Hostel</Text>
+            
+                <Card.Image
+                  source={require("./assets/download.jpeg")}
+                  style={{ width: 100, height: 100, borderRadius: 15 }}
+                />
+                <Text style={{ textAlign: "center" }}>Hostel</Text>
             </Card>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+              navigation.navigate("HousePage", { userD: userD });
+            }}
+          >
             <Card containerStyle={{ borderWidth: 0, shadowColor: "white" }}>
               <Card.Image
                 source={require("./assets/download.jpeg")}
@@ -72,10 +79,7 @@ export default function Home(props) {
           </TouchableOpacity>
         </View>
 
-
-
-
-        <View >
+        <View>
           <Text style={{ fontSize: 30, fontFamily: "serif", padding: 20 }}>
             Latest
           </Text>
@@ -87,32 +91,29 @@ export default function Home(props) {
             }}
           >
             <ScrollView horizontal={true} style={styles.scrollView}>
-              <HomeCards  userD={userD}/>
-              
+              <LatestHomeCards userD={userD} />
             </ScrollView>
           </View>
         </View>
-        <View >
+        <View>
           <Text style={{ fontSize: 30, fontFamily: "serif", padding: 10 }}>
             {" "}
             For Boys
           </Text>
-          <ScrollView horizontal={true} style={styles.scrollView} >
-            <HomeCards userD={userD}/>
-            
+          <ScrollView horizontal={true} style={styles.scrollView}>
+            <BoysHomeCards userD={userD} />
           </ScrollView>
         </View>
-        
+
         <View>
           <Text style={{ fontSize: 30, fontFamily: "serif", padding: 10 }}>
             {" "}
             For Girls
           </Text>
           <ScrollView horizontal={true} style={styles.scrollView}>
-            <HomeCards  userD={userD}/>
+            <GirlsHomeCards userD={userD} />
           </ScrollView>
         </View>
-     
       </ScrollView>
     </View>
   );
@@ -121,7 +122,6 @@ const styles = StyleSheet.create({
   scrollView: {
     horizontal: "true",
     alignContent: "space-around",
-   
   },
   text: {
     fontSize: 42,

@@ -38,7 +38,7 @@ const ViewProperty = ({navigation,route}) => {
       
           <View style={{ flexDirection: "row" }}>
             <Image
-              source={require("./assets/download.jpeg")}
+              source={{uri:item.Images[0]}}
               resizeMode="cover"
               style={{
                 width: "50%",
@@ -62,7 +62,7 @@ const ViewProperty = ({navigation,route}) => {
               <Text style={{ fontSize:20,fontWeight:'500'}}>{item.houseName} </Text>
               <Text>Accomodation For: {item.gender}</Text>
               <Text>Property Type: {item.type}</Text>
-              <View style={{ flexDirection: "row" }}>
+              {/* <View style={{ flexDirection: "row" }}>
                 <Text>Rating: </Text>
                 <Icon
                   name="star"
@@ -70,7 +70,8 @@ const ViewProperty = ({navigation,route}) => {
                   iconStyle={{ alignSelf: "flex-start" }}
                 />
                 <Text> 4.5</Text>
-              </View>
+              </View> */}
+              <Text onPress={()=>navigation.navigate("HouseDetails",{item})}>Show Details</Text>
               <Text>price: {item.price}</Text>
               <View>
                 <View style={{ flexDirection: "row",marginTop:10,}}>

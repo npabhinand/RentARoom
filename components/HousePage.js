@@ -1,53 +1,50 @@
 import {
-    TouchableOpacity,
-    Text,
-    View,
-    Image,
-    Navigation,
-    ScrollView,
-    TextInput,
-  } from "react-native";
-  import back from "./assets/back.png";
-  import { Avatar, ListItem, Button, Icon, Card } from "@rneui/themed";
-  import React, { useRef, useState } from "react";
-  import Cards from "./Cards";
-  import AsyncStorage from '@react-native-async-storage/async-storage';
+  TouchableOpacity,
+  Text,
+  View,
+  Image,
+  Navigation,
+  ScrollView,
+  TextInput,
+} from "react-native";
+import React, {  useState } from "react";
+import HouseCards from "./HouseCards";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+export default function HousePage({ navigation, route }) {
   
-  export default function HousePage({ navigation }) {
-    const [searchText, setSearchText] = useState("");
-  
-    const onSearch = () => {
-      console.log(`Searching for ${searchText}`);
-    };
-  
-    return (
-      <View style={{flex:1,}}>
-        <ScrollView >
-          <View style={{ justifyContent: "center"}}>
-            <TextInput
-              style={{
-                height: 50,
-                width: "95%",
-                padding: 10,
-                borderRadius: 15,
-                borderColor: "gray",
-                marginTop: 20,
-                marginLeft: 10,
-                borderWidth: 1,
-                fontSize: 20,
-              }}
-              onChangeText={(text) => setSearchText(text)}
-              value={searchText}
-              onPress={onSearch}
-              placeholder="Search Here"
-            />
-          </View>
-          <View style={{ alignItems:'center' }}>
-            <Cards />
-            
-          </View>
-        </ScrollView>
-      </View>
-    );
-  }
-  
+  const [searchText, setSearchText] = useState("");
+  const {userD} = route.params;
+  const onSearch = () => {
+    console.log(`Searching for ${searchText}`);
+  };
+
+  return (
+    <View style={{flex:1,}}>
+      <ScrollView >
+        <View style={{ justifyContent: "center"}}>
+          <TextInput
+            style={{
+              height: 50,
+              width: "95%",
+              padding: 10,
+              borderRadius: 15,
+              borderColor: "gray",
+              marginTop: 20,
+              marginLeft: 10,
+              borderWidth: 1,
+              fontSize: 20,
+            }}
+            onChangeText={(text) => setSearchText(text)}
+            value={searchText}
+            onPress={onSearch}
+            placeholder="Search Here"
+          />
+        </View>
+        <View style={{ alignItems:'center' }}>
+          <HouseCards userD={userD}/>
+          
+        </View>
+      </ScrollView>
+    </View>
+  );
+}

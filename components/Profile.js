@@ -106,7 +106,6 @@ export default function Profile({route,navigation}) {
         <View style={{alignItems:'center',marginTop:16}}>
         <TouchableOpacity style={{backgroundColor:'#52A9E3',width:'80%',height:50,borderRadius:10}} onPress={signOut}><Text style={{textAlign:'center',padding:10,fontSize:20,color:'white',fontWeight:'600'}}>Logout</Text></TouchableOpacity>
         </View>
-        
       </ScrollView>
     </SafeAreaView>
   );

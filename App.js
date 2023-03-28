@@ -1,5 +1,5 @@
-import React, { useEffect ,useRef} from 'react';
-import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -11,8 +11,9 @@ import Profile from './components/Profile';
 import Notification from './components/Notification';
 import OwnerHome from './components/OwnerHome';
 import MainPage from './components/MainPage';
+import HousePage from './components/HousePage';
+import HostelPage from './components/HostelPage';
 import HouseDetails from './components/HouseDetails';
-import Cards from './components/Cards';
 import AddProperty from './components/AddProperty'
 import ViewProperty from './components/ViewProperty';
 import Applications from './components/Applications';
@@ -21,41 +22,12 @@ import Edit from './components/Edit'
 import Inmates from './components/Inmates'
 import Dues from './components/Dues';
 import StudentDetails from './components/StudentDetails';
-import { auth } from "./firebase";
-import studentDetails from './components/StudentDetails';
+import Feedback from './components/Feedback';
+
 const Stack = createNativeStackNavigator();
 export default function App() {
   
-        // const [initializing, setInitializing] = useState(true);
-        // const [user, setUser] = useState()
-
-        // function onAuthStateChanged(user){
-        //   setUser(user);
-        //   if(initializing) setInitializing(false)
-        // }
-        //   useEffect(() => {
-        //     const subsciber= firebase.auth().onAuthStateChanged(onAuthStateChanged);
-        //     return subscriber;
-
-        //   }, [third])
-          
-        //     if(initializing) return null;
-
-        //     if(!user){
-
-        // const navContainer = useRef()
-        // useEffect(() => {
-        //   const unsubscribe=auth.onAuthStateChanged(user=>{
-        //     if(user){
-        //       console.log("Auto login")
-        //       navigation.navigate("HomeScreen")
-        //     }
-        
-        //   }
-        //   )
-        //   return unsubscribe
-        // }
-        //   ,[])
+       
 
   return (
     
@@ -69,11 +41,13 @@ export default function App() {
       <Stack.Screen name="Notification" component={Notification}/>
       <Stack.Screen name='OwnerHome' component={OwnerHome}/>
       <Stack.Screen name='MainPage' component={MainPage}/>
+      <Stack.Screen name='HousePage' component={HousePage}/>
+      <Stack.Screen name='HostelPage' component={HostelPage}/>
       <Stack.Screen name="HouseDetails"  component={HouseDetails} 
       // options={{headerShown: false}}
 
       />
-      <Stack.Screen name="Cards" component={Cards}/>
+      <Stack.Screen name="Feedback" component={Feedback}/>
       <Stack.Screen name="AddProperty" component={AddProperty}/>
       <Stack.Screen name="ViewProperty" component={ViewProperty}/>
       <Stack.Screen name="Applications" component={Applications}/>
