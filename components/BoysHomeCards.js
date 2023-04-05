@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { Card, ListItem, Button, Icon } from "react-native-elements";
+import { Card,  Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import firebase from "firebase/app";
 import "firebase/database";

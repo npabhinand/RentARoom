@@ -96,17 +96,18 @@ userD.email
     
     <SafeAreaView>
         {data && data.map((item, index) => (
-        <Card  key={index} containerStyle={{ width: 500, height: 175, borderRadius: 10 }}>
-        <TouchableOpacity  onPress={() => navigation.navigate("HouseDetails",{item:item, userD: userD})}>
+        <Card  key={index} containerStyle={{ width:'100%', height: 150, borderRadius: 10 ,padding:10,alignSelf:'center'}}>
+        <TouchableOpacity  >
           <View style={{ flexDirection: "row" }}>
             <Image
               source={{uri:item.Images[0]}}
               resizeMode="cover"
               style={{
                 width: "55%",
-                height: 175,
+                height: 150,
                 marginLeft: -15,
                 marginTop: -15,
+                marginTop:-10,
                 borderTopLeftRadius: 10,
                 borderBottomLeftRadius: 10,
               }}
@@ -114,7 +115,7 @@ userD.email
             <View
               style={{
                 position: "absolute",
-                left: 200,
+                left: 125,
                 top: -10,
               }}
             >
@@ -129,20 +130,29 @@ userD.email
               </TouchableOpacity>
             </View>
             <View style={{ marginLeft: 10 }}>
-              <Text style={{ fontSize: 15,fontWeight:'500' }}>Name:{item.houseName}</Text>
-              <Text style={{ fontSize: 15 }}>Accomodation For: {item.gender}</Text>
-              <Text style={{ fontSize: 15 }}>Property Type: {item.type}</Text>
+            {/* <Text style={{ fontSize: 18,fontWeight:'200',marginBottom:10}}>{item.type}</Text> */}
+              <Text style={{ fontSize: 18,fontWeight:'500' ,marginBottom:10}}>{item.houseName}</Text>
+             
+            
               <View style={{ flexDirection: "row" }}>
-                <Text>Rating: </Text>
-                <Icon
+                <Text></Text>
+               
+                 <Text style={{ fontSize: 15 }}>{item.gender}</Text>
+                 <Icon
                   name="star"
                   color="#FFD700"
                   iconStyle={{ alignSelf: "flex-start" }}
                 />
                 <Text> 4.5</Text>
+               
               </View>
-              <Text>price: ₹{item.price}</Text>
-              <Text></Text>
+              <Text style={{fontSize:18,fontWeight:'200',textDecorationLine:'underline'}}
+            onPress={() => navigation.navigate("HouseDetails",{item:item, userD: userD})}>Show Details</Text>
+          
+          <View style={{flexDirection:'row',marginTop:10,alignItems:'center',justifyContent:'space-between',}}>
+            <Text style={{ color: '#2637C3',fontSize:18,marginTop:5 }}>₹{item.price}</Text>
+            <Button title='Book' color='#2637C3' containerStyle={{borderRadius:10,width:75,}} onPress={()=> book(item=item,index)}/>
+           </View>
             </View>
           </View>
         </TouchableOpacity>

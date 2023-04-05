@@ -4,37 +4,40 @@ import { Card,Button } from 'react-native-elements';
 import {  db } from "../firebase";
 import { Avatar } from '@rneui/base';
 import { useNavigation } from "@react-navigation/native";
-
+import firebase from "firebase/app";
 
 const Wishlist = (props) => {
-  const userId = props.userD.email;
+  const userD=props.userD
   const [data, setData] = useState([]);
   const [isDeleted, setIsDeleted] = useState(false); 
   const navigation=useNavigation();
   useEffect(() => {
     const fetchData = async () => {
-        const querySnapshot = await db
-          .collection('wishlist')
-          .where('userId', '==', userId)
-          .get();
-        const dataArray = [];
-      
-        for (const doc of querySnapshot.docs) {
-          const wishlistData = doc.data();
-          const propertyId = wishlistData.propertyId;
-          const propertyDoc = await db.collection('property').doc(propertyId).get();
-          const propertyData = propertyDoc.data();
-      
-          dataArray.push({
-            ...wishlistData,
-            property: propertyData,
-          });
-        }
-      
-        setData(dataArray);
-      };
-      fetchData();
-    }, [isDeleted]);
+      const querySnapshot = await db
+        .collection('wishlist')
+        .where('userId', '==', userD.email)
+        .get();
+
+      const dataArray = [];
+      let propertyData = {};
+
+      for (const doc of querySnapshot.docs) {
+        const wishlistData = doc.data();
+        const propertyId = wishlistData.propertyId;
+        const propertyDoc = await db.collection('property').doc(propertyId).get();
+        propertyData[doc.id] = propertyDoc.data();
+        propertyData[doc.id].propertyId = doc.id;
+
+        dataArray.push({
+          ...wishlistData,
+          property: propertyData[doc.id],
+        });
+      }
+
+      setData(dataArray);
+    };
+    fetchData();
+  }, [isDeleted]);
   
     const onClickDelete = async (propertyId, item) => {  
       console.log(propertyId)
@@ -52,6 +55,28 @@ const Wishlist = (props) => {
           console.error("Error removing document: ", error);
         });
       setIsDeleted(true);
+    };
+
+
+
+    const book = async (item) => {
+      const formData = {
+        studentId: userD.email,
+        ownerId: item.OwnerId,
+        propertyId: item.propertyId,
+        status: "pending",
+        houseName: item.houseName,
+      };
+  
+      try {
+        const db = firebase.firestore();
+        const response = await db.collection("booking").add(formData);
+        console.log("Form data submitted successfully:", response);
+        ToastAndroid.show('Property is booked successfully', ToastAndroid.SHORT);
+      } catch (error) {
+        console.log("Error submitting form data:", error);
+        ToastAndroid.show('Property is not booked', ToastAndroid.SHORT);
+      }
     };
   return (
     <View style={{flex:1,marginBottom:10}}>
@@ -81,11 +106,11 @@ const Wishlist = (props) => {
            </View>
             <Text style={{fontSize:18,marginTop:5}}>{item.property.houseName}</Text>
             <Text style={{fontSize:18,marginTop:5,fontWeight:'200',textDecorationLine:'underline'}}
-            onPress={() => {navigation.navigate("HouseDetails",{item:item.property})}}>Show Details</Text>
+            onPress={() => {navigation.navigate("HouseDetails",{item:item.property,userD})}}>Show Details</Text>
           
           <View style={{flexDirection:'row',marginTop:10,alignItems:'center',justifyContent:'space-between',marginRight:-80}}>
-            <Text style={{ color: '#2637C3',fontSize:18,marginTop:5 }}>{item.property.price}</Text>
-            <Button title='Book' color='#2637C3' containerStyle={{borderRadius:10,width:75,}}/>
+            <Text style={{ color: '#2637C3',fontSize:18,marginTop:5 }}>₹{item.property.price}</Text>
+            <Button title='Book' color='#2637C3' containerStyle={{borderRadius:10,width:75,}} onPress={()=> book(item=item.property,index)}/>
            </View>
             </View>
           </View>

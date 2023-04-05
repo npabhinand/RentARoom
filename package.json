@@ -16,10 +16,14 @@
     "@rneui/themed": "^4.0.0-rc.7",
     "@types/react-native-snap-carousel": "^3.8.5",
     "expo": "~47.0.12",
+    "expo-cli": "^6.3.2",
     "expo-image-picker": "~14.0.2",
+    "expo-location": "~15.0.1",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "firebase": "^8.10.1",
+    "link": "^1.5.1",
+    "paytm_allinone_react-native": "^1.1.1",
     "react": "18.1.0",
     "react-icons": "^4.7.1",
     "react-native": "0.70.5",
@@ -29,13 +33,15 @@
     "react-native-google-places-autocomplete": "^2.5.1",
     "react-native-image-picker": "^5.1.0",
     "react-native-material-dropdown": "^0.11.1",
+    "react-native-paytm": "^1.0.9",
+    "react-native-razorpay": "^2.3.0",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
     "react-native-select-dropdown": "^3.2.1",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-swiper": "^1.6.0-rc.3",
     "uri-scheme": "^1.1.0",
-    "expo-location": "~15.0.1"
+    "expo-dev-client": "~2.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

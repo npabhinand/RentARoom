@@ -104,8 +104,7 @@ export default function LatestHomeCards(props) {
     }
     setIsUpdated(true);
   };
-  console.log(data)
-
+ 
   return (
     <View style={{ flexDirection: "row" }}>
       {/* {data.slice(0, 5).map((item, index) => ( */}
@@ -122,7 +121,7 @@ export default function LatestHomeCards(props) {
             key={index}
           >
             <TouchableOpacity
-              onPress={() => navigation.navigate("HouseDetails", { item })}
+              onPress={() => navigation.navigate("HouseDetails", { item,userD })}
             >
             {/* {item.Images.map((image, ) => ( */}
               <Image
@@ -140,7 +139,7 @@ export default function LatestHomeCards(props) {
               <View
                 style={{
                   position: "absolute",
-                  right: 2,
+                  right: -1,
                   
                 }}
               >
