@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import {auth,db}from '../firebase'
-import firebase from 'firebase/app';
-import 'firebase/database';
 import { SelectList } from 'react-native-dropdown-select-list'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // import RNPickerSelect from 'react-native-picker-select';
 
 const SignUp = ({navigation}) => {
@@ -63,12 +61,13 @@ const SignUp = ({navigation}) => {
   return (
     
     <View style={styles.container}>
+    <ScrollView>
     <Text style={styles.head}>Sign Up</Text>
     <SelectList 
         setSelected={(val) => setSelected(val)} 
         data={data} 
         save="value"
-        boxStyles={styles.list}
+        boxStyles={{marginBottom:10,width:}}
         dropdownStyles={{height:100}}
         onSelect={() => alert(selected)}
         search={false} 
@@ -127,57 +126,79 @@ const SignUp = ({navigation}) => {
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // flex: 1,
+    height:'100%',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    alignItems: "center",
   },
   head:{ 
     textAlign:'center',
-    fontSize:20,
+    fontSize:25,
     padding: 10,
     fontSize:25
   },
   input: {
-    width: 300,
+    width: '95%',
     height: 50,
     padding: 10,
     borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 10,
-    borderRadius: 10,
-  },
+    borderColor: "black",
+    borderRadius: 5,
+    marginBottom:15,
+    borderColor:'#16C72E',
+    alignSelf:'center'
+  },inputView:{
+    position:'relative',
+    marginTop:20,
+}, image:{
+  width:350,
+  height:200
+},
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: "#038E47",
     padding: 5,
-    marginTop: 10,
-    width: 300,
+    marginTop: 30,
+    width: 350,
     height: 50,
-    alignItems: 'center',
+    alignSelf: "center",
     borderRadius: 10,
-    justifyContent:'center',
-    
+    justifyContent: "center",
+    marginBottom:10,
+    borderRadius:30
   },
   buttonText: {
-    color: 'white',
-    width: 200, 
-    height: 20,  
+    color: "white",
+    // width: 200,
+    height: 20,
     fontSize: 15,
-     textAlign:'center'
+    fontWeight:'500',
+    textAlign: "center",
   },
-  list:{
-    width: 300,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 10,
-    borderRadius: 10,
-  }
+  signup:{
+    position:'absolute',
+   backgroundColor:'#E4E4E4',
+   width:'100%',
+   marginTop:200,
+   alignItems:'center',
+   borderTopLeftRadius:40,
+   borderTopRightRadius:40,
+   marginTop:50
+   
+  },text:{
+    textAlign:'right',
+    marginBottom:5,
+    color:'#16C72E',
+    marginTop:10,marginRight:50
+  },
 });
-
 export default SignUp;
