@@ -2,7 +2,6 @@ import { Card,Tab,TabView } from "@rneui/base";
 import React, { Component } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import Transactions from "./Transactions";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Dues() {
     const [index, setIndex] = React.useState(0);
 

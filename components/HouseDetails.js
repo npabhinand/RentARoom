@@ -13,10 +13,8 @@ import * as Location from "expo-location";
 
 import { Card, Avatar, Rating, Icon } from "react-native-elements";
 import Swiper from "react-native-swiper";
-import firebase from "firebase/app";
-import "firebase/database";
+import {db,firebase}from '../firebase'
 // import {useRoute} from '@react-navigation/native'
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function HouseDetails({ route, navigation }) {
 
@@ -24,7 +22,7 @@ export default function HouseDetails({ route, navigation }) {
   console.log(userD);
 
 useEffect(() => {
-  const db = firebase.firestore();
+
   db.collection("feedbacks").where("propertyId", "==", item.propertyId)
     .get()
     .then((querySnapshot) => {
@@ -92,7 +90,7 @@ useEffect(() => {
     };
 
     try {
-      const db = firebase.firestore();
+      
       const response = await db.collection("booking").add(formData);
       console.log("Form data submitted successfully:", response);
       ToastAndroid.show('Property is booked successfully', ToastAndroid.SHORT);

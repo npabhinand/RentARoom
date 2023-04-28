@@ -1,83 +1,53 @@
+import React, { useState, useEffect } from "react";
+import { auth, db } from "../firebase"; // Import Firebase auth and database
+import { View, Text, TextInput, TouchableOpacity,StyleSheet,SafeAreaView,Image,Alert, ScrollView } from "react-native";
 
-import { useEffect, useState } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  SafeAreaView,
-  Image,Button
-} from "react-native";
-import { Card } from "@rneui/base";
-import { auth, db } from "../firebase";
-import firebase from "firebase/app";
-import "firebase/database";
-
-export default function Login({ navigation }) {
+export default function LoginScreen({ navigation, }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in, redirect according to user type
-        console.log(user);
-        const userType = user.metadata.userType;
-
-        db.collection("users")
-          .where("email", "==", user.email)
-          .get()
-          .then((querySnapshot) => {
-            if (!querySnapshot.empty) {
-              const userD = querySnapshot.docs[0].data();
-              console.log(userD.userType);
-
-              if (userD.userType == "house owner") {
-                console.log("true", userD.userType);
-
-                navigation.navigate("OwnerHome",{userD});
-              } else 
-              {
-                console.log("true1", userD.userType);
-                navigation.navigate("HomeScreen",{userD});
-              }
-            }
-          })
-          .catch((err) => console.log(err));
-      }
-    });
-
-    return unsubscribe;
-  }, []);
-
   const handleLogin = async() => {
-    // clg
-    console.log(email, password);
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      const user =auth.currentUser;
+      console.log('login---');
+      db.collection("users")
+        .where("email", "==", user.email)
+        .get()
+        .then((querySnapshot) => {
+          if (!querySnapshot.empty) {
+            const userD = querySnapshot.docs[0].data();
+            console.log(userD.userType);
+  
+            if (userD.userType == "students") {
+              console.log(userD, "userD PASSED")
+              navigation.navigate("HomeScreen",{userD});
+            } else 
+            {
+              console.log("true1", userD.userType);
+              navigation.navigate("OwnerHome",{userD});
+            }
+          }
+        })
+        .catch((err) => console.log(err));
+    }catch(error){
+      Alert.alert(error.message);
+    };
+  }
 
-    // your signup logic here
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((UserCredentials) => {
-        const user = UserCredentials.user;
-        console.log("login Successfully");
-
-        // navigation.navigate("HomeScreen");
-      })
-      .catch((error) => alert(error.message));
-  };
   // const togglePasswordVisibility = () => {
   //   setShowPassword(prevState => !prevState);
   // };
 
   return (
     <SafeAreaView style={styles.container}>
+     <ScrollView>
     <View >
+ 
       <Image source={require('./assets/download.jpeg')} style={styles.image}/>
     </View>
-    <Card containerStyle={styles.login}>
+  
       <Text style={styles.head}>Login to your account</Text>
       
      <View style={{backgroundColor:'#FFFFFF', borderTopLeftRadius:40,
@@ -118,8 +88,9 @@ export default function Login({ navigation }) {
         <Text style={styles.text} onPress={()=>navigation.navigate("SignUp")}>  Register</Text>
        
       </View>
+     
       </View>
-      </Card>
+      </ScrollView>
     </SafeAreaView>
   );
 }

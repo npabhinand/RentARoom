@@ -66,12 +66,12 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
-buildscript {
-  ext {
-        ....
-        kotlinVersion = "1.6.0"
-        .....
-  }
-}
+// buildscript {
+//   ext {
+//         ....
+//         kotlinVersion = "1.6.0"
+//         .....
+//   }
+// }
 
 

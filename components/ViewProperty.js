@@ -1,15 +1,13 @@
-import { View, Text ,SafeAreaView,TouchableOpacity,Image,navigation, ScrollView} from 'react-native'
-import { Card, ListItem, Button, Icon, Avatar } from "@rneui/themed";
+import { View, Text ,SafeAreaView,TouchableOpacity,Image, ScrollView} from 'react-native'
+import { Card,  Button, Icon, Avatar } from "@rneui/themed";
 import React,{useState,useEffect} from 'react'
-import { collection, query, where, getDocs } from "firebase/firestore";
-import firebase from 'firebase/app';
-import 'firebase/database';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {db,firebase}from '../firebase'
+
 const ViewProperty = ({navigation,route}) => {
   const {userD }=route.params;
   const [data,setData]=useState([]);
   useEffect (()=>{
-    const db = firebase.firestore();
+    
     db.collection("property").where("OwnerId", "==", userD.email)
     .get()
     .then((querySnapshot) => {

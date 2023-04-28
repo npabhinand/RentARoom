@@ -9,7 +9,6 @@ import {
   } from "react-native";
   import React, {  useState } from "react";
   import HostelCards from "./HostelCards";
-  import AsyncStorage from '@react-native-async-storage/async-storage';
   export default function HostelPage({ navigation, route }) {
     
     const [searchText, setSearchText] = useState("");

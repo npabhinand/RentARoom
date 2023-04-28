@@ -8,10 +8,7 @@ import {
   import { Card, ListItem, Button, Icon, Avatar } from "react-native-elements";
   import { useNavigation } from "@react-navigation/native";
   import { useState,useEffect } from "react";
-  import firebase from 'firebase/app';
-  import 'firebase/database';
-  import AsyncStorage from '@react-native-async-storage/async-storage';
-  
+  import {db}from '../firebase'
   
   export default function HouseCards(props) {
     const navigation = useNavigation();
@@ -19,7 +16,7 @@ import {
     const [data, setData] = useState([]);
   userD.email
     useEffect(() => {
-      const db = firebase.firestore();
+    
       const collectionRef = db.collection('property').where("type","==","Hostel");
       collectionRef.get().then((querySnapshot) => {
         const dataArray = [];
@@ -35,7 +32,7 @@ import {
       });
   
       const userId = userD.email;
-      const wishlistRef = firebase.firestore().collection("wishlist");
+      const wishlistRef = db.collection("wishlist");
       wishlistRef.where("userId", "==", userId).get().then((querySnapshot) => {
         const wishlistItems = querySnapshot.docs.map((doc) => doc.data().propertyId);
         setData((prevData) =>
@@ -53,7 +50,7 @@ import {
   
     const handleWishlist = (propertyId, index) => {
       const userId = userD.email;
-      const wishlistRef = firebase.firestore().collection("wishlist");
+      const wishlistRef = db.collection("wishlist");
   
       const item = data[index];
       const isWishlisted = !item.isWishlisted;

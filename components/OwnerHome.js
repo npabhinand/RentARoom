@@ -1,7 +1,6 @@
 import { TouchableOpacity, Text, View, Image, Navigation } from "react-native";
 import { Avatar, ListItem, Button } from "@rneui/themed";
 import { Card } from "react-native-elements";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import { plus } from "react-icons/fa";
 // import HomeScreen from './HomeScreen';

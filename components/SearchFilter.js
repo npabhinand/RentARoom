@@ -1,6 +1,6 @@
 import { View, Text, FlatList } from 'react-native'
 import React from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const SearchFilter = (data,input,setInput) => {
   return (
     <View>

@@ -1,7 +1,6 @@
 import { TouchableOpacity,Text,View,Image,Navigation} from 'react-native';
 import back from "./assets/back.png";
 import { Avatar,ListItem ,Button,Card } from '@rneui/themed';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
 import { useEffect,useState } from 'react';
 import {  db } from "../firebase";

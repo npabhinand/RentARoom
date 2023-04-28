@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Card, ListItem, Button, Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import firebase from "firebase/app";
-import "firebase/database";
+import {db,firebase}from '../firebase'
 
 export default function LatestHomeCards(props) {
   const userD = props.userD;
+  console.log(userD,"dddddddddddddd")
   const [isUpdated, setIsUpdated] = useState(false);
   const navigation = useNavigation();
 
@@ -14,7 +14,7 @@ export default function LatestHomeCards(props) {
   const [color, setColor] = useState("white");
 
   useEffect(() => {
-    const db = firebase.firestore();
+  
     const collectionRef = db.collection("property");
     collectionRef
       .get()
@@ -33,7 +33,7 @@ export default function LatestHomeCards(props) {
       });
 
     const userId = userD.email;
-    const wishlistRef = firebase.firestore().collection("wishlist");
+    const wishlistRef = db.collection("wishlist");
     wishlistRef
       .where("userId", "==", userId)
       .get()
@@ -55,7 +55,7 @@ export default function LatestHomeCards(props) {
 
   const handleWishlist = (propertyId, index) => {
     const userId = userD.email;
-    const wishlistRef = firebase.firestore().collection("wishlist");
+    const wishlistRef = db.collection("wishlist");
 
     const item = data[index];
     const isWishlisted = !item.isWishlisted;

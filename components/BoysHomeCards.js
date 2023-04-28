@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Card,  Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import firebase from "firebase/app";
-import "firebase/database";
+import { db,  } from "../firebase";
 
 export default function BoysHomeCards(props) {
   const userD = props.userD;
@@ -14,7 +13,6 @@ export default function BoysHomeCards(props) {
   const [color, setColor] = useState("white");
 
   useEffect(() => {
-    const db = firebase.firestore();
     const collectionRef = db
       .collection("property")
       .where("gender", "==", "Boys");
@@ -35,7 +33,7 @@ export default function BoysHomeCards(props) {
       });
 
     const userId = userD.email;
-    const wishlistRef = firebase.firestore().collection("wishlist");
+    const wishlistRef = db.collection("wishlist");
     wishlistRef
       .where("userId", "==", userId)
       .get()
@@ -57,7 +55,7 @@ export default function BoysHomeCards(props) {
 
   const handleWishlist = (propertyId, index) => {
     const userId = userD.email;
-    const wishlistRef = firebase.firestore().collection("wishlist");
+    const wishlistRef = db.collection("wishlist");
 
     const item = data[index];
     const isWishlisted = !item.isWishlisted;

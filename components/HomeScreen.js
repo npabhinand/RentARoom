@@ -27,15 +27,13 @@ import Home from "./Home";
 import Wishlist from "./Wishlist"
 import { auth } from "../firebase";
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
 export default function HomeScreen({navigation,route}) {
 
 
 
 
-  const {userD }=route.params;
+  const {userD}=route.params;
+  console.log(userD,"success")
   const [currentTab, setCurrentTab] = useState("Home");
   // To get the curretn Status of menu ...
   const [showMenu, setShowMenu] = useState(false);

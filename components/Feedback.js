@@ -1,8 +1,7 @@
 import { View, Text, TouchableOpacity, TextInput,ToastAndroid } from "react-native";
 import React, { useState } from "react";
 import {  Rating,} from "react-native-elements";
-import firebase from "firebase/app";
-import "firebase/database";
+import {db,}from '../firebase'
 
 
 const Feedback = ({navigation,route}) => {
@@ -21,7 +20,7 @@ const Feedback = ({navigation,route}) => {
       rating:rate
     };
     try {
-      const db = firebase.firestore();
+    
       const response = await db.collection("feedbacks").add(formData);
       console.log("Form data submitted successfully:", response);
       ToastAndroid.show('Feedback successfully', ToastAndroid.SHORT);

@@ -19,12 +19,11 @@ import {
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { db, auth } from "../firebase";
-import firebase from "firebase/app";
-import "firebase/storage";
-const storage = firebase.storage();
-const storageRef = storage.ref();
+import firebase from "firebase/compat/app";
+import 'firebase/compat/storage';
+const storageRef = firebase.storage().ref();
+// var storageRef = storage.ref();
 import * as Location from "expo-location";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
@@ -114,7 +113,6 @@ const AddProperty = ({ navigation, route }) => {
     }
 
     try {
-      const db = firebase.firestore();
 
       const response = await db.collection("property").add(formData);
       console.log("Form data submitted successfully:", response);

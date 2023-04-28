@@ -13,8 +13,6 @@ import GirlsHomeCards from "./GirlsHomeCards";
 // import {use} from '@react-navigation/native-stack'
 import { useNavigation } from "@react-navigation/native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 export default function Home(props) {
   const navigation = useNavigation();
   const userD = props.userD;

@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import React, {  useState } from "react";
 import HouseCards from "./HouseCards";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function MainPage({ navigation, route }) {
   
   const [searchText, setSearchText] = useState("");

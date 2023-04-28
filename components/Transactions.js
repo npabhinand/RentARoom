@@ -2,7 +2,6 @@ import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 import { Avatar, Card } from '@rneui/base'
 // import Dues from './Dues'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Transactions()  {
     return (
       <View>

@@ -1,21 +1,12 @@
 import { Text,View} from 'react-native';
 import back from "./assets/back.png";
 import { Avatar,Button,Card } from '@rneui/themed';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect ,useState} from 'react';
 import {  db } from "../firebase";
 import { ToastAndroid } from 'react-native';
 
 
 export default function Applications({navigation,route}){
-
-  // 
-  
-  // 
-
-
-
-  // 
   const {userD }=route.params;
   const ownerId=userD.email
   const [data, setData] = useState([]);

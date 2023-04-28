@@ -1,14 +1,9 @@
 import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity,Image } from 'react-native';
 import { Avatar, ListItem, Button,ButtonGroup,Slider,Icon } from "@rneui/themed";
 import React, {useState,useEffect} from 'react';
-import SelectDropdown from 'react-native-select-dropdown'
 import * as ImagePicker from 'expo-image-picker'
-import {db,auth}from '../firebase'
-import firebase from 'firebase/app';
-import 'firebase/storage';
-const storage = firebase.storage();
-const storageRef = storage.ref();
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {db,auth,firebase}from '../firebase'
+
 
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
@@ -58,7 +53,7 @@ const interpolate = (start, end) => {
             
             // Images:picture,
             useEffect(() => {
-              const db = firebase.firestore();
+             
               const userRef = db.collection('property').doc(propertyId);
               userRef.get().then((doc) => {
                 const data = doc.data();
@@ -81,7 +76,7 @@ const interpolate = (start, end) => {
             }, [isUpdated]); ;
             
             const handleUpdate = async () => {
-              const db = firebase.firestore();
+      
               const userRef = db.collection('property').doc(propertyId);
               await userRef.update({
                 houseName: houseName,
@@ -437,7 +432,6 @@ const styles = StyleSheet.create({
       ImageConatiner:{
             marginTop:20,
             marginBottom:20,
-
       },
       uploadButton: {
         backgroundColor:'#e5e5fe',

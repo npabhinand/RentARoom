@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, ToastAndroid, ScrollView  } from 'react-native';
 import { Card,Button } from 'react-native-elements';
-import {  db } from "../firebase";
 import { Avatar } from '@rneui/base';
 import { useNavigation } from "@react-navigation/native";
-import firebase from "firebase/app";
+import {db} from '../firebase'
+
 
 const Wishlist = (props) => {
   const userD=props.userD
@@ -69,7 +69,7 @@ const Wishlist = (props) => {
       };
   
       try {
-        const db = firebase.firestore();
+        
         const response = await db.collection("booking").add(formData);
         console.log("Form data submitted successfully:", response);
         ToastAndroid.show('Property is booked successfully', ToastAndroid.SHORT);
