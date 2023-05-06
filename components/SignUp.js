@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView ,ToastAndroid} from 'react-native';
 import {auth,db}from '../firebase'
-import { SelectList } from 'react-native-dropdown-select-list'
-
+import { RadioButton } from 'react-native-paper';
 // import RNPickerSelect from 'react-native-picker-select';
 
 const SignUp = ({navigation}) => {
@@ -12,13 +11,9 @@ const SignUp = ({navigation}) => {
   const [place, setPlace] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [selected, setSelected] = React.useState("");
+  const [checked, setChecked] = React.useState('first');
   
-  const data = [
-      {key:'1', value:'students'},
-      {key:'2', value:'house owner'},
-      
-  ]
+ 
   
   
   const handleSignUp = async() => {
@@ -28,13 +23,14 @@ const SignUp = ({navigation}) => {
       const user=userCredentials.user;
       console.log(user.email)
           db.collection('users').add({
-      userType: selected,
+      userType: checked,
       email: email,
       phone: phone,
       place: place,
       name: name
     }).then(doc=>console.log(doc)).catch(err=>console.log(err))
-    // navigation.navigate("OwnerHome");
+    ToastAndroid.show("SignUp successfully", ToastAndroid.SHORT);
+    navigation.navigate("Login");
     })
     .catch(error=>alert(error.message))
     // your signup logic here
@@ -63,16 +59,18 @@ const SignUp = ({navigation}) => {
     <View style={styles.container}>
     <ScrollView>
     <Text style={styles.head}>Sign Up</Text>
-    <SelectList 
-        setSelected={(val) => setSelected(val)} 
-        data={data} 
-        save="value"
-        boxStyles={{marginBottom:10,width:}}
-        dropdownStyles={{height:100}}
-        onSelect={() => alert(selected)}
-        search={false} 
-        placeholder= "UserType"
-    />
+    <View style={{flexDirection:'row',alignItems:'center',padding:10}}>
+      <RadioButton
+        value="house owner"
+        status={ checked === 'house owner' ? 'checked' : 'unchecked' }
+        onPress={() => setChecked('house owner')}
+      /><Text style={{marginRight:20,fontSize:18}}>House Owner</Text>
+      <RadioButton
+        value="students"
+        status={ checked === 'students' ? 'checked' : 'unchecked' }
+        onPress={() => setChecked('students')}
+      /><Text style={{marginRight:20,fontSize:18}}>Student</Text>
+    </View>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -116,16 +114,17 @@ const SignUp = ({navigation}) => {
         onChangeText={setConfirmPassword}
         secureTextEntry
       />
-      <Text
-
-      style={{alignItems:"center"}}
-      onPress={()=>navigation.navigate("Login")}
-      >
-        Already an user?
-      </Text>
+      
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
+      <View style={{flexDirection:'row',alignContent:'center'}}>
+        <Text style={{  marginTop:20,marginLeft:100 }} >
+          Don't have an account ? 
+        </Text>
+        <Text style={styles.text} onPress={()=>navigation.navigate("SignUp")}>  Register</Text>
+       
+      </View>
       </ScrollView>
     </View>
   );
@@ -133,7 +132,7 @@ const SignUp = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     height:'100%',
     // alignItems: 'center',
     // justifyContent: 'center',
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#038E47",
     padding: 5,
-    marginTop: 30,
+    marginTop: 20,
     width: 350,
     height: 50,
     alignSelf: "center",

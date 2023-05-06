@@ -23,6 +23,7 @@ import Inmates from './components/Inmates'
 import Dues from './components/Dues';
 import StudentDetails from './components/StudentDetails';
 import Feedback from './components/Feedback';
+import RoomPage from './components/RoomPage'
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -74,6 +75,7 @@ export default function App() {
        <Stack.Screen name='OwnerHome' component={OwnerHome}/>
       <Stack.Screen name='MainPage' component={MainPage}/>
        <Stack.Screen name='HousePage' component={HousePage}/>
+       <Stack.Screen name='RoomPage' component={RoomPage}/>
        <Stack.Screen name='HostelPage' component={HostelPage}/>
      <Stack.Screen name="HouseDetails"  component={HouseDetails} 
      options={{headerShown: false}}    />

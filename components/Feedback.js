@@ -17,13 +17,15 @@ const Feedback = ({navigation,route}) => {
       studentId: userD.email,
       studentName:userD.name,
       feedback: feedback,
-      rating:rate
+      rating:rate,
+   
     };
     try {
     
       const response = await db.collection("feedbacks").add(formData);
       console.log("Form data submitted successfully:", response);
       ToastAndroid.show('Feedback successfully', ToastAndroid.SHORT);
+      navigation.navigate("HouseDetails",{userD:userD,item:item});
     } 
     catch (error) {
       console.log("Error submitting form data:", error);

@@ -66,7 +66,9 @@ export default function Home(props) {
               <Text style={{ textAlign: "center" }}>House</Text>
             </Card>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+              navigation.navigate("RoomPage", { userD: userD });
+            }}>
             <Card containerStyle={{ borderWidth: 0, shadowColor: "white" }}>
               <Card.Image
                 source={require("./assets/download.jpeg")}

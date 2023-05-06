@@ -87,6 +87,7 @@ useEffect(() => {
       propertyId: item.propertyId,
       status: "pending",
       houseName: item.houseName,
+      
     };
 
     try {
@@ -325,11 +326,11 @@ useEffect(() => {
             <Text style={{ fontSize: 20, marginTop: 10,height:50,borderBottomWidth:.2}}>View Feedback</Text>
             {data &&
         data.map((rating, index) => (
-                  <View key={index} style={{marginTop:20,borderWidth:1,borderRadius:10}}>
-                  <Text>{rating.studentName}</Text>
+                  <Card key={index} containerStyle={{marginTop:20,borderRadius:10,backgroundColor:'#f6f6f6'}}>
+                  <Text style={{marginBottom:10}}>{rating.studentName}</Text>
                     <Rating startingValue={rating.rating} readonly imageSize={20} style={{alignSelf:'flex-start'}}></Rating>
                     <Text  style={{  marginTop: 10 }}>{rating.feedback}</Text>
-                  </View>
+                  </Card>
                         ))}
 
             <TouchableOpacity onPress={() => navigation.navigate("Feedback",{item,userD})} style={{backgroundColor:'#52A9E3',height:50,

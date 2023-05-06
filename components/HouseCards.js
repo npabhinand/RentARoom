@@ -4,6 +4,7 @@ import {
   Image,
   SafeAreaView,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
 import { Card, ListItem, Button, Icon, Avatar } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
@@ -88,6 +89,26 @@ userD.email
     }
   
   }
+  const book = async (item) => {
+    const formData = {
+      studentId: userD.email,
+      ownerId: item.OwnerId,
+      propertyId: item.propertyId,
+      status: "pending",
+      houseName: item.houseName,
+      
+    };
+
+    try {
+      
+      const response = await db.collection("booking").add(formData);
+      console.log("Form data submitted successfully:", response);
+      ToastAndroid.show('Property is booked successfully', ToastAndroid.SHORT);
+    } catch (error) {
+      console.log("Error submitting form data:", error);
+      // ToastAndroid.show('Property is removed from wishlist', ToastAndroid.SHORT);
+    }
+  };
 
 
   return (

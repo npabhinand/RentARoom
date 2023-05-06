@@ -6,7 +6,6 @@ import {db,firebase}from '../firebase'
 
 export default function LatestHomeCards(props) {
   const userD = props.userD;
-  console.log(userD,"dddddddddddddd")
   const [isUpdated, setIsUpdated] = useState(false);
   const navigation = useNavigation();
 
