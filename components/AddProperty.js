@@ -65,12 +65,11 @@ const AddProperty = ({ navigation, route }) => {
     let k = (value - 0) / 10; // 0 =>min  && 10 => MAX
     return Math.ceil((1 - k) * start + k * end) % 256;
   };
-
+  
   const [value, setValue] = useState(0);
   const [vertValue, setVertValue] = useState(0);
   const [isImagesSelected, setIsImagesSelected] = useState(false);
   const [imageResult, setImageResult] = useState("");
-
   const handleSubmit = async () => {
     const formData = {
       houseName: houseName,
@@ -89,31 +88,30 @@ const AddProperty = ({ navigation, route }) => {
       OwnerId: userD.email,
       status: "Available",
     };
+    
     if (isImagesSelected) {
-      imageResult.assets.forEach(async function (image) {
-        const uri = image.uri;
-        const filename = uri.substring(uri.lastIndexOf("/") + 1);
-        const uploadUri =
-          Platform.OS === "ios" ? uri.replace("file://", "") : uri;
-        const response = await fetch(uploadUri);
-        const blob = await response.blob();
-        const ref = storageRef.child(filename);
-        try {
+      try {
+        for (let image of imageResult.assets) {
+          const uri = image.uri;
+          const filename = uri.substring(uri.lastIndexOf("/") + 1);
+          const uploadUri =
+            Platform.OS === "ios" ? uri.replace("file://", "") : uri;
+          const response = await fetch(uploadUri);
+          const blob = await response.blob();
+          const ref = storageRef.child(filename);
           await ref.put(blob);
           console.log("Image uploaded successfully!");
           const url = await ref.getDownloadURL();
-          console.log(url);
           setPicture((pictures) => [...pictures, url]);
-        } catch (error) {
-          console.log(error);
         }
-      });
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       console.log("images not selected.");
     }
-
+  
     try {
-
       const response = await db.collection("property").add(formData);
       console.log("Form data submitted successfully:", response);
       ToastAndroid.show("Property added successfully", ToastAndroid.SHORT);
@@ -121,14 +119,14 @@ const AddProperty = ({ navigation, route }) => {
       console.log("Error submitting form data:", error);
     }
   };
-
+  
   const color = () => {
-    //   let r = interpolate(255, 0);
-    //   let g = interpolate(0, 255);
-    //   let b = interpolate(0, 0);
-    //   return `rgb(${r},${g},${b})`;
+    // let r = interpolate(255, 0);
+    // let g = interpolate(0, 255);
+    // let b = interpolate(0, 0);
+    // return `rgb(${r},${g},${b})`;
   };
-
+  
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -140,12 +138,13 @@ const AddProperty = ({ navigation, route }) => {
     setIsImagesSelected(!result.canceled);
     setImageResult(result);
   };
+  
   const [imageList, setImageList] = useState([]);
-
+  
   const addImage = (uri) => {
     setImageList([...imageList, uri]);
   };
-
+  
   return (
     <View style={styles.container}>
       <ScrollView>

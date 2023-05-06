@@ -169,7 +169,7 @@ userD.email
             onPress={() => navigation.navigate("HouseDetails",{item:item, userD: userD})}>Show Details</Text>
           
           <View style={{flexDirection:'row',marginTop:10,alignItems:'center',justifyContent:'space-between',}}>
-            <Text style={{ color: '#2637C3',fontSize:18,marginTop:5 }}>₹{item.price}</Text>
+            <Text style={{ color: '#2637C3',fontSize:18,marginTop:5 }}>₹{item.price}  </Text>
             <Button title='Book' color='#2637C3' containerStyle={{borderRadius:10,width:75,}} onPress={()=> book(item=item,index)}/>
            </View>
             </View>
