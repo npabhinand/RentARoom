@@ -68,7 +68,7 @@ export default function OwnerHome({ navigation,route }) {
             backgroundColor: "#e5e5fe",
           }} 
         >
-        <TouchableOpacity onPress={()=>navigation.navigate("Inmates")}>
+        <TouchableOpacity onPress={()=>navigation.navigate("Inmates",{userD})}>
           <Avatar rounded source={require("./assets/total.png")} />
           <Card.Divider />
           <Text style={{fontSize:15,padding:10,fontFamily:'serif',justifyContent:'center'}}>Inmates</Text>

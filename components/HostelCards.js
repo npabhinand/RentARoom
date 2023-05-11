@@ -4,6 +4,7 @@ import {
   Image,
   SafeAreaView,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
 import { Card, ListItem, Button, Icon, Avatar } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
@@ -105,7 +106,7 @@ userD.email
       ToastAndroid.show('Property is booked successfully', ToastAndroid.SHORT);
     } catch (error) {
       console.log("Error submitting form data:", error);
-      // ToastAndroid.show('Property is removed from wishlist', ToastAndroid.SHORT);
+      ToastAndroid.show('Property is not booked', ToastAndroid.SHORT);
     }
   };
 

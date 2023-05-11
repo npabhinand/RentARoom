@@ -32,7 +32,7 @@ const ViewProperty = ({navigation,route}) => {
       <SafeAreaView style={{alignItems:'center'}}>
       <ScrollView>
       {data && data.map((item, index) => (
-      <Card key={index} containerStyle={{ width: "95%", height: 185, borderRadius: 10 ,marginLeft:-.5}}>
+      <Card key={index} containerStyle={{ width: "95%", height: 175, borderRadius: 10 ,marginLeft:-.5}}>
       
           <View style={{ flexDirection: "row" }}>
             <Image
@@ -40,7 +40,7 @@ const ViewProperty = ({navigation,route}) => {
               resizeMode="cover"
               style={{
                 width: "50%",
-                height: 185,
+                height: 175,
                 marginLeft: -15,
                 marginTop: -15,
                 borderTopLeftRadius: 10,
@@ -58,8 +58,8 @@ const ViewProperty = ({navigation,route}) => {
             </View>
             <View style={{ marginLeft: 10,marginBottom:10  }}>
               <Text style={{ fontSize:20,fontWeight:'500'}}>{item.houseName} </Text>
-              <Text>Accomodation For: {item.gender}</Text>
-              <Text>Property Type: {item.type}</Text>
+              <Text>{item.gender}</Text>
+              <Text>{item.type}</Text>
               {/* <View style={{ flexDirection: "row" }}>
                 <Text>Rating: </Text>
                 <Icon
@@ -69,7 +69,6 @@ const ViewProperty = ({navigation,route}) => {
                 />
                 <Text> 4.5</Text>
               </View> */}
-              <Text onPress={()=>navigation.navigate("HouseDetails",{item})}>Show Details</Text>
               <Text>price: {item.price}</Text>
               <View>
                 <View style={{ flexDirection: "row",marginTop:10,}}>

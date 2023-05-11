@@ -16,8 +16,8 @@ if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true")
   project(":ReactAndroid:hermes-engine").projectDir = new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), "../ReactAndroid/hermes-engine");
 }
 
-include ':react-native-payu'
-project(':react-native-payu').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-payu/android')
+// include ':react-native-payu'
+// project(':react-native-payu').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-payu/android')
 
-include ':react-native-upi-pay'
-project(':react-native-upi-pay').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-upi-pay/android')
+// include ':react-native-upi-pay'
+// project(':react-native-upi-pay').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-upi-pay/android')

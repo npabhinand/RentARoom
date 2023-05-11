@@ -1,5 +1,5 @@
 package com.npabinand.RentARoom;
-import com.reactlibrary.RNPayUPackage;
+// import com.reactlibrary.RNPayUPackage;
 import android.os.Build;
 import android.os.Bundle;
 

@@ -1,23 +1,41 @@
-import { View, Text, Linking} from 'react-native'
-import React from 'react'
+import { View, Text, Linking,Alert,ToastAndroid} from 'react-native'
+import React, { useEffect } from 'react'
 import {Card ,CheckBox,Button ,} from '@rneui/themed';
-// import AllInOneSDKManager from 'paytm_allinone_react-native';
-import { NativeModules } from 'react-native';
-import { StripeProvider, useStripe} from '@stripe/stripe-react-native';
+import {db} from '../firebase'
+
+
+import { PlatformPay, StripeProvider, useStripe} from '@stripe/stripe-react-native';
 import {PlatformPayButton, usePlatformPay} from '@stripe/stripe-react-native';
-import RNUpiPayment from 'react-native-upi-payment'
+// import RNUpiPayment from 'react-native-upi-payment'
 const axios = require("axios")
 const PUB_KEY = "pk_test_51MyY9YSHEkK5jAchHNk8gBIVwXj2EOMg45f3ScjEkQrVcDcBrkeYcrrt5pm1zqETxjRp9u4zvf9AqfhilWvag3yX00mNpHsSmy"
+// const PUB_KEY = "pk_live_51MyY9YSHEkK5jAchVK6cJ3kD7KUqUwXSgSDhQlq2dk5YUZV9iZCWysvZAASI0R0fI2lKoWTCyF3OrVDJa6MIFRZz003ZJOYlwW"
+
+
 const SECRET = "sk_test_51MyY9YSHEkK5jAchvYr31SNm4XMeAwzEuJl2bzbKTnYeiedUJyYjoLpEJYK9UjqddrxDciIEPSOSX8NNhupSbZ4P00sBtXhhY5"
 
-
+import RazorpayCheckout from 'react-native-razorpay';
 const Payment = ({ navigation,route }) => {
-  // const { initPaymentSheet, presentPaymentSheet } = useStripe();
-//   const {
-//     isPlatformPaySupported,
-//     confirmPlatformPayPayment,
-//   } = usePlatformPay();
-// const { isPlatformPaySupported } = usePlatformPay({googlePay: true});
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+
+
+  const {
+    isPlatformPaySupported,
+    confirmPlatformPayPayment,
+  } = usePlatformPay();
+
+
+  useEffect(() => {
+    (async function () {
+      if (!(await isPlatformPaySupported({ googlePay: {testEnv: true} }))) {
+        Alert.alert('Google Pay is not supported.');
+        return;
+      }
+    })();
+  }, []);
+
+
+ 
 
   const {item} = route.params;
       console.log('-----',item)
@@ -60,20 +78,27 @@ const Payment = ({ navigation,route }) => {
             that.setState({message:data[Status]});
         }
     }
+
+
+
+
+
     const makePayment = async (index) => {
-      
+
 
 
       const initCustomerPayment = async (amount) => {
         console.log("Yes22", amount)
         const secret = null
-        const res = await axios.post("http://192.168.1.38:5000/intents/", {amount: amount}).catch((error) => console.log(error, "ER"))
+        const res = await axios.post("http://192.168.29.114:5000/intents/", {amount: amount,country:"IND"}).catch((error) => console.log(error, "ER"))
         return res.data.paymentIntent
       }
+
+
       console.log(index, "INdex")
       if(index == 0)
         {
-          const customerSecret = await initCustomerPayment(4005 * 100)
+          const customerSecret = await initCustomerPayment(1 * 100)
           if(customerSecret == null) {
             console.log("Failed to get customer secret")
             return
@@ -97,70 +122,36 @@ const Payment = ({ navigation,route }) => {
           );
           return;
         }
-        console.log("Payment Success")
+        console.log("Payment Success--")
+        // const updateRef = db.collection('property').doc(item.propertyId);
+        // try {
+        //   await updateRef.update({ status: 'booked' });
+        //   ToastAndroid.show('payment is successfull', ToastAndroid.SHORT);
+        // } catch (error) {
+        //   console.error('Error updating status: ', error);
+        // }
+        // const bookingRef = db.collection('booking').doc(item.bookId);
+        // try {
+        //   await bookingRef.update({ status: 'booked' });
+        //   console.log('Booking status updated to accepted');
+        //   ToastAndroid.show('Booking status updated to accepted', ToastAndroid.SHORT);
+        // } catch (error) {
+        //   console.error('Error updating booking status: ', error);
+        // }
+
       }
       else if(index == 1) {
         console.log("UPI Payment selected.")
-        const state={
-          Status:"", 
-          txnId:"",
-          GOOGLE_PAY:'GOOGLE_PAY',
-          PHONEPE:'PHONEPE',
-          PAYTM:'PAYTM',
-                message:""
-      }
-      var UPI = "upi://pay?pa=" + "7025665927@paytm" + "&pn=" + "Nelwin George"
-        +"&tid=" + "1564" + "&tr=" + "87767"
-        + "&tn=" + "Note" + "&am=" + "100" + "&cu=" + "INR"
-        + "&url=" + "www.google.com";
-      UPI =  UPI.replace(" ", "+");
-      console.log(UPI)
-      Linking.openURL(UPI)
-        // RNUpiPayment.initializePayment({                
-        //   vpa: '7025665927@paytm', // or can be john@ybl or mobileNo@upi                        
-        //   payeeName: 'Payee Name',                
-        //   amount: '1',                
-        //   transactionRef: '121313'},successCallback,failureCallback, state.GOOGLE_PAY);//declare the functions successCallback and failureCallback to handle the response from the UPI application.
         
-        
-        // const { isPlatformPaySupported } = usePlatformPay();
-        // const customerSecret = await initCustomerPayment(4005 * 100)
-        // if (!(await isPlatformPaySupported({ googlePay: {testEnv: true} }))) {
-        //   Alert.alert('Google Pay is not supported.');
-        //   return;
-        // }
 
-      //   const { error } = await confirmPlatformPayPayment(
-      //     clientSecret,
-      //     {
-      //       googlePay: {
-      //         testEnv: true,
-      //         merchantName: 'RentARoom',
-      //         merchantCountryCode: 'IN',
-      //         currencyCode: 'INR',
-      //         billingAddressConfig: {
-      //           format: PlatformPay.BillingAddressFormat.Full,
-      //           isPhoneNumberRequired: true,
-      //           isRequired: true,
-      //         },
-      //       },
-      //     });
-        
-      //     if(error) {
-      //       Alert.alert(error.code, error.message);
-      //       // Update UI to prompt user to retry payment (and possibly another payment method)
-      //       return;
-      //     }
-        
-      //   Alert.alert('Success', 'The payment was confirmed successfully.');
-          
-      // }
+  
     }
     } 
-  
+
   return (
-    
+
     <View containerStyle={{flex:1}}>
+
     <StripeProvider
       publishableKey={PUB_KEY} >
       <View>
@@ -189,12 +180,7 @@ const Payment = ({ navigation,route }) => {
         </View>
          <Card.Divider />
          <View style={{flexDirection:'row',alignItems:'center'}}>
-      <CheckBox
-           checked={selectedIndex === 1}
-           onPress={() => setIndex(1)}
-           checkedIcon="dot-circle-o"
-           uncheckedIcon="circle-o"
-         /><Text>UPI</Text>
+   
          </View>
       </Card>
       </View>
@@ -203,16 +189,152 @@ const Payment = ({ navigation,route }) => {
       <Text style={{fontFamily:'',fontSize:25,fontWeight:'600',marginTop:20,marginLeft:10}}>Total</Text>
       <Text style={{fontFamily:'',fontSize:25,fontWeight:'bold',marginTop:20,marginLeft:10}}> ₹15000</Text>
     </View>
+         <Button 
+         
+         buttonStyle={{height:50,width:'95%',marginTop:20,marginLeft:10,borderRadius:10}}
+         onPress={() => {
 
-    
+
+        var options = {
+          description: 'Pay rent',
+          image: 'https://i.imgur.com/3g7nmJC.png',
+          currency: 'INR',
+          key: 'rzp_test_khUmCYzgRhD0o3', // Your api key
+          amount: 50*100,
+          name: item.owner.name,
+          prefill: {
+            email: 'contact@rentaroom.com',
+            contact: '9191919191',
+            name: 'RentAroom'
+          },
+          theme: { color: '#F37254' }
+        }
+        RazorpayCheckout.open(options).then((data) => {
+          
+
+          // const updateRef = db.collection('property').doc(item.propertyId);
+        // try {
+        //   await updateRef.update({ status: 'booked' });
+        //   ToastAndroid.show('payment is successfull', ToastAndroid.SHORT);
+        // } catch (error) {
+        //   console.error('Error updating status: ', error);
+        // }
+        // const bookingRef = db.collection('booking').doc(item.bookId);
+        // try {
+        //   await bookingRef.update({ status: 'booked' });
+        //   console.log('Booking status updated to accepted');
+        //   ToastAndroid.show('Booking status updated to accepted', ToastAndroid.SHORT);
+        // } catch (error) {
+        //   console.error('Error updating booking status: ', error);
+        // }
+
+          alert(`Success: ${data.razorpay_payment_id}`);
+        }).catch((error) => {
+
+
+          // handle failure
+          console.log(error)
+          alert(`Error: ${error.code} | ${error.description}`);
+        });
+      }}>
+      <Text>Payment Now</Text>
+      </Button>
+
             <Button title="Proceed to payment" color="#4F9FA0" buttonStyle={{height:50,width:'95%',marginTop:20,marginLeft:10,borderRadius:10}}
             onPress={()=> makePayment(selectedIndex)}></Button>
     </StripeProvider>
     </View>
 
-    
-   
-    
+
+
+
   )
 }
 export default Payment
+
+// import React from 'react'
+// import { Card, CheckBox, Button, } from '@rneui/themed';
+// import {
+//   AppRegistry,
+//   StyleSheet,
+//   Text,
+//   View,
+//   TouchableHighlight,
+//   NativeModules,
+//   NativeEventEmitter
+  
+// } from 'react-native';
+// import RazorpayCheckout from 'react-native-razorpay';
+// import {db} from '../firebase'
+// const Payment = ({ navigation, route }) => {
+//   const { item } = route.params;
+//   console.log(item)
+//   return (
+//     <View>
+//       <Text>Payment</Text>
+
+//       <View>
+//         <Text style={{ marginBottom: 20, fontSize: 25, fontWeight: '600', marginTop: 20, marginLeft: 20 }}>Address</Text>
+//         <Card containerStyle={{ borderRadius: 20 }}> 
+//                <Text style={{ marginBottom: 20, fontSize: 15 }}>{item.owner.name}</Text>
+
+//           <Card.Divider /> 
+//           <Text style={{ marginBottom: 20,  fontSize: 15 }}>{item.houseName}</Text>
+//           <Card.Divider />
+//           <Text style={{ fontSize: 15 }}>9048407795</Text>
+//         </Card>
+
+//       </View>
+//       <Button onPress={() => {
+
+
+//         var options = {
+//           description: 'Credits towards consultation',
+//           image: 'https://i.imgur.com/3g7nmJC.png',
+//           currency: 'INR',
+//           key: 'rzp_test_khUmCYzgRhD0o3', // Your api key
+//           amount: 50*100,
+//           name: item.owner.name,
+//           prefill: {
+//             email: 'contact@rentaroom.com',
+//             contact: '9191919191',
+//             name: 'RentAroom'
+//           },
+//           theme: { color: '#F37254' }
+//         }
+//         RazorpayCheckout.open(options).then((data) => {
+          
+
+//           // const updateRef = db.collection('property').doc(item.propertyId);
+//         // try {
+//         //   await updateRef.update({ status: 'booked' });
+//         //   ToastAndroid.show('payment is successfull', ToastAndroid.SHORT);
+//         // } catch (error) {
+//         //   console.error('Error updating status: ', error);
+//         // }
+//         // const bookingRef = db.collection('booking').doc(item.bookId);
+//         // try {
+//         //   await bookingRef.update({ status: 'booked' });
+//         //   console.log('Booking status updated to accepted');
+//         //   ToastAndroid.show('Booking status updated to accepted', ToastAndroid.SHORT);
+//         // } catch (error) {
+//         //   console.error('Error updating booking status: ', error);
+//         // }
+
+//           alert(`Success: ${data.razorpay_payment_id}`);
+//         }).catch((error) => {
+
+
+//           // handle failure
+//           console.log(error)
+//           alert(`Error: ${error.code} | ${error.description}`);
+//         });
+//       }}>
+//       <Text>Payment Now</Text>
+//       </Button>
+
+//     </View>
+//   )
+// }
+
+// export default Payment

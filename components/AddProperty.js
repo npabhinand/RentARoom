@@ -9,16 +9,13 @@ import {
   ToastAndroid,
 } from "react-native";
 import {
-  Avatar,
-  ListItem,
   Button,
-  ButtonGroup,
   Slider,
   Icon,
 } from "@rneui/themed";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { db, auth } from "../firebase";
+import { db } from "../firebase";
 import firebase from "firebase/compat/app";
 import 'firebase/compat/storage';
 const storageRef = firebase.storage().ref();
@@ -70,6 +67,8 @@ const AddProperty = ({ navigation, route }) => {
   const [vertValue, setVertValue] = useState(0);
   const [isImagesSelected, setIsImagesSelected] = useState(false);
   const [imageResult, setImageResult] = useState("");
+
+  
   const handleSubmit = async () => {
     const formData = {
       houseName: houseName,
@@ -84,11 +83,11 @@ const AddProperty = ({ navigation, route }) => {
       description: description,
       phone: phone,
       location: location,
-      Images: picture,
+      Images: [], // Initialize the Images array
       OwnerId: userD.email,
       status: "Available",
     };
-    
+  
     if (isImagesSelected) {
       try {
         for (let image of imageResult.assets) {
@@ -102,13 +101,13 @@ const AddProperty = ({ navigation, route }) => {
           await ref.put(blob);
           console.log("Image uploaded successfully!");
           const url = await ref.getDownloadURL();
-          setPicture((pictures) => [...pictures, url]);
+          formData.Images.push(url); // Push the URL to the formData.Images array
         }
       } catch (error) {
         console.log(error);
       }
     } else {
-      console.log("images not selected.");
+      console.log("Images not selected.");
     }
   
     try {
@@ -118,6 +117,7 @@ const AddProperty = ({ navigation, route }) => {
     } catch (error) {
       console.log("Error submitting form data:", error);
     }
+    // navigation.navigate('OwnerHome',{userD})
   };
   
   const color = () => {

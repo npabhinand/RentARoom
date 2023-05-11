@@ -299,27 +299,51 @@ useEffect(() => {
               }}
             >
               <Text style={{ padding: 15, fontSize: 20 }}>₹{item.price}</Text>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "#52A9E3",
-                  height: 40,
-                  borderRadius: 5,
-                  width:100
-                }}
-                onPress={book}
-              >
-                <Text
-                  style={{
-                    textAlign: "center",
-                    padding: 10,
-                    fontSize: 15,
-                    color: "white",
-                    fontWeight: "600",
-                  }}
-                >
-                  Book Now
-                </Text>
-              </TouchableOpacity>
+              {item.status === "booked" ? (
+    <TouchableOpacity
+      style={{
+        backgroundColor: "#ccc", // Set a different background color for disabled state
+        height: 40,
+        borderRadius: 5,
+        width: 100,
+      }}
+      disabled // Disable the TouchableOpacity component
+    >
+      <Text
+        style={{
+          textAlign: "center",
+          padding: 10,
+          fontSize: 15,
+          color: "white",
+          fontWeight: "600",
+        }}
+      >
+        Book Now
+      </Text>
+    </TouchableOpacity>
+  ) : (
+    <TouchableOpacity
+      style={{
+        backgroundColor: "#52A9E3",
+        height: 40,
+        borderRadius: 5,
+        width: 100,
+      }}
+      onPress={book}
+    >
+      <Text
+        style={{
+          textAlign: "center",
+          padding: 10,
+          fontSize: 15,
+          color: "white",
+          fontWeight: "600",
+        }}
+      >
+        Book Now
+      </Text>
+    </TouchableOpacity>
+  )}
             </View>
             <Card.Divider/>
             <View>

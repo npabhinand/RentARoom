@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView ,ToastAndroid} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView ,ToastAndroid,Image} from 'react-native';
 import {auth,db}from '../firebase'
 import { RadioButton } from 'react-native-paper';
 // import RNPickerSelect from 'react-native-picker-select';
@@ -58,7 +58,13 @@ const SignUp = ({navigation}) => {
     
     <View style={styles.container}>
     <ScrollView>
+    <View >
+ 
+      <Image source={require('./assets/login.png')} style={styles.image}/>
+    </View>
+  
     <Text style={styles.head}>Sign Up</Text>
+    
     <View style={{flexDirection:'row',alignItems:'center',padding:10}}>
       <RadioButton
         value="house owner"
@@ -118,13 +124,14 @@ const SignUp = ({navigation}) => {
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
-      <View style={{flexDirection:'row',alignContent:'center'}}>
-        <Text style={{  marginTop:20,marginLeft:100 }} >
-          Don't have an account ? 
+      <View style={{flexDirection:'row',marginTop:20,marginBottom:30}}>
+        <Text style={{  fontSize:15,alignSelf:'center' ,marginLeft:100}} >
+         Already an account ? 
         </Text>
-        <Text style={styles.text} onPress={()=>navigation.navigate("SignUp")}>  Register</Text>
+        <Text style={styles.text} onPress={()=>navigation.navigate("SignUp")}>  Login</Text>
        
       </View>
+     
       </ScrollView>
     </View>
   );
@@ -132,12 +139,8 @@ const SignUp = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    height:'100%',
-    // alignItems: 'center',
-    // justifyContent: 'center',
     backgroundColor: "#FFFFFF",
-    justifyContent: "center",
+    height:'100%',
     alignItems: "center",
   },
   head:{ 
@@ -194,10 +197,8 @@ const styles = StyleSheet.create({
    marginTop:50
    
   },text:{
-    textAlign:'right',
-    marginBottom:5,
+    // textAlign:'right',
     color:'#16C72E',
-    marginTop:10,marginRight:50
   },
 });
 export default SignUp;

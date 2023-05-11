@@ -1,5 +1,5 @@
-import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity,Image } from 'react-native';
-import { Avatar, ListItem, Button,ButtonGroup,Slider,Icon } from "@rneui/themed";
+import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity,Image , ToastAndroid,} from 'react-native';
+import {Slider,Icon } from "@rneui/themed";
 import React, {useState,useEffect} from 'react';
 import * as ImagePicker from 'expo-image-picker'
 import {db,auth,firebase}from '../firebase'
@@ -92,6 +92,7 @@ const interpolate = (start, end) => {
                 phone: phone,
               });
               console.log('User data updated successfully');
+              ToastAndroid.show("Property Updated successfully", ToastAndroid.SHORT);
               setIsUpdated(true);
             };
             
