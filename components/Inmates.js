@@ -12,7 +12,7 @@ const Inmates = ({navigation,route}) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const bookingSnapshot = await db.collection("booking").where("ownerId", "==", ownerId).where("status","==","accepted").get();
+      const bookingSnapshot = await db.collection("booking").where("ownerId", "==", ownerId).where("status","==","booked").get();
       const bookingDataArray = [];
       const promises = [];
       bookingSnapshot.forEach((bookingDoc) => {

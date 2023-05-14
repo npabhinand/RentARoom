@@ -87,6 +87,7 @@ useEffect(() => {
       propertyId: item.propertyId,
       status: "pending",
       houseName: item.houseName,
+      price:item.price
       
     };
 

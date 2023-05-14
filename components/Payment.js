@@ -187,7 +187,7 @@ const Payment = ({ navigation,route }) => {
 
       <View style={{flexDirection:'row',alignItems:'flex-end'}}>
       <Text style={{fontFamily:'',fontSize:25,fontWeight:'600',marginTop:20,marginLeft:10}}>Total</Text>
-      <Text style={{fontFamily:'',fontSize:25,fontWeight:'bold',marginTop:20,marginLeft:10}}> ₹15000</Text>
+      <Text style={{fontFamily:'',fontSize:25,fontWeight:'bold',marginTop:20,marginLeft:10}}> ₹{item.price}</Text>
     </View>
          <Button 
          
@@ -199,8 +199,8 @@ const Payment = ({ navigation,route }) => {
           description: 'Pay rent',
           image: 'https://i.imgur.com/3g7nmJC.png',
           currency: 'INR',
-          key: 'rzp_test_khUmCYzgRhD0o3', // Your api key
-          amount: 50*100,
+          key: 'rzp_live_N7qiUiy6l6EfIT', // Your api key
+          amount: 10*100,
           name: item.owner.name,
           prefill: {
             email: 'contact@rentaroom.com',
@@ -209,39 +209,35 @@ const Payment = ({ navigation,route }) => {
           },
           theme: { color: '#F37254' }
         }
-        RazorpayCheckout.open(options).then((data) => {
-          
+        RazorpayCheckout.open(options).then(async (data) => {
+  const updateRef = db.collection('property').doc(item.propertyId);
+  try {
+    await updateRef.update({ status: 'booked' });
+    ToastAndroid.show('Payment is successful', ToastAndroid.SHORT);
+  } catch (error) {
+    console.error('Error updating status: ', error);
+  }
 
-          // const updateRef = db.collection('property').doc(item.propertyId);
-        // try {
-        //   await updateRef.update({ status: 'booked' });
-        //   ToastAndroid.show('payment is successfull', ToastAndroid.SHORT);
-        // } catch (error) {
-        //   console.error('Error updating status: ', error);
-        // }
-        // const bookingRef = db.collection('booking').doc(item.bookId);
-        // try {
-        //   await bookingRef.update({ status: 'booked' });
-        //   console.log('Booking status updated to accepted');
-        //   ToastAndroid.show('Booking status updated to accepted', ToastAndroid.SHORT);
-        // } catch (error) {
-        //   console.error('Error updating booking status: ', error);
-        // }
+  const bookingRef = db.collection('booking').doc(item.bookId);
+  try {
+    await bookingRef.update({ status: 'booked' });
+    console.log('Booking status updated to accepted');
+    ToastAndroid.show('Booking status updated to accepted', ToastAndroid.SHORT);
+  } catch (error) {
+    console.error('Error updating booking status: ', error);
+  }
 
-          alert(`Success: ${data.razorpay_payment_id}`);
-        }).catch((error) => {
-
-
-          // handle failure
-          console.log(error)
-          alert(`Error: ${error.code} | ${error.description}`);
-        });
-      }}>
+  alert(`Success: ${data.razorpay_payment_id}`);
+}).catch((error) => {
+  console.log(error);
+  alert(`Error: ${error.code} | ${error.description}`);
+})
+         }}>
       <Text>Payment Now</Text>
       </Button>
 
-            <Button title="Proceed to payment" color="#4F9FA0" buttonStyle={{height:50,width:'95%',marginTop:20,marginLeft:10,borderRadius:10}}
-            onPress={()=> makePayment(selectedIndex)}></Button>
+            {/* <Button title="Proceed to payment" color="#4F9FA0" buttonStyle={{height:50,width:'95%',marginTop:20,marginLeft:10,borderRadius:10}}
+            onPress={()=> makePayment(selectedIndex)}></Button> */}
     </StripeProvider>
     </View>
 

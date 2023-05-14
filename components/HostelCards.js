@@ -96,7 +96,7 @@ userD.email
       propertyId: item.propertyId,
       status: "pending",
       houseName: item.houseName,
-      
+      price:item.price
     };
 
     try {
