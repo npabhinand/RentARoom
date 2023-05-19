@@ -296,72 +296,14 @@ const AddProperty = ({ navigation, route }) => {
 
         {/*  */}
         <Text style={styles.subhead}>Total Bedrooms</Text>
-        <View style={styles.btnGroup}>
-          <TouchableOpacity
-            style={[
-              styles.btn,
-              bedroom === 1 ? { backgroundColor: "#4F9FA0" } : null,
-            ]}
-            onPress={() => setBedroom(1)}
-          >
-            <Text
-              style={[
-                styles.btnText,
-                bedroom === 1 ? { color: "white" } : null,
-              ]}
-            >
-              1
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.btn,
-              bedroom === 2 ? { backgroundColor: "#4F9FA0" } : null,
-            ]}
-            onPress={() => setBedroom(2)}
-          >
-            <Text
-              style={[
-                styles.btnText,
-                bedroom === 2 ? { color: "white" } : null,
-              ]}
-            >
-              2
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.btn,
-              bedroom === 3 ? { backgroundColor: "#4F9FA0" } : null,
-            ]}
-            onPress={() => setBedroom(3)}
-          >
-            <Text
-              style={[
-                styles.btnText,
-                bedroom === 3 ? { color: "white" } : null,
-              ]}
-            >
-              3
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.btn,
-              bedroom === 4 ? { backgroundColor: "#4F9FA0" } : null,
-            ]}
-            onPress={() => setBedroom(4)}
-          >
-            <Text
-              style={[
-                styles.btnText,
-                bedroom === 4 ? { color: "white" } : null,
-              ]}
-            >
-              4
-            </Text>
-          </TouchableOpacity>
-        </View>
+      
+        <TextInput
+          style={styles.input}
+          placeholder="Enter Total Bedrooms"
+          value={bedroom}
+          onChangeText={setBedroom}
+        />
+        
 
         <Text style={styles.subhead}>Furniture</Text>
         <View style={styles.btnGroup}>

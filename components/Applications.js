@@ -1,5 +1,4 @@
 import { Text,View} from 'react-native';
-import back from "./assets/back.png";
 import { Avatar,Button,Card } from '@rneui/themed';
 import { useEffect ,useState} from 'react';
 import {  db } from "../firebase";

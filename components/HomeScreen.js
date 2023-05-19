@@ -7,10 +7,11 @@ import {
   Text,
   TouchableOpacity,
   View,
-  TextInput,
-  Button,
+  TextInput,Button
+ 
 } from "react-native";
-import profile from "./assets/menu.png";
+import { db } from "../firebase";
+import profile from "./assets/profile.jpg";
 // Tab ICons...
 import home from "./assets/home.png";
 import wishlist from "./assets/wishlist.png";
@@ -27,11 +28,9 @@ import Home from "./Home";
 import Wishlist from "./Wishlist"
 import { auth } from "../firebase";
 
+
+
 export default function HomeScreen({navigation,route}) {
-
-
-
-
   const {userD}=route.params;
   console.log(userD,"success")
   const [currentTab, setCurrentTab] = useState("Home");
@@ -44,7 +43,7 @@ export default function HomeScreen({navigation,route}) {
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
 
-  const [searchText, setSearchText] = useState("");
+
 const [hamburgerMenu, sethamburgerMenu] = useState(false);
 const [input,setInput]=useState("");
 const signOut = () => { 
@@ -53,10 +52,34 @@ const signOut = () => {
  auth.signOut().then(()=>navigation.navigate("Login")).catch((err)=>console.log(err)) }
 
 
-  const HamburgerMenu = () => {
+ const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const onSearch = () => {
+  //   if (searchText) {
+  //     db.collection("property")
+  //       .where("array-contains", searchText)
+  //       .get()
+  //       .then((querySnapshot) => {
+  //         const results = [];
+  //         querySnapshot.forEach((doc) => {
+  //           const data = doc.data();
+  //           results.push(data);
+  //         });
+  //         setSearchResults(results);
+  //         navigation.navigate("MainPage", { searchResults, userD });
+  //       })
+  //       .catch((error) => {
+  //         console.log("Error searching collection:", error);
+  //       });
+  //   }
+  };
+  
 
+console.log(searchResults)
+ 
 
-
+  const HamburgerMenu = ({navigation}) => {
+    // const {userD}=route.params;
     return (
       <View style={{ justifyContent: "flex-start", padding: 15 }}>
         <Image
@@ -81,7 +104,7 @@ const signOut = () => {
         </Text>
 
         <TouchableOpacity>
-          <Text onPress={()=>navigation.navigate("Profile",{userD})}
+          <Text onPress={() => navigation.navigate("Profile",{userD})}
             style={{
               marginTop: 6,
               color: "white",
@@ -141,7 +164,7 @@ const signOut = () => {
   }
   return (
     <SafeAreaView style={styles.container}>
-      { hamburgerMenu  ? <HamburgerMenu /> : null}
+     {hamburgerMenu ? <HamburgerMenu navigation={navigation} /> : null}
       
       {
         // Over lay View...
@@ -177,7 +200,7 @@ const signOut = () => {
             ]
           }}
         >
-      <View style={{ alignItems:'center', flexDirection:"row"}}>
+      <View style={{ alignItems:'center', flexDirection:"row",alignItems:'center',justifyContent:'space-evenly',}}>
 
 
       <TouchableOpacity
@@ -193,29 +216,34 @@ const signOut = () => {
                 marginLeft:10,
               }}
             ></Image>
+          
           </TouchableOpacity>
-
+         <View style={{ justifyContent: "center"}}>
+         {/*  */}
+         {/*  */}
+         <TextInput
+        style={{
+          height: 40,
+          width: 300,
+          padding: 10,
+          borderRadius: 15,
+          borderColor: "gray",
+          marginLeft: 10,
+          borderWidth: 1,
+          fontSize: 20,
+        }}
+        onChangeText={(text) => setSearchText(text)}
+        value={searchText}
+        placeholder="Search Here"
+      />
+      {/* <Button title="Search" onPress={onSearch} /> */}
+    </View>
+          </View>
          
-            {/* <TextInput
-              style={{
-                height: 50,
-                width: "90%",
-                margin: 0,
-                padding: 10,
-                borderRadius: 15,
-                borderColor: "gray",
-                borderWidth: 1,
-                fontSize: 20,
-                marginTop:10
-              }}
-              onChangeText={(text) => setSearchText(text)}
-              value={searchText}
-              // onPress={onSearch}
-              placeholder="Search Here"
-            /> */}
-            
+           {/*  */}
+           {/*  */}
 
-      </View>
+ 
 
 
 

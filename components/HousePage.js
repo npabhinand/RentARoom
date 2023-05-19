@@ -18,9 +18,9 @@ export default function HousePage({ navigation, route }) {
   };
 
   return (
-    <View style={{flex:1,}}>
+    <View>
       <ScrollView >
-        <View style={{ justifyContent: "center"}}>
+        <View >
           <TextInput
             style={{
               height: 50,

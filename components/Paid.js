@@ -8,64 +8,39 @@ export default function Transactions(props)  {
     const [data,setData]=useState();
     useEffect(() => {
       const fetchData = async () => {
-        // Fetch booking data for both "booked" and "accepted" statuses
-        const bookedSnapshot = await db.collection("booking").where("ownerId", "==", ownerId).where("status", "==", "booked").get();
-        const acceptedSnapshot = await db.collection("booking").where("ownerId", "==", ownerId).where("status", "==", "accepted").get();
-  
+        const bookingSnapshot = await db.collection("booking").where("ownerId", "==", ownerId).where("status","==","booked").get();
         const bookingDataArray = [];
         const promises = [];
-  
-        // Process "booked" bookings
-        bookedSnapshot.forEach((bookingDoc) => {
+        bookingSnapshot.forEach((bookingDoc) => {
           const bookingData = bookingDoc.data();
-          const studentDetails = bookingData.studentId;
+          const studentDetails=bookingData.studentId
           bookingDataArray.push({ ...bookingData, bookId: bookingDoc.id });
-  
+    
           const studentRef = db.collection("users").where("email", "==", studentDetails);
-  
+          // Add a promise that resolves when both the booking data and student data are fetched
           promises.push(
             Promise.all([
               studentRef.get(),
-              Promise.resolve({ ...bookingData, bookId: bookingDoc.id }),
+              Promise.resolve({ ...bookingData, bookId: bookingDoc.id })
             ]).then(([studentSnapshot, bookingData]) => {
-              const studentData = studentSnapshot.docs[0].data();
+              const studentData = studentSnapshot.docs[0].data(); // Use docs[0] to get the first result
               bookingData.student = studentData;
               return bookingData;
             })
           );
         });
-  
-        // Process "accepted" bookings
-        acceptedSnapshot.forEach((bookingDoc) => {
-          const bookingData = bookingDoc.data();
-          const studentDetails = bookingData.studentId;
-          bookingDataArray.push({ ...bookingData, bookId: bookingDoc.id });
-  
-          const studentRef = db.collection("users").where("email", "==", studentDetails);
-  
-          promises.push(
-            Promise.all([
-              studentRef.get(),
-              Promise.resolve({ ...bookingData, bookId: bookingDoc.id }),
-            ]).then(([studentSnapshot, bookingData]) => {
-              const studentData = studentSnapshot.docs[0].data();
-              bookingData.student = studentData;
-              return bookingData;
-            })
-          );
+    
+        // Wait for all promises to resolve before setting the state with the combined data
+        Promise.all(promises).then((bookingDataArray) => {
+          setData(bookingDataArray);
+        }).catch((error) => {
+          console.log("Error getting documents: ", error);
+        
         });
-  
-        Promise.all(promises)
-          .then((bookingDataArray) => {
-            setData(bookingDataArray);
-          })
-          .catch((error) => {
-            console.log("Error getting documents: ", error);
-          });
+        
       };
-  
       fetchData();
-    }, []);
+    }, []); 
 
     return (
       <View>

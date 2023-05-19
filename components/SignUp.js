@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView ,ToastAndroid,Image} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, 
+  ScrollView ,ToastAndroid,Image,Dimensions} from 'react-native';
 import {auth,db}from '../firebase'
 import { RadioButton } from 'react-native-paper';
 // import RNPickerSelect from 'react-native-picker-select';
@@ -37,27 +38,27 @@ const SignUp = ({navigation}) => {
    
    
   };
-  // const handlePasswordChange = (password) => {
-  //   setPassword(password);
-  // };
+  const handlePasswordChange = (password) => {
+    setPassword(password);
+  };
   
-  // const handleConfirmPasswordChange = (confirmPassword) => {
-  //   setConfirmPassword(confirmPassword);
-  // };
+  const handleConfirmPasswordChange = (confirmPassword) => {
+    setConfirmPassword(confirmPassword);
+  };
   
-  // const validatePassword = () => {
-  //   if (password !== confirmPassword) {
-  //     return false;
-  //   }
-  //   return true;
-  // };
+  const validatePassword = () => {
+    if (password !== confirmPassword) {
+      return false;
+    }
+    return true;
+  };
 
 
-   
+  const windowWidth = Dimensions.get('window').width;
   return (
     
     <View style={styles.container}>
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
     <View >
  
       <Image source={require('./assets/login.png')} style={styles.image}/>
@@ -128,7 +129,7 @@ const SignUp = ({navigation}) => {
         <Text style={{  fontSize:15,alignSelf:'center' ,marginLeft:100}} >
          Already an account ? 
         </Text>
-        <Text style={styles.text} onPress={()=>navigation.navigate("SignUp")}>  Login</Text>
+        <Text style={styles.text} onPress={()=>navigation.navigate("Login")}>  Login</Text>
        
       </View>
      

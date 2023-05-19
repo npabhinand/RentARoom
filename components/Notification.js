@@ -1,6 +1,6 @@
-import { TouchableOpacity,Text,View,Image,Navigation} from 'react-native';
+import { TouchableOpacity,Text,View,Image,ToastAndroid} from 'react-native';
 import back from "./assets/back.png";
-import { Avatar,ListItem ,Button,Card } from '@rneui/themed';
+import { Avatar ,Button,Card } from '@rneui/themed';
 import { useNavigation } from "@react-navigation/native";
 import { useEffect,useState } from 'react';
 import {  db } from "../firebase";
@@ -52,6 +52,26 @@ const [isUpdated, setIsUpdated] = useState(false);
   }, [isUpdated]); 
 
 
+  const onClickDelete = async (propertyId, item) => {  
+    console.log(propertyId)
+    db.collection("booking")
+      .where('propertyId', '==', propertyId)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.delete();
+        });
+        console.log("Document successfully deleted!");
+        ToastAndroid.show('Property is removed from Notification', ToastAndroid.SHORT);
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+    setIsUpdated(true);
+  };
+
+  
+  
 return (
      <View>
   
@@ -76,9 +96,11 @@ return (
     <Text>Contact Number</Text>
      <Text>{item.owner.phone}</Text>
      </View> */}
-     <View>
-     <Button title="Make Payment" containerStyle={{borderRadius:10,width:250,alignSelf:'center'}} titleStyle={{fontSize:18,fontWeight:'600'}} 
+     <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+     <Button title="Make Payment" containerStyle={{borderRadius:10,width:150,alignSelf:'center'}} titleStyle={{fontSize:18,fontWeight:'600'}} 
      onPress={() => navigation.navigate('Payment',{item})}></Button>
+     <Button title="Cancel" containerStyle={{borderRadius:10,width:150,alignSelf:'center'}} titleStyle={{fontSize:18,fontWeight:'600'}} 
+     onPress={()=>onClickDelete(item.propertyId, item)} color="#000000"></Button>
     </View>
      </Card>
 ))}

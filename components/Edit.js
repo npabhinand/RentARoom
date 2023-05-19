@@ -2,13 +2,8 @@ import { View, Text,TextInput,StyleSheet ,ScrollView,TouchableOpacity,Image , To
 import {Slider,Icon } from "@rneui/themed";
 import React, {useState,useEffect} from 'react';
 import * as ImagePicker from 'expo-image-picker'
-import {db,auth,firebase}from '../firebase'
+import {db}from '../firebase'
 
-
-// import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
-// const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
-// const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
 
 const Edit = ({ navigation ,route}) => {
 
@@ -37,10 +32,6 @@ const interpolate = (start, end) => {
 };
 
     const color = () => {
-    //   let r = interpolate(255, 0);
-    //   let g = interpolate(0, 255);
-    //   let b = interpolate(0, 0);
-    //   return `rgb(${r},${g},${b})`;
     };
 
     const [value, setValue] = useState(0);
@@ -95,61 +86,9 @@ const interpolate = (start, end) => {
               ToastAndroid.show("Property Updated successfully", ToastAndroid.SHORT);
               setIsUpdated(true);
             };
-            
-              
-               
-                
-              
-            
-              
-    
-    const [images, setImages] = useState({});
     
 
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          // allowsEditing: true,
-          // aspect: [4, 3],
-          quality: 1,allowsMultipleSelection:true
-        });
-      
-        if (!result.canceled) {
-          result.assets.forEach(async function (image) {
-          const uri = image.uri;
-          const filename = uri.substring(uri.lastIndexOf('/') + 1);
-          const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-          const ref = storageRef.child(filename);
-          const obj = {filename: filename, url: uploadUri}
-          try {
-            const url = await ref.put(uploadUri);
-            console.log('Image uploaded successfully!');
-            const dataArray = [];
-            ref.getDownloadURL().then((u)=> {
-              
-              console.log(u);
-              dataArray.push(u);
-            })
-            setPicture(dataArray);
-          } catch (error) {
-            console.log(error);
-          }
-          })
-          
-          // const uri = result.assets[0].uri;
-          // const filename = uri.substring(uri.lastIndexOf('/') + 1);
-          // const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-          // const ref = storageRef.child(filename);
-      
-          
-        }
-      };
-      const [imageList, setImageList] = useState([]);
-
-      const addImage = (uri) => {
-        setImageList([...imageList, uri]);
-      };
-
+   
 
   return (
     <View style={styles.container}>
@@ -301,19 +240,7 @@ const interpolate = (start, end) => {
 
       
 
-     {/* <GooglePlacesAutocomplete
-      placeholder='location'
-      onPress={(data, details = null) => {
-        // 'details' is provided when fetchDetails = true
-        console.log(data, details);
-      }}
-      query={{
-        key: 'YOUR API KEY',
-        language: 'en',
-      }}
-      currentLocation={true}
-      currentLocationLabel='Current location'
-    /> */}
+     
     <Text style={styles.subhead}>Description</Text>   
     <TextInput
     multiline={true}
@@ -324,37 +251,7 @@ const interpolate = (start, end) => {
     style={{borderColor:'black',borderWidth:1,borderRadius:10,padding:10, width:'90%',
         height: 100,marginLeft:10}}
     
-    /> 
-    <Text style={styles.subhead}>Add Images</Text>
-       <TouchableOpacity  style={{width:150,height:150,borderWidth:1,alignItems:'center',justifyContent:'center',borderColor:'',marginLeft:10}}
-      onPress={pickImage} >
-
-<Text style={styles.buttonText}></Text>
-<Icon
-       
-        name='plus'
-        type='font-awesome'
-        color='#4F9FA0'
-        onPress={() => console.log('hello')} 
-        containerStyle={{size:50}}
-
-        />
-        <Text>Add Images</Text>
-</TouchableOpacity>   
-<View style={styles.ImageConatiner}>
-{imageList.map((uri) => (
-    <Image key={uri} source={{ uri }} style={{ width: 200, height: 200 }} />
-  ))}
-
-    {/* <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
-        <Text style={styles.subhead}>
-            Upload Image
-        </Text>
-    </TouchableOpacity> */}
-</View>
-
-
-    
+    />  
     <View style={{alignItems:'center',marginTop:20,marginBottom:20}}>
     <TouchableOpacity style={{backgroundColor:"#52A9E3",width:'90%',borderRadius:10}} onPress={handleUpdate}>
                     <Text style={{textAlign:'center',padding:10,fontSize:20,color:'white',fontWeight:'600'}}>Update Property</Text>

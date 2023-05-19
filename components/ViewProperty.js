@@ -5,6 +5,7 @@ import {db,firebase}from '../firebase'
 
 const ViewProperty = ({navigation,route}) => {
   const {userD }=route.params;
+  console.log(userD)
   const [data,setData]=useState([]);
   useEffect (()=>{
     

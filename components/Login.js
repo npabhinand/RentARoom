@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { auth, db } from "../firebase"; // Import Firebase auth and database
+import React, { useState, useEffect } from "react";
+// import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "../firebase";
 import {
   View,
   Text,
@@ -9,16 +10,25 @@ import {
   SafeAreaView,
   Image,
   Alert,
-  ScrollView,
+  ScrollView
 } from "react-native";
+import Lottie from 'lottie-react-native';
+
 
 export default function Login({ navigation }) {
+  const user = auth.currentUser;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
+
+  // useEffect(() => {
+  //   return () => {};
+  // }, []);
 
   const handleLogin = async () => {
     try {
+      setIsLoading(true); // Start the loading animation
       await auth.signInWithEmailAndPassword(email, password);
       const user = auth.currentUser;
       console.log("login---");
@@ -32,28 +42,33 @@ export default function Login({ navigation }) {
 
             if (userD.userType == "students") {
               console.log(userD, "userD PASSED");
-              navigation.navigate("HomeScreen", { userD });
+              navigation.navigate("HomeScreen", { userD: userD });
             } else {
               console.log("true1", userD.userType);
-              navigation.navigate("OwnerHome", { userD });
+              navigation.navigate("OwnerHome", { userD: userD });
             }
           }
         })
         .catch((err) => console.log(err));
     } catch (error) {
       Alert.alert(error.message);
+    } finally {
+      setIsLoading(false); // Stop the loading animation
     }
   };
 
-  // const togglePasswordVisibility = () => {
-  //   setShowPassword(prevState => !prevState);
-  // };
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View>
-          <Image source={require("./assets/login.png")} style={styles.image} />
+          <Image
+            source={require("./assets/login.png")}
+            style={styles.image}
+          />
         </View>
 
         <Text style={styles.head}>Login to your account</Text>
@@ -79,19 +94,48 @@ export default function Login({ navigation }) {
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
-              secureTextEntry={showPassword ? false : true}
+              secureTextEntry={!showPassword}
             />
-            {/* <Button
-        title={showPassword ? "Hide Password" : "Show Password"}
-        onPress={togglePasswordVisibility}
-      /> */}
+            <TouchableOpacity
+              style={{
+                position: "absolute",
+                top: 10,
+                right: 30,
+              }}
+              onPress={togglePasswordVisibility}
+            >
+              <Image
+                source={
+                  showPassword
+                    ? require("./assets/eye-open.png")
+                    : require("./assets/eye-closed.png")
+                }
+                style={{
+                  width: 30,
+                  height: 30,
+                  resizeMode: "contain",
+                }}
+              />
+            </TouchableOpacity>
           </View>
           <Text style={styles.text}>Forgot Password?</Text>
 
-          <TouchableOpacity style={styles.button} onPress={handleLogin}>
-            <Text style={styles.buttonText}>Login</Text>
+          
+            {isLoading ? ( // Show loader animation if isLoading is true
+              <View style={{alignItems:'center'}}>
+              <Lottie
+                source={require("./assets/loader.json")}
+                autoPlay
+                loop
+                style={{ width: 200, height: 200 }}
+              />
+              </View>
+            ) : (
+              <TouchableOpacity style={styles.button} onPress={handleLogin}>
+              <Text style={styles.buttonText}>Login</Text>
+           
           </TouchableOpacity>
-
+          )}
           <View style={{ flexDirection: "row", alignContent: "center" }}>
             <Text style={{ marginTop: 20, marginLeft: 100 }}>
               Don't have an account ?
