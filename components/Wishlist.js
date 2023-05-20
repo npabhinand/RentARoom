@@ -61,12 +61,13 @@ const Wishlist = (props) => {
 
 
     const book = async (item) => {
+      console.log(item.propertyId)
       const formData = {
         studentId: userD.email,
-        ownerId: item.OwnerId,
+        ownerId: item.property.OwnerId,
         propertyId: item.propertyId,
         status: "pending",
-        houseName: item.houseName,
+        houseName: item.property.houseName,
       };
   
       try {
@@ -101,7 +102,7 @@ const Wishlist = (props) => {
             <View style={{marginLeft:20}}>
             <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',marginTop:-20}}>
             <Text style={{ fontSize:18,fontWeight:'200'}}>{item.property.type}</Text>
-            <TouchableOpacity style={{marginRight:5}} onPress={() => onClickDelete(item.propertyId, item)}>
+            <TouchableOpacity style={{marginRight:-25}} onPress={() => onClickDelete(item.propertyId, item)}>
            <Avatar size={25} source={require('./assets/delete.png')} />
            </TouchableOpacity>
            </View>
@@ -110,7 +111,7 @@ const Wishlist = (props) => {
             onPress={() => {navigation.navigate("HouseDetails",{item:item.property,userD})}}>Show Details</Text>
           
           <View style={{flexDirection:'row',marginTop:10,alignItems:'center',justifyContent:'space-around',}}>
-            <Text style={{ color: '#2637C3',fontSize:18,marginTop:5 }}>₹{item.property.status}</Text>
+            <Text style={{ color: '#2637C3',fontSize:18,marginTop:5 }}>₹{item.property.price}</Text>
   
 
             {item.property.status === "booked" ? (
@@ -120,7 +121,7 @@ const Wishlist = (props) => {
         height: 40,
         borderRadius: 5,
         width: 100,
-        marginLeft:20
+        marginLeft:30
       }}
       disabled // Disable the TouchableOpacity component
     >
@@ -143,9 +144,9 @@ const Wishlist = (props) => {
         height: 40,
         borderRadius: 5,
         width: 100,
-        marginLeft:20
+        marginLeft:30
       }}
-      onPress={book}
+      onPress={() => book(item)}
     >
       <Text
         style={{

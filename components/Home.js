@@ -60,7 +60,7 @@ export default function Home(props) {
           >
             <Card containerStyle={{ borderWidth: 0, shadowColor: "white" }}>
               <Card.Image
-                source={require("./assets/house.jpg")}
+                source={require("./assets/house1.jpg")}
                 style={{ width: 100, height: 100, borderRadius: 15 }}
               />
               <Text style={{ textAlign: "center" }}>House</Text>

@@ -54,7 +54,7 @@ const Inmates = ({navigation,route}) => {
      <Avatar
     size={32}
     rounded
-    source={{ uri: "https://randomuser.me/api/portraits/men/36.jpg" }}
+     source={{ uri: userD.imageURL }}
   />
       <ListItem.Title>{item.student.name}</ListItem.Title>
       

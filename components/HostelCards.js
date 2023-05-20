@@ -200,7 +200,7 @@ userD.email
         width: 80,
         marginLeft:10
       }}
-      onPress={book}
+      onPress={() => book(item)}
     >
       <Text
         style={{

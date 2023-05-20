@@ -106,7 +106,7 @@ userD.email
       ToastAndroid.show('Property is booked successfully', ToastAndroid.SHORT);
     } catch (error) {
       console.log("Error submitting form data:", error);
-      // ToastAndroid.show('Property is removed from wishlist', ToastAndroid.SHORT);
+      ToastAndroid.show('Property is not booked', ToastAndroid.SHORT);
     }
   };
 
@@ -199,7 +199,7 @@ userD.email
         borderRadius: 5,
         width: 80,
       }}
-      onPress={book}
+      onPress={() => book(item)}
     >
       <Text
         style={{

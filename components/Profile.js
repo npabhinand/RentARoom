@@ -48,7 +48,7 @@ padding:20,paddingBottom:22,borderRadius:10,shadowOpacity:80,elevation:15,margin
   <View style={{alignSelf:'center',
 flexDirection:'row',justifyContent:'center',backgroundColor:'#fff',width:'90%',
 padding:20,paddingBottom:22,borderRadius:10,shadowOpacity:80,elevation:15,marginTop:20}}>
- <Image source={require('./assets/location.jpeg')} style={{width:20,height:20}}/>
+ <Image source={require('./assets/location1.jpeg')} style={{width:20,height:20}}/>
  <Text>{userD.place}</Text>
  
 </View>

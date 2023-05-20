@@ -80,10 +80,11 @@ const handleDecline = async (bookId) => {
 
 return (
   <View>
+  <ScrollView>
     {data && data.map((item, index) => (
       <Card key={index} containerStyle={{borderRadius:20}}>
         <View style={{ flexDirection: "row",alignItems:'center', justifyContent:'space-between' ,marginLeft:10,marginRight:10,marginBottom:10}}>
-          <Avatar source={require('./assets/profile.jpg')}></Avatar>
+          <Avatar source={{ uri: userD.imageURL }}></Avatar>
           <Text style={{fontSize:15}}>{item.student.name} Interested in the property</Text>
         </View>
         <View style={{ flexDirection: "row",justifyContent:'space-between',alignItems:'center' ,marginBottom:10}}>
@@ -102,6 +103,7 @@ return (
         </View>
       </Card>
     ))}
+    </ScrollView>
   </View>
 );
 }
