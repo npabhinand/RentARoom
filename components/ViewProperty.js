@@ -33,7 +33,7 @@ const ViewProperty = ({navigation,route}) => {
       <SafeAreaView style={{alignItems:'center'}}>
       <ScrollView>
       {data && data.map((item, index) => (
-      <Card key={index} containerStyle={{ width: "95%", height: 175, borderRadius: 10 ,marginLeft:-.5}}>
+      <Card key={index} containerStyle={{ width: "97%", height: 175, borderRadius: 10 ,marginLeft:-.5}}>
       
           <View style={{ flexDirection: "row" }}>
             <Image
@@ -58,23 +58,13 @@ const ViewProperty = ({navigation,route}) => {
               
             </View>
             <View style={{ marginLeft: 10,marginBottom:10  }}>
-              <Text style={{ fontSize:20,fontWeight:'500'}}>{item.houseName} </Text>
+              <Text style={{ fontSize:20,fontWeight:'500',marginBottom:5}}>{item.houseName} </Text>
               <Text>{item.gender}</Text>
               <Text>{item.type}</Text>
-              {/* <View style={{ flexDirection: "row" }}>
-                <Text>Rating: </Text>
-                <Icon
-                  name="star"
-                  color="#FFD700"
-                  iconStyle={{ alignSelf: "flex-start" }}
-                />
-                <Text> 4.5</Text>
-              </View> */}
               <Text>price: {item.price}</Text>
               <View>
-                <View style={{ flexDirection: "row",marginTop:10,}}>
-                  <Button color="#52A9E3" title="Edit" containerStyle={{borderRadius:10, marginRight:20}} onPress={()=>{ navigation.navigate("Edit",{item});}}></Button>
-                  <Button color='#52A9E3' title="View Feedback" containerStyle={{borderRadius:10}}></Button>
+                <View style={{ justifyContent:'center',marginTop:10,}}>
+                  <Button color="#52A9E3" title="Edit" containerStyle={{borderRadius:10, marginRight:20,width:150}} onPress={()=>{ navigation.navigate("Edit",{item});}}></Button>
                 </View>
               </View>
             </View>

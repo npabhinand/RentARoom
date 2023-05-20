@@ -25,7 +25,6 @@ export default function Login({ navigation }) {
   // useEffect(() => {
   //   return () => {};
   // }, []);
-
   const handleLogin = async () => {
     try {
       setIsLoading(true); // Start the loading animation
@@ -39,13 +38,19 @@ export default function Login({ navigation }) {
           if (!querySnapshot.empty) {
             const userD = querySnapshot.docs[0].data();
             console.log(userD.userType);
-
+  
             if (userD.userType == "students") {
               console.log(userD, "userD PASSED");
-              navigation.navigate("HomeScreen", { userD: userD });
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "HomeScreen", params: { userD: userD } }],
+              });
             } else {
               console.log("true1", userD.userType);
-              navigation.navigate("OwnerHome", { userD: userD });
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "OwnerHome", params: { userD: userD } }],
+              });
             }
           }
         })
@@ -56,6 +61,7 @@ export default function Login({ navigation }) {
       setIsLoading(false); // Stop the loading animation
     }
   };
+  
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);

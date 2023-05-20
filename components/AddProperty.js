@@ -19,13 +19,8 @@ import { db } from "../firebase";
 import firebase from "firebase/compat/app";
 import 'firebase/compat/storage';
 const storageRef = firebase.storage().ref();
-// var storageRef = storage.ref();
 import * as Location from "expo-location";
 
-// import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
-// const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
-// const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
 
 const AddProperty = ({ navigation, route }) => {
   const { userD } = route.params;

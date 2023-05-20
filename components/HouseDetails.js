@@ -19,6 +19,7 @@ import {db,firebase}from '../firebase'
 export default function HouseDetails({ route, navigation }) {
 
   const { item, userD } = route.params;
+
   console.log(userD);
 
 useEffect(() => {

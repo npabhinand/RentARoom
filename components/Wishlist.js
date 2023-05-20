@@ -86,10 +86,10 @@ const Wishlist = (props) => {
       {data.map((item, index) => (
         <Card
           key={index}
-          containerStyle={{ width: 400, height: 170, borderRadius: 10, marginLeft: -5 }}>
+          containerStyle={{ width:'95%', height: 170, borderRadius: 10,}}>
           <View style={{ flexDirection: 'row', marginLeft: 20, marginTop: 20 }}>
             <Image
-              source={require("./assets/download.jpeg")}
+          source={{uri:item.property.Images[0]}}
               style={{
                 width: '30%',
                 height: 130,
@@ -101,7 +101,7 @@ const Wishlist = (props) => {
             <View style={{marginLeft:20}}>
             <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',marginTop:-20}}>
             <Text style={{ fontSize:18,fontWeight:'200'}}>{item.property.type}</Text>
-            <TouchableOpacity style={{marginRight:-80}} onPress={() => onClickDelete(item.propertyId, item)}>
+            <TouchableOpacity style={{marginRight:5}} onPress={() => onClickDelete(item.propertyId, item)}>
            <Avatar size={25} source={require('./assets/delete.png')} />
            </TouchableOpacity>
            </View>
@@ -109,7 +109,7 @@ const Wishlist = (props) => {
             <Text style={{fontSize:18,marginTop:5,fontWeight:'200',textDecorationLine:'underline'}}
             onPress={() => {navigation.navigate("HouseDetails",{item:item.property,userD})}}>Show Details</Text>
           
-          <View style={{flexDirection:'row',marginTop:10,alignItems:'center',justifyContent:'space-between',marginRight:-80}}>
+          <View style={{flexDirection:'row',marginTop:10,alignItems:'center',justifyContent:'space-around',}}>
             <Text style={{ color: '#2637C3',fontSize:18,marginTop:5 }}>₹{item.property.status}</Text>
   
 
@@ -120,6 +120,7 @@ const Wishlist = (props) => {
         height: 40,
         borderRadius: 5,
         width: 100,
+        marginLeft:20
       }}
       disabled // Disable the TouchableOpacity component
     >
@@ -142,6 +143,7 @@ const Wishlist = (props) => {
         height: 40,
         borderRadius: 5,
         width: 100,
+        marginLeft:20
       }}
       onPress={book}
     >

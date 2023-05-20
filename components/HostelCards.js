@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from "react-native";
-import { Card, ListItem, Button, Icon, Avatar } from "react-native-elements";
+import { Card,  Icon,} from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useState,useEffect } from "react";
 import {db}from '../firebase'
@@ -114,7 +114,7 @@ userD.email
     
     <SafeAreaView>
         {data && data.map((item, index) => (
-        <Card  key={index} containerStyle={{ width:'100%', height: 150, borderRadius: 10 ,padding:10,alignSelf:'center'}}>
+        <Card  key={index} containerStyle={{ width:'100%', height: 160, borderRadius: 10 ,padding:10,alignSelf:'center'}}>
         <TouchableOpacity  >
           <View style={{ flexDirection: "row" }}>
             <Image
@@ -122,7 +122,7 @@ userD.email
               resizeMode="cover"
               style={{
                 width: "55%",
-                height: 150,
+                height: 160,
                 marginLeft: -15,
                 marginTop: -15,
                 marginTop:-10,
@@ -147,9 +147,8 @@ userD.email
               </TouchableOpacity>
             </View>
             <View style={{ marginLeft: 10 }}>
-            {/* <Text style={{ fontSize: 18,fontWeight:'200',marginBottom:10}}>{item.type}</Text> */}
-              <Text style={{ fontSize: 18,fontWeight:'500' ,marginBottom:10}}>{item.houseName}</Text>
-             
+              <Text style={{ fontSize: 18,fontWeight:'500' ,marginBottom:5,marginTop:-5}}>{item.houseName}</Text>
+             <Text style={{ fontSize: 18}}>{item.type}</Text>
             
               <View style={{ flexDirection: "row" }}>
                 <Text></Text>
@@ -166,7 +165,7 @@ userD.email
               <Text style={{fontSize:18,fontWeight:'200',textDecorationLine:'underline'}}
             onPress={() => navigation.navigate("HouseDetails",{item:item, userD: userD})}>Show Details</Text>
           
-          <View style={{flexDirection:'row',marginTop:10,alignItems:'center',justifyContent:'space-between',}}>
+          <View style={{flexDirection:'row',marginTop:5,alignItems:'center',justifyContent:'space-between'}}>
             <Text style={{ color: '#2637C3',fontSize:18,marginTop:5 }}>₹{item.price}</Text>
             {item.status === "booked" ? (
     <TouchableOpacity
@@ -175,6 +174,7 @@ userD.email
         height: 40,
         borderRadius: 5,
         width: 80,
+        marginLeft:10
       }}
       disabled // Disable the TouchableOpacity component
     >
@@ -185,6 +185,7 @@ userD.email
           fontSize: 15,
           color: "white",
           fontWeight: "600",
+         
         }}
       >
         Book
@@ -197,6 +198,7 @@ userD.email
         height: 40,
         borderRadius: 5,
         width: 80,
+        marginLeft:10
       }}
       onPress={book}
     >
@@ -207,6 +209,7 @@ userD.email
           fontSize: 15,
           color: "white",
           fontWeight: "600",
+        
         }}
       >
         Book

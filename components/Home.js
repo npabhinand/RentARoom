@@ -48,7 +48,7 @@ export default function Home(props) {
             >
             
                 <Card.Image
-                  source={require("./assets/download.jpeg")}
+                  source={require("./assets/hostel.jpeg")}
                   style={{ width: 100, height: 100, borderRadius: 15 }}
                 />
                 <Text style={{ textAlign: "center" }}>Hostel</Text>
@@ -60,7 +60,7 @@ export default function Home(props) {
           >
             <Card containerStyle={{ borderWidth: 0, shadowColor: "white" }}>
               <Card.Image
-                source={require("./assets/download.jpeg")}
+                source={require("./assets/house.jpg")}
                 style={{ width: 100, height: 100, borderRadius: 15 }}
               />
               <Text style={{ textAlign: "center" }}>House</Text>
@@ -71,7 +71,7 @@ export default function Home(props) {
             }}>
             <Card containerStyle={{ borderWidth: 0, shadowColor: "white" }}>
               <Card.Image
-                source={require("./assets/download.jpeg")}
+                source={require("./assets/rooms.jpeg")}
                 style={{ width: 100, height: 100, borderRadius: 15 }}
               />
               <Text style={{ textAlign: "center" }}>Room</Text>

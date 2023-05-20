@@ -7,8 +7,7 @@ import {
   Image,
   ScrollView,TouchableOpacity
 } from "react-native";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { Card,Avatar } from "@rneui/base";
+import { Avatar } from "@rneui/base";
 import { auth } from "../firebase";
 
 export default function Profile({navigation,route}) {
@@ -25,13 +24,11 @@ export default function Profile({navigation,route}) {
 <View style={{padiing:10,width:'100%',backgroundColor:'#000',height:150}}>
   <TouchableOpacity>
     <Avatar source={require('./assets/back.png')}/>
-    <View></View>
-    <View></View>
   </TouchableOpacity>
   
 </View>
 <View style={{alignItems:'center'}}>
-  <Image source={require('./assets/profile.jpg')} style={{width:140,height:140,borderRadius:100,marginTop:-70}}/>
+<Image source={{ uri: userD.imageURL }} style={{width:140,height:140,borderRadius:100,marginTop:-70}}/>
   <Text style={{fontSize:25,fontWeight:'bold',padding:10}}>{userD.name}</Text>
 </View>
 

@@ -10,6 +10,7 @@ import {
   TextInput,Button
  
 } from "react-native";
+import {Avatar } from "@rneui/themed";
 import { db } from "../firebase";
 import profile from "./assets/profile.jpg";
 // Tab ICons...
@@ -53,29 +54,54 @@ const signOut = () => {
 
 
  const [searchText, setSearchText] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const onSearch = () => {
-  //   if (searchText) {
-  //     db.collection("property")
-  //       .where("array-contains", searchText)
-  //       .get()
-  //       .then((querySnapshot) => {
-  //         const results = [];
-  //         querySnapshot.forEach((doc) => {
-  //           const data = doc.data();
-  //           results.push(data);
-  //         });
-  //         setSearchResults(results);
-  //         navigation.navigate("MainPage", { searchResults, userD });
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error searching collection:", error);
-  //       });
-  //   }
-  };
-  
+ const [searchResults, setSearchResults] = useState([]);
 
-console.log(searchResults)
+const onSearch = () => {
+  if (searchText) {
+    db.collection("property")
+      .get()
+      .then((querySnapshot) => {
+        const results = [];
+        let docIndex = 0;
+        querySnapshot.forEach((doc) => {
+          if (
+            doc.data() &&
+            doc.data().houseName &&
+            doc.data().houseName.includes(searchText)
+          ) {
+           
+            results.push(doc.data());
+            results[docIndex].propertyId = doc.id;
+            docIndex++;
+          } else if (
+            doc.data() &&
+            doc.data().gender &&
+            doc.data().gender.includes(searchText)
+          ) {
+            results.push(doc.data());
+            results[docIndex].propertyId = doc.id;
+            docIndex++;
+          } else if (
+            doc.data() &&
+            doc.data().type &&
+            doc.data().type.includes(searchText)
+          ) {
+            results.push(doc.data());
+            results[docIndex].propertyId = doc.id;
+            docIndex++;
+          }
+        });
+        setSearchResults(results);
+        navigation.navigate("MainPage", { searchResults: results, userD });
+      })
+      .catch((error) => {
+        console.log("Error searching collection:", error);
+      });
+  }
+};
+
+
+
  
 
   const HamburgerMenu = ({navigation}) => {
@@ -83,7 +109,7 @@ console.log(searchResults)
     return (
       <View style={{ justifyContent: "flex-start", padding: 15 }}>
         <Image
-          source={profile}
+         source={{ uri: userD.imageURL }}
           style={{
             width: 60,
             height: 60,
@@ -218,17 +244,17 @@ console.log(searchResults)
             ></Image>
           
           </TouchableOpacity>
-         <View style={{ justifyContent: "center"}}>
+         <View style={{ justifyContent: "center",flexDirection:'row'}}>
          {/*  */}
          {/*  */}
          <TextInput
         style={{
           height: 40,
-          width: 300,
+          width: 280,
           padding: 10,
           borderRadius: 15,
           borderColor: "gray",
-          marginLeft: 10,
+          marginLeft: 5,
           borderWidth: 1,
           fontSize: 20,
         }}
@@ -236,30 +262,10 @@ console.log(searchResults)
         value={searchText}
         placeholder="Search Here"
       />
-      {/* <Button title="Search" onPress={onSearch} /> */}
+      <TouchableOpacity onPress={onSearch} style={{marginTop:5,marginLeft:5}}><Avatar source={require('./assets/filter.png')} size={30}></Avatar></TouchableOpacity>
     </View>
           </View>
          
-           {/*  */}
-           {/*  */}
-
- 
-
-
-
-{/* 
-          <Text
-            style={{
-              fontSize: 30,
-              fontWeight: "bold",
-              color: "black",
-              paddingTop: 20,
-            }}
-          >
-         
-          
-          </Text> */}
-
    
         </Animated.View>
 
