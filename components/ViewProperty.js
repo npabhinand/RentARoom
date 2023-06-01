@@ -30,7 +30,7 @@ const ViewProperty = ({navigation,route}) => {
   }, []);
 
   return (
-      <SafeAreaView style={{alignItems:'center'}}>
+      <SafeAreaView style={{alignItems:'center',marginBottom:10}}>
       <ScrollView>
       {data && data.map((item, index) => (
       <Card key={index} containerStyle={{ width: "97%", height: 175, borderRadius: 10 ,marginLeft:-.5}}>

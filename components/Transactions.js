@@ -69,7 +69,7 @@ export default function Transactions(props)  {
 
     return (
       <View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView >
         {data && data.map((item, index) => (
       <Card key={index} containerStyle={{borderRadius:20}}>
         <View  style={{ flexDirection: "row",alignItems:'center',justifyContent:'space-between' }}>

@@ -1,4 +1,4 @@
-import { Text,View} from 'react-native';
+import { Text,View,ScrollView} from 'react-native';
 import { Avatar,Button,Card } from '@rneui/themed';
 import { useEffect ,useState} from 'react';
 import {  db } from "../firebase";
@@ -79,7 +79,7 @@ const handleDecline = async (bookId) => {
 };
 
 return (
-  <View>
+  <View style={{marginBottom:10}}>
   <ScrollView>
     {data && data.map((item, index) => (
       <Card key={index} containerStyle={{borderRadius:20}}>

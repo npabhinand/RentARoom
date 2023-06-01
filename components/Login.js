@@ -22,9 +22,40 @@ export default function Login({ navigation }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Track loading state
 
-  // useEffect(() => {
-  //   return () => {};
-  // }, []);
+  
+  const changepassword = () => {
+    if (email) {
+      Alert.alert(
+        "Confirmation",
+        "Are you sure you want to reset your password?",
+        [
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+          {
+            text: "OK",
+            onPress: () => {
+              auth.sendPasswordResetEmail(email)
+                .then(() => {
+                  alert("Password reset email sent");
+                })
+                .catch((error) => {
+                  alert(error.message);
+                });
+            },
+          },
+        ],
+        { cancelable: true }
+      );
+    } else {
+      alert("Please enter your email");
+    }
+  };
+  
+  
+
+
   const handleLogin = async () => {
     try {
       setIsLoading(true); // Start the loading animation
@@ -124,7 +155,8 @@ export default function Login({ navigation }) {
               />
             </TouchableOpacity>
           </View>
-          <Text style={styles.text}>Forgot Password?</Text>
+          <Text onPress={changepassword} style={styles.text}>Forgot Password?</Text>
+
 
           
             {isLoading ? ( // Show loader animation if isLoading is true

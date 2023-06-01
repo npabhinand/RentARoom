@@ -102,6 +102,7 @@ useEffect(() => {
       ToastAndroid.show('Property is removed from wishlist', ToastAndroid.SHORT);
     }
   };
+ 
 
   const [data, setData] = useState([]);
 
@@ -176,9 +177,31 @@ useEffect(() => {
                 iconStyle={{ alignSelf: "flex-start" }}
               />
               <Text>4.5</Text>
+              <TouchableOpacity
+      style={{
+        backgroundColor: "#52A9E3", // Set a different background color for disabled state
+        height: 40,
+        borderRadius: 5,
+        width: 100,
+        marginLeft:200
+      }}
+      onPress={() => navigation.navigate("Chat",{item,userD})}
+    >
+      <Text
+        style={{
+          textAlign: "center",
+          padding: 10,
+          fontSize: 15,
+          color: "white",
+          fontWeight: "600",
+        }}
+      >
+        Chat
+      </Text>
+    </TouchableOpacity>
             </View>
             <Text style={{ fontSize: 20 }}>
-              {item.houseName}
+              {item.type}
               {"\n"}
             </Text>
             <View
@@ -200,7 +223,7 @@ useEffect(() => {
                   )
                 }
               >
-                <Text>{item.houseName}</Text>
+                <Text style={{color: '#2637C3',marginLeft:5,fontSize:18}}>{item.houseName}</Text>
               </TouchableOpacity>
             </View>
             <Card.Divider />

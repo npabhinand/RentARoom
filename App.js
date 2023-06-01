@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "./firebase";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
@@ -22,9 +23,13 @@ import Dues from "./components/Dues";
 import StudentDetails from "./components/StudentDetails";
 import Feedback from "./components/Feedback";
 import RoomPage from "./components/RoomPage";
+import SplashScreen from "./components/SplashScreen";
+import Chat from './components/Chat';
+import ChatList from "./components/ChatList";
 
 const Stack = createNativeStackNavigator();
-export default function App() {
+
+export default function App({ navigation }) {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(null);
 
@@ -38,11 +43,18 @@ export default function App() {
     return subscriber;
   }, []);
 
+  
+
   if (initializing) return null;
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Login"
           component={Login}
@@ -153,6 +165,19 @@ export default function App() {
             headerTitleAlign: "center",
           }}
         />
+          <Stack.Screen
+          name="ChatList"
+          component={ChatList}
+          options={{
+            title: "ChatList",
+            headerTitleStyle: {
+              textAlign: "center",
+              fontWeight: "100",
+              fontSize: 25,
+            },
+            headerTitleAlign: "center",
+          }}
+        />
         <Stack.Screen
           name="HouseDetails"
           component={HouseDetails}
@@ -168,6 +193,11 @@ export default function App() {
           name="Inmates"
           component={Inmates}
           options={{ title: "Inmates" }}
+        />
+         <Stack.Screen
+          name="Chat"
+          component={Chat}
+          options={{ headerShown: false }}
         />
         <Stack.Screen name="Dues" component={Dues} />
         <Stack.Screen name="StudentDetails" component={StudentDetails} />

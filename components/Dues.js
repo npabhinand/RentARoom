@@ -110,7 +110,9 @@ export default function Dues({ navigation, route }) {
       <ScrollView>
         {/* Render the appropriate component based on the selected item */}
         {selectedItem === 'Transactions' && <Transactions userD={userD} />}
+        </ScrollView> <ScrollView>
         {selectedItem === 'Pending' && <Pending userD={userD} />}
+        </ScrollView> <ScrollView>
         {selectedItem === 'Paid' && <Paid userD={userD} />}
       </ScrollView>
     </View>

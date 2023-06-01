@@ -96,7 +96,7 @@ export default function OwnerHome({ navigation,route }) {
     
    </View>
    <View style={{ flexDirection: "row", justifyContent: "space-evenly" ,padding:10}}>
-    <Button color='#6b6bbf' containerStyle={{height:50,width:130,borderRadius:30,justifyContent:'flex-start'}}><Avatar rounded source={require('./assets/chat.jpg')}></Avatar> <Text style={{fontSize:15,color:'white'}}>Chat</Text></Button>
+    <Button color='#6b6bbf' containerStyle={{height:50,width:130,borderRadius:30,justifyContent:'flex-start'}} onPress={()=>navigation.navigate('ChatList',{userD})}><Avatar rounded source={require('./assets/chat.jpg')}></Avatar> <Text style={{fontSize:15,color:'white'}}>Chat</Text></Button>
     <Button color='#6b6bbf' onPress={()=>navigation.navigate('Profile',{userD})} containerStyle={{borderRadius:50}} ><Avatar rounded source={require('./assets/profile.jpg')}></Avatar></Button>
     <Button color='#6b6bbf' onPress={()=>navigation.navigate('Dues',{userD})} containerStyle={{height:50,width:130,borderRadius:30,justifyContent:'flex-start'}}><Avatar rounded source={require('./assets/chat.jpg')}></Avatar> <Text style={{fontSize:15,color:'white'}}>Dues</Text></Button>
    </View>
