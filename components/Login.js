@@ -13,9 +13,27 @@ import {
   ScrollView
 } from "react-native";
 import Lottie from 'lottie-react-native';
+import * as Location from 'expo-location';
 
 
 export default function Login({ navigation }) {
+
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+    const getLocationAsync = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        // handle permission denied
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location.coords);
+    };
+
+    getLocationAsync();
+  }, []);
   const user = auth.currentUser;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,6 +71,37 @@ export default function Login({ navigation }) {
     }
   };
   
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is already logged in, navigate to the appropriate screen
+        db.collection("users")
+          .where("email", "==", user.email)
+          .get()
+          .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+              const userD = querySnapshot.docs[0].data();
+
+              if (userD.userType === "students") {
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: "HomeScreen", params: { userD: userD } }],
+                });
+              } else {
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: "OwnerHome", params: { userD: userD } }],
+                });
+              }
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
   
 
 
@@ -87,7 +136,7 @@ export default function Login({ navigation }) {
         })
         .catch((err) => console.log(err));
     } catch (error) {
-      Alert.alert(error.message);
+      Alert.alert("Invalid Username or Password");
     } finally {
       setIsLoading(false); // Stop the loading animation
     }

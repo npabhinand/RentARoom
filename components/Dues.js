@@ -42,6 +42,7 @@ export default function Dues({ navigation, route }) {
 
   return (
     <View>
+    <ScrollView>
       <View style={{ alignItems: "center" }}>
         <TouchableOpacity
           style={{
@@ -107,12 +108,12 @@ export default function Dues({ navigation, route }) {
         <Text style={{ fontSize: 20 }}>{selectedItem}</Text>
         <Text style={{ fontSize: 15 }}>see all</Text>
       </View>
-      <ScrollView>
+      
         {/* Render the appropriate component based on the selected item */}
         {selectedItem === 'Transactions' && <Transactions userD={userD} />}
-        </ScrollView> <ScrollView>
+        
         {selectedItem === 'Pending' && <Pending userD={userD} />}
-        </ScrollView> <ScrollView>
+        
         {selectedItem === 'Paid' && <Paid userD={userD} />}
       </ScrollView>
     </View>

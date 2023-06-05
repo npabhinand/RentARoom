@@ -100,7 +100,7 @@ export default function MainPage({ navigation, route }) {
     try {
       const response = await db.collection("booking").add(formData);
       console.log("Form data submitted successfully:", response);
-      ToastAndroid.show("Property is booked successfully", ToastAndroid.SHORT);
+      ToastAndroid.show("processing your request", ToastAndroid.SHORT);
     } catch (error) {
       console.log("Error submitting form data:", error);
       // ToastAndroid.show('Property is removed from wishlist', ToastAndroid.SHORT);

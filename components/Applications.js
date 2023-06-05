@@ -70,7 +70,7 @@ const handleDecline = async (bookId) => {
   try {
     await bookingRef.update({ status: 'declined' });
     console.log('Booking status updated to declined');
-    ToastAndroid.show('Booking status updated to accepted', ToastAndroid.SHORT);
+    ToastAndroid.show('Booking status updated to declined', ToastAndroid.SHORT);
 
   } catch (error) {
     console.error('Error updating booking status: ', error);

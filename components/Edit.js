@@ -25,6 +25,7 @@ const Edit = ({ navigation ,route}) => {
     const [description, setDescription] = useState();
     const [phone, setPhone] = useState();
     const [picture,setPicture]=useState();
+    const [status,setStatus]=useState();
 
 const interpolate = (start, end) => {
   let k = (value - 0) / 10; // 0 =>min  && 10 => MAX
@@ -63,6 +64,7 @@ const interpolate = (start, end) => {
                 setBedroom(data.bedroom);
                 setDescription(data.description);
                 setPhone(data.phone);
+                setStatus(data.status);
               });
             }, [isUpdated]); ;
             
@@ -227,11 +229,11 @@ const interpolate = (start, end) => {
       </Text>
 
             <View style={styles.btnGroup}>
-                <TouchableOpacity style={[styles.btn, water === 'Yes' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setWater('Yes')}>
-                    <Text style={[styles.btnText, water === 'Yes' ? { color: "white" } : null]}>Yes</Text>
+                <TouchableOpacity style={[styles.btn, status === 'Available' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setWater('Available')}>
+                    <Text style={[styles.btnText, status === 'Yes' ? { color: "white" } : null]}>Yes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, water === 'No' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setWater('No')}>
-                    <Text style={[styles.btnText, water === 'No' ? { color: "white" } : null]}>No</Text>
+                <TouchableOpacity style={[styles.btn, status === 'booked' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setStatus('booked')}>
+                    <Text style={[styles.btnText, water === 'booked' ? { color: "white" } : null]}>No</Text>
                 </TouchableOpacity>
                 </View>
               
@@ -252,6 +254,18 @@ const interpolate = (start, end) => {
         height: 100,marginLeft:10}}
     
     />  
+     <Text style={styles.subhead}></Text>
+
+<View style={styles.btnGroup}>
+                <TouchableOpacity style={[styles.btn, food === 'Yes' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setStatus('Available')}>
+                    <Text style={[styles.btnText, food === 'Yes' ? { color: "white" } : null]}>Available</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.btn, food === 'No' ? { backgroundColor: "#4F9FA0" } : null]} onPress={() => setStatus('No')}>
+                    <Text style={[styles.btnText, food === 'No' ? { color: "white" } : null]}>Booked</Text>
+                </TouchableOpacity>
+                </View>
+
+
     <View style={{alignItems:'center',marginTop:20,marginBottom:20}}>
     <TouchableOpacity style={{backgroundColor:"#52A9E3",width:'90%',borderRadius:10}} onPress={handleUpdate}>
                     <Text style={{textAlign:'center',padding:10,fontSize:20,color:'white',fontWeight:'600'}}>Update Property</Text>

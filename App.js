@@ -26,6 +26,9 @@ import RoomPage from "./components/RoomPage";
 import SplashScreen from "./components/SplashScreen";
 import Chat from './components/Chat';
 import ChatList from "./components/ChatList";
+import OwnerChat from "./components/OwnerChat";
+import Booking from './components/Booking';
+import EditProfile from "./components/EditProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -126,6 +129,19 @@ export default function App({ navigation }) {
             headerTitleAlign: "center",
           }}
         />
+           <Stack.Screen
+          name="EditProfile"
+          component={EditProfile}
+          options={{
+            title: "Edit Profile",
+            headerTitleStyle: {
+              textAlign: "center",
+              fontWeight: "100",
+              fontSize: 25,
+            },
+            headerTitleAlign: "center",
+          }}
+        />
         <Stack.Screen
           name="HousePage"
           component={HousePage}
@@ -198,6 +214,24 @@ export default function App({ navigation }) {
           name="Chat"
           component={Chat}
           options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="OwnerChat"
+          component={OwnerChat}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Booking"
+          component={Booking}
+          options={{
+            title: "Booking",
+            headerTitleStyle: {
+              textAlign: "center",
+              fontWeight: "100",
+              fontSize: 25,
+            },
+            headerTitleAlign: "center",
+          }}
         />
         <Stack.Screen name="Dues" component={Dues} />
         <Stack.Screen name="StudentDetails" component={StudentDetails} />

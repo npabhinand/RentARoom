@@ -81,7 +81,7 @@ const Payment = ({ navigation,route }) => {
       console.error('Error updating booking status: ', error);
     }
   
-    alert(`Success: ${data.razorpay_payment_id}`);
+    alert('Payment Successfull');
   };
   
   const handlePayment = () => {
@@ -90,7 +90,7 @@ const Payment = ({ navigation,route }) => {
       image: 'https://i.imgur.com/3g7nmJC.png',
       currency: 'INR',
       key: 'rzp_test_khUmCYzgRhD0o3', // Your api key
-      amount: 10 * 100,
+      amount: item.price * 100,
       name: item.owner.name,
       prefill: {
         email: 'contact@rentaroom.com',
